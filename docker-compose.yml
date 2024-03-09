@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  my-service-production:
-    container_name: my-service-production
+  api-taller-pro:
+    container_name: api-taller-pro
     build:
       target: production
       context: .
@@ -19,8 +19,8 @@ services:
           cpus: "0.25"
           memory: "256m"
 
-  my-service-dev:
-    container_name: my-service-dev
+  api-taller-dev:
+    container_name: api-taller-dev
     restart: unless-stopped
     env_file: .env
     build:
