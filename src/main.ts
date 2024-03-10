@@ -17,7 +17,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<string>("PORT", "3000");
 
-  await app.listen(port, "0.0.0.0");
+  await app.listen(port, "127.18.0.10");
 
   const logger = app.get(Logger);
   logger.log(`App is ready and listening on port ${port} 🚀`);
