@@ -6,11 +6,11 @@ import { IClient } from "./interfaces/client.interfaz";
 export class ClientController {
   constructor(private clientService: ClientService) {}
 
-  @Post("")
+  @Post()
   async create(@Body() client: IClient) {
     return this.clientService.create(client);
   }
-  @Get("")
+  @Get()
   async findAll(
     @Query("page") page: number = 1,
     @Query("limit") limit: number = 10,

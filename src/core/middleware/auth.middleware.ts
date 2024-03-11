@@ -43,10 +43,10 @@ export class AuthMiddleware implements NestMiddleware {
       .auth()
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       .verifyIdToken(token)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars
       .then((decodedToken: { email: string }) => {
-        const user = decodedToken.email;
-        req["user"] = user;
+        //const user = decodedToken.email;
+        //req["user"] = user;
         next();
       })
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
