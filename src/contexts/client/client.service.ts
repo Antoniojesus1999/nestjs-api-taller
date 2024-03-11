@@ -43,7 +43,7 @@ export class ClientService {
   async findAllRepairs(
     page: number,
     limit: number,
-  ): Promise<IRepairAndIdClient[]> {
+  ): Promise<PaginateResult<IRepairAndIdClient>> {
     const options: PaginateOptions = {
       page: page,
       limit: limit,
@@ -66,6 +66,10 @@ export class ClientService {
       ),
     );
 
-    return allRepairs;
+    const nuevoPaginateResult: PaginateResult<IRepairAndIdClient> = {
+      ...clients,
+      docs: allRepairs,
+    };
+    return nuevoPaginateResult;
   }
 }

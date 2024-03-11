@@ -1,10 +1,13 @@
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Post, Query } from "@nestjs/common";
 
 import { ClientService } from "./client.service";
 import { IClient } from "./interfaces/client.interfaz";
 @Controller("client")
 export class ClientController {
-  constructor(private clientService: ClientService) {}
+  constructor(
+    private clientService: ClientService,
+    private readonly logger: Logger,
+  ) {}
 
   @Post()
   async create(@Body() client: IClient) {
@@ -22,6 +25,9 @@ export class ClientController {
     @Query("page") page: number = 1,
     @Query("limit") limit: number = 10,
   ) {
+    this.logger.log(
+      `Ejecutando findAllRepairs page -> ${page} limit -> ${limit}`,
+    );
     return this.clientService.findAllRepairs(page, limit);
   }
 }
