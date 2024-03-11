@@ -16,11 +16,12 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<string>("PORT", "3000");
+  const ipServer = configService.get<string>("IP_SERVER", "127.18.0.10");
 
-  await app.listen(port, "127.18.0.10");
+  await app.listen(port, ipServer);
 
   const logger = app.get(Logger);
-  logger.log(`App is ready and listening on port ${port} 🚀`);
+  logger.log(`App is ready and listening ip ${ipServer} on port ${port} 🚀`);
 }
 
 bootstrap().catch(handleError);
