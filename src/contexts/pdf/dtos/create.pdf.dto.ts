@@ -1,58 +1,107 @@
 import { IsNotEmpty, MaxLength } from "class-validator";
 
 export class CreatePdfDto {
-    @IsNotEmpty({ message: 'El campo no puede estar vacío' })
-    nombreTaller: String;
+  @IsNotEmpty({ message: "El campo no puede estar vacío" })
+  nombreTaller: string;
 
-    cpTaller: String;
-    
-    munYProvinTaller: String;
+  cpTaller: string;
 
-    nifTaller: String;
+  munYProvinTaller: string;
 
-    @MaxLength(9, { message: 'El campo no puede tener más de 9 caracteres' })
-    //Restriccion de 9 caracteres
-    riiaTaller: String;
+  nifTaller: string;
 
-    tlfTaller: String;
+  @MaxLength(9, { message: "El campo no puede tener más de 9 caracteres" })
+  //Restriccion de 9 caracteres
+  riiaTaller: string;
 
-    @MaxLength(9, { message: 'El campo no puede tener más de 9 caracteres' })
-    numResgDepoTaller: String;
+  tlfTaller: string;
 
-    @MaxLength(7, { message: 'El campo no puede tener más de 7 caracteres' })
-    matriculaVeh: String;
+  @MaxLength(9, { message: "El campo no puede tener más de 9 caracteres" })
+  numResgDepoTaller: string;
 
-    marcaModeloVeh: String;
+  @MaxLength(7, { message: "El campo no puede tener más de 7 caracteres" })
+  matriculaVeh: string;
 
-    combustibleVeh: String;
+  marcaModeloVeh: string;
 
-    seguroVeh: String;
+  combustibleVeh: string;
 
-    polizaVeh: String;
+  seguroVeh: string;
 
-    kmsVeh: String;
+  polizaVeh: string;
 
-    chasisVeh: String;
+  kmsVeh: string;
 
-    ape1Cliente_2: String;
+  chasisVeh: string;
 
-    fecEntradaVeh: String;
+  ape1Cliente_2: string;
 
-    fecSalidaVeh: String;
+  fecEntradaVeh: string;
 
-    nomCliente: String;
+  fecSalidaVeh: string;
 
-    ape1Cliente: String;
+  nomCliente: string;
 
-    @MaxLength(9, { message: 'El campo no puede tener más de 9 caracteres' })
-    nifCliente: String;
+  ape1Cliente: string;
 
-    emailCliente: String;
+  @MaxLength(9, { message: "El campo no puede tener más de 9 caracteres" })
+  nifCliente: string;
 
-    //Restricción de 9 si llaman con +234 que le den porculo
-    @MaxLength(9, { message: 'El campo no puede tener más de 9 caracteres' })
-    tlfCliente: String;
+  emailCliente: string;
 
-    tareasRealizadas: String;
+  //Restricción de 9 si llaman con +234 que le den porculo
+  @MaxLength(9, { message: "El campo no puede tener más de 9 caracteres" })
+  tlfCliente: string;
 
+  tareasRealizadas: string;
+
+  constructor(
+    nombreTaller: string,
+    cpTaller: string,
+    munYProvinTaller: string,
+    nifTaller: string,
+    riiaTaller: string,
+    tlfTaller: string,
+    numResgDepoTaller: string,
+    matriculaVeh: string,
+    marcaModeloVeh: string,
+    combustibleVeh: string,
+    seguroVeh: string,
+    polizaVeh: string,
+    kmsVeh: string,
+    chasisVeh: string,
+    ape1Cliente_2: string,
+    fecEntradaVeh: string,
+    fecSalidaVeh: string,
+    nomCliente: string,
+    ape1Cliente: string,
+    nifCliente: string,
+    emailCliente: string,
+    tlfCliente: string,
+    tareasRealizadas: string,
+  ) {
+    this.nombreTaller = nombreTaller;
+    this.cpTaller = cpTaller;
+    this.munYProvinTaller = munYProvinTaller;
+    this.nifTaller = nifTaller;
+    this.riiaTaller = riiaTaller;
+    this.tlfTaller = tlfTaller;
+    this.numResgDepoTaller = numResgDepoTaller;
+    this.matriculaVeh = matriculaVeh;
+    this.marcaModeloVeh = marcaModeloVeh;
+    this.combustibleVeh = combustibleVeh;
+    this.seguroVeh = seguroVeh;
+    this.polizaVeh = polizaVeh;
+    this.kmsVeh = kmsVeh;
+    this.chasisVeh = chasisVeh;
+    this.ape1Cliente_2 = ape1Cliente_2;
+    this.fecEntradaVeh = fecEntradaVeh;
+    this.fecSalidaVeh = fecSalidaVeh;
+    this.nomCliente = nomCliente;
+    this.ape1Cliente = ape1Cliente;
+    this.nifCliente = nifCliente;
+    this.emailCliente = emailCliente;
+    this.tlfCliente = tlfCliente;
+    this.tareasRealizadas = tareasRealizadas;
+  }
 }
