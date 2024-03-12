@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as fs from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import * as path from "node:path";
 
 import {
@@ -17,16 +21,22 @@ export class PdfService {
 
   async createPdf(dataPdfReq: CreatePdfDto): Promise<void> {
     try {
-      const pdfData = await readFile("./PDF.pdf");
-
+      this.logger.log(`valor de proces cwd ${process.cwd()}`);
+      const pdfData = fs.readFileSync(process.cwd() + "/src/resources/PDF.pdf");
       const pdfDoc = await PDFDocument.load(pdfData);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       const fieldNames = pdfDoc
         .getForm()
         .getFields()
         .map(f => f.getName());
       this.logger.log(fieldNames);
       const form = pdfDoc.getForm();
-      const imgPath = path.join(process.cwd(), "", "car_plane.png");
+      const imgPath = path.join(
+        process.cwd() + "/src/resources",
+        "",
+        "car_plane.png",
+      );
       const img = await pdfDoc.embedPng(fs.readFileSync(imgPath));
       const imagePage = pdfDoc.getPage(0);
       imagePage.drawImage(img, {
@@ -141,19 +151,5 @@ export class PdfService {
         message: "Error en el pdf",
       });
     }
-  }
-
-  downloadPDF(namePdf: string): fs.ReadStream {
-    // Ruta al archivo PDF existente
-    let currentDirectory = path.resolve();
-    currentDirectory = path.join(currentDirectory, namePdf);
-
-    // Verificar si el archivo existe
-    if (!fs.existsSync(currentDirectory)) {
-      throw new Error("El archivo PDF no existe.");
-    }
-
-    // Crear un stream de lectura desde el archivo PDF y devolverlo
-    return fs.createReadStream(currentDirectory);
   }
 }

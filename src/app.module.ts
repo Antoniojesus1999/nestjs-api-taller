@@ -6,6 +6,7 @@ import { LoggerModule } from "@core/logger/logger.module";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ClientController } from "./contexts/client/client.controller";
 import { ClientModule } from "./contexts/client/client.module";
+import { PdfModule } from "./contexts/pdf/pdf.module";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AuthMiddleware } from "./core/middleware/auth.middleware";
 import { MongoModule } from "./core/mongo/mongo.module";
@@ -16,6 +17,7 @@ import { MongoModule } from "./core/mongo/mongo.module";
     LoggerModule,
     ClientModule,
     MongoModule,
+    PdfModule,
   ],
 })
 export class AppModule implements NestModule {
