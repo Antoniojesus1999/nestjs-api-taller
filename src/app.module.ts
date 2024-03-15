@@ -30,6 +30,7 @@ export class AppModule implements NestModule {
         // { path: 'cats', method: RequestMethod.POST },
         "cats/(.*)",
       )
+      
       .forRoutes(ClientController);*/
   }
 }
