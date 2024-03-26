@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { Repair } from "./repair.schema";
+import { Repair, RepairSchema } from "./repair.schema";
 
-@Schema()
+@Schema({ timestamps: true })
 export class Vehicle {
   @Prop({ trim: true })
   model: string;
@@ -13,8 +13,8 @@ export class Vehicle {
   @Prop({ trim: true })
   registration: string;
 
-  @Prop()
-  repairs: [Repair];
+  @Prop({ type: [RepairSchema] })
+  repairs: Repair[];
 
   constructor(
     model: string,
@@ -29,4 +29,4 @@ export class Vehicle {
   }
 }
 
-export const ClientSchema = SchemaFactory.createForClass(Vehicle);
+export const VehicleSchema = SchemaFactory.createForClass(Vehicle);

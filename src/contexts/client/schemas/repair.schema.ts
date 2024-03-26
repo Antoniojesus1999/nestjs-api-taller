@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { Work } from "./work.schema";
+import { Work, WorkSchema } from "./work.schema";
 
-@Schema()
+@Schema({ timestamps: true })
 export class Repair {
   @Prop({ required: true, trim: true })
   description: string;
   @Prop()
   date: Date;
-  @Prop()
-  works: [Work];
+  @Prop({ type: [WorkSchema] })
+  works: Work[];
 
   constructor(description: string, date: Date, works: [Work]) {
     this.description = description;
@@ -18,4 +18,4 @@ export class Repair {
   }
 }
 
-export const ClientSchema = SchemaFactory.createForClass(Repair);
+export const RepairSchema = SchemaFactory.createForClass(Repair);

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
-import { Vehicle } from "./vehicle.schema";
+import { Vehicle, VehicleSchema } from "./vehicle.schema";
 
 @Schema({ collection: "clients", timestamps: true })
 export class Client extends Document {
@@ -17,8 +17,8 @@ export class Client extends Document {
   tlfn: string;
   @Prop({ required: true, trim: true })
   email: string;
-  @Prop()
-  cars: [Vehicle];
+  @Prop({ type: [VehicleSchema] })
+  cars: Vehicle[];
 
   constructor(
     name: string,
@@ -27,7 +27,7 @@ export class Client extends Document {
     surName2: string,
     tlfn: string,
     email: string,
-    cars: [Vehicle],
+    cars: Vehicle[],
   ) {
     super();
     this.name = name;

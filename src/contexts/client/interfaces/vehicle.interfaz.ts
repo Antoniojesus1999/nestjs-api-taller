@@ -4,5 +4,5 @@ export interface IVehicle {
   model: string;
   brand: string;
   registration: string;
-  repairs: [IRepair];
+  repairs: IRepair[];
 }

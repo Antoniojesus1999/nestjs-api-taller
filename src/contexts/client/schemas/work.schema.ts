@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-@Schema()
+@Schema({ timestamps: true })
 export class Work {
   @Prop({ trim: true })
   nameEmployeePerformedWork: string;
@@ -17,4 +17,4 @@ export class Work {
   }
 }
 
-export const ClientSchema = SchemaFactory.createForClass(Work);
+export const WorkSchema = SchemaFactory.createForClass(Work);

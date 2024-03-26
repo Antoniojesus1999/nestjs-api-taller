@@ -20,14 +20,14 @@ export class ClientController {
   ) {
     return this.clientService.findAll(page, limit);
   }
-  @Get("repair-all")
-  async findAllRepair(
+  @Get("works")
+  async findAllWorks(
     @Query("page") page: number = 1,
     @Query("limit") limit: number = 10,
   ) {
     this.logger.log(
       `Ejecutando findAllRepairs page -> ${page} limit -> ${limit}`,
     );
-    return this.clientService.findAllRepairs(page, limit);
+    return this.clientService.findAllWorks(page, limit);
   }
 }

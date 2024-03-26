@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
 import { IClient } from "./interfaces/client.interfaz";
-import { IRepairAndIdClient } from "./interfaces/repair.interfaz";
+import { IRepairAndIdClient as IWorkAndIdClient } from "./interfaces/repair.interfaz";
 import { Client } from "./schemas/client.schema";
 
 @Injectable()
@@ -40,10 +40,10 @@ export class ClientService {
       return error;
     }
   }
-  async findAllRepairs(
+  async findAllWorks(
     page: number,
     limit: number,
-  ): Promise<PaginateResult<IRepairAndIdClient>> {
+  ): Promise<PaginateResult<IWorkAndIdClient>> {
     const options: PaginateOptions = {
       page: page,
       limit: limit,
@@ -55,7 +55,7 @@ export class ClientService {
       options,
     );
 
-    const allRepairs: IRepairAndIdClient[] = clients.docs.flatMap(client =>
+    const allRepairs: IWorkAndIdClient[] = clients.docs.flatMap(client =>
       client.cars.flatMap(car =>
         car.repairs.map(repair => ({
           description: repair.description,
@@ -66,7 +66,7 @@ export class ClientService {
       ),
     );
 
-    const nuevoPaginateResult: PaginateResult<IRepairAndIdClient> = {
+    const nuevoPaginateResult: PaginateResult<IWorkAndIdClient> = {
       ...clients,
       docs: allRepairs,
     };
