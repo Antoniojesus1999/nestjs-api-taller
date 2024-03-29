@@ -59,7 +59,7 @@ export class ClientService {
       client.cars.flatMap(car =>
         car.repairs.map(repair => ({
           description: repair.description,
-          date: repair.date,
+          dateStart: repair.dateStart,
           works: repair.works,
           idClient: String(client._id), // Convertir a string u otro tipo adecuado
         })),
@@ -71,5 +71,22 @@ export class ClientService {
       docs: allRepairs,
     };
     return nuevoPaginateResult;
+  }
+
+  async findClientByIdWork(idWork: string): Promise<Client | null> {
+    this.logger.log(`Se va a buscar el cliente con el parámetro ${idWork}`);
+
+    try {
+      const client = await this.clientModel
+        .findOne({ "cars.repairs.works._id": idWork })
+        .exec();
+      return client;
+    } catch (error) {
+      this.logger.error(
+        `Error al hacer la petición con el parámetro ${idWork}`,
+      );
+      this.logger.error(error);
+      throw error;
+    }
   }
 }

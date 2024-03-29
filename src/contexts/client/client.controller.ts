@@ -30,4 +30,9 @@ export class ClientController {
     );
     return this.clientService.findAllWorks(page, limit);
   }
+
+  @Get("client-by-id-work")
+  async findClientByIdWork(@Query("idWork") idWork: string) {
+    return this.clientService.findClientByIdWork(idWork);
+  }
 }

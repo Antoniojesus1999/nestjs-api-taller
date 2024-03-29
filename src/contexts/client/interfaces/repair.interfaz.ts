@@ -2,7 +2,7 @@ import { IWork } from "./work.interfaz";
 
 export interface IRepair {
   description: string;
-  date: Date;
+  dateStart: Date;
   works: IWork[];
 }
 
