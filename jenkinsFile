@@ -4,27 +4,16 @@ pipeline {
     stage('Pull Changes') {
 
       steps {
-                  sh 'echo @@@@@@ comienzo nuestro script'
-                  sh 'echo antes de borrar'
-                  sh 'ls /var/lib/jenkins/workspace'
-                  sh 'cd /var/lib/jenkins/workspace'
+                  echo 'clone the repo'
+                  sh 'ls -la'
+                  sh 'ls -la /var/lib/jenkins/workspace'
                   sh 'pwd'
-                  sh 'rm -fr /var/lib/jenkins/workspace/'
-                  sh 'pwd'
-                  sh 'echo despues de borrar'
-                  sh 'ls /var/lib/jenkins/workspace'
+                  sh 'rm -fr nestjs-api-taller'
+                  sh 'ls -la /var/lib/jenkins/workspace'
+                  sh 'git clone https://github.com/Antoniojesus1999/nestjs-api-taller.git'
+                  sh 'ls -la /var/lib/jenkins/workspace'
+                  sh 'ls -la /var/lib/jenkins/workspace/nestjs-api-taller'
 
-          sh 'echo Antes de ejecutar'
-          sh 'pwd'
-          sh 'ls -la'
-          git branch: 'main',
-                     credentialsId: 'token-git',
-                     url: 'https://github.com/Antoniojesus1999/nestjs-api-taller.git'
-
-                echo('Despues de ejcutar')
-                sh 'pwd'
-                sh 'docker ps'
-                sh 'docker ps -a'
       }
     }
 
