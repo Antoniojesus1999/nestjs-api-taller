@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Pull Changes') {
+        echo 'Antes de ejecutar'
+        sh 'pwd'
+        sh 'ls -la'
+      git 'https://github.com/Antoniojesus1999/nestjs-api-taller.git', credentialsId: 'token-git'
+      
+      echo('Despues de eejcutar')
+      sh 'ls -la'
+      sh 'pwd'
+    }
+
+    stage('Build and Push Docker Image') {
+      sh 'docker build -t tu_imagen . && docker push tu_imagen'
+    }
+
+    stage('Deploy New Container') {
+      sh 'docker stop tu_contenedor && docker rm tu_contenedor'
+      sh 'docker rmi tu_imagen'
+      sh 'docker run -d -p 8080:80 tu_imagen'
+    }
+  }
+}
