@@ -3,9 +3,11 @@ pipeline {
   stages {
   stage('Borrando archivos anteriores') {
         steps {
+            sh '############## Comienzo nuestro script #################'
             sh 'echo antes de borrar'
             sh 'ls /var/lib/jenkins/workspace'
             sh 'cd /var/lib/jenkins/workspace'
+            sh 'pwd'
             sh 'rm -fr nestjs-api-taller'
             sh 'pwd'
             sh 'echo despues de borrar'
@@ -22,7 +24,6 @@ pipeline {
                      url: 'https://github.com/Antoniojesus1999/nestjs-api-taller.git'
 
                 echo('Despues de ejcutar')
-                sh 'ls -la'
                 sh 'pwd'
                 sh 'docker ps'
                 sh 'docker ps -a'
