@@ -4,12 +4,12 @@ pipeline {
     stage('Pull Changes') {
 
       steps {
-                  sh 'echo omienzo nuestro script'
+                  sh 'echo @@@@@@ comienzo nuestro script'
                   sh 'echo antes de borrar'
                   sh 'ls /var/lib/jenkins/workspace'
                   sh 'cd /var/lib/jenkins/workspace'
                   sh 'pwd'
-                  sh 'rm -fr nestjs-api-taller'
+                  sh 'rm -fr /var/lib/jenkins/workspace/'
                   sh 'pwd'
                   sh 'echo despues de borrar'
                   sh 'ls /var/lib/jenkins/workspace'
