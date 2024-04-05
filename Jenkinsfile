@@ -7,6 +7,7 @@ pipeline {
                 sh 'ls /var/lib/jenkins/workspace'
             }
         }
+
         stage('push repo to remote host') {
             steps {
                 sh 'echo connect to remote host and pull down the latest version'
