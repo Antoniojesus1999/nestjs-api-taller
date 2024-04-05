@@ -1,10 +1,12 @@
-node {
-  stage ('Checkout') {
-    stage 'Build'
-    stage 'Test'
-  }
-  stage ('Checkout2') {
-      stage 'Build2'
-      stage 'Test2'
+pipeline {
+  agent any
+  stages {
+    stage('Pull Changes') {
+
+      steps {
+
+      }
     }
+
+  }
 }
