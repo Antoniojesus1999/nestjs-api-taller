@@ -1,21 +1,19 @@
 pipeline {
   agent any
   stages {
-  stage('Borrando archivos anteriores') {
-        steps {
-            sh 'echo ############## Comienzo nuestro script #################'
-            sh 'echo antes de borrar'
-            sh 'ls /var/lib/jenkins/workspace'
-            sh 'cd /var/lib/jenkins/workspace'
-            sh 'pwd'
-            sh 'rm -fr nestjs-api-taller'
-            sh 'pwd'
-            sh 'echo despues de borrar'
-            sh 'ls /var/lib/jenkins/workspace'
-        }
-      }
     stage('Pull Changes') {
+
       steps {
+                  sh 'echo ############## Comienzo nuestro script #################'
+                  sh 'echo antes de borrar'
+                  sh 'ls /var/lib/jenkins/workspace'
+                  sh 'cd /var/lib/jenkins/workspace'
+                  sh 'pwd'
+                  sh 'rm -fr nestjs-api-taller'
+                  sh 'pwd'
+                  sh 'echo despues de borrar'
+                  sh 'ls /var/lib/jenkins/workspace'
+
           sh 'echo Antes de ejecutar'
           sh 'pwd'
           sh 'ls -la'
