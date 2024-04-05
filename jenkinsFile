@@ -4,9 +4,22 @@ pipeline {
     stage('Pull Changes') {
 
       steps {
-
+        sh 'echo steps 1'
       }
+      steps {
+      sh 'echo steps 2'
+            }
     }
+
+    stage('RM') {
+
+          steps {
+    sh 'echo steps 3'
+          }
+          steps {
+          sh 'echo steps 4'
+                }
+        }
 
   }
 }
