@@ -14,9 +14,9 @@ pipeline {
                 sh 'ls -la'
                 sh 'pwd'
                 sh 'echo Ejecutando docker ps'
-                sh 'docker ps'
+                sh 'sudo docker ps'
                 sh 'echo Ejecutando docker ps -a'
-                sh 'docker ps -a'
+                sh 'sudo docker ps -a'
       }
     }
 
