@@ -5,6 +5,7 @@ pipeline {
         steps {
             sh 'echo antes de borrar'
             sh 'ls /var/lib/jenkins/workspace'
+            sh 'cd /var/lib/jenkins/workspace'
             sh 'rm -fr nestjs-api-taller'
             sh 'pwd'
             sh 'echo despues de borrar'
