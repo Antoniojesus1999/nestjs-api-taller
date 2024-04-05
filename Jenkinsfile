@@ -3,18 +3,18 @@ pipeline {
     stages {
         stage('Clone the repo') {
             steps {
-                echo 'clone the repo'
-                 echo 'clone the repo'
+                sh 'echo clone the repo'
+                sh 'ls /var/lib/jenkins/workspace'
             }
         }
         stage('push repo to remote host') {
             steps {
-                echo 'connect to remote host and pull down the latest version'
+                sh 'echo connect to remote host and pull down the latest version'
             }
         }
         stage('Check website is up') {
             steps {
-                echo 'Check website is up'
+                sh 'echo Check website is up'
             }
         }
     }
