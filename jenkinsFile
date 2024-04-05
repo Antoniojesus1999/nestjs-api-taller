@@ -4,13 +4,23 @@ pipeline {
     stage('Pull Changes') {
 
       steps {
-         echo 'clone the repo'
-         sh 'echo stpe 1'
-         sh 'ls -la'
+                  echo 'clone the repo'
+                  /*sh 'echo antes de borrar'
+                  sh 'ls /var/lib/jenkins/workspace'
+                  //sh 'cd /var/lib/jenkins/workspace'
+                  sh 'pwd'
+                  //sh 'rm -fr /var/lib/jenkins/workspace/'
+                  sh 'pwd'
+                  sh 'echo despues de borrar'
+                  sh 'ls /var/lib/jenkins/workspace'
+
+          sh 'echo Antes de ejecutar'
+          sh 'pwd'
+          sh 'ls -la'*/
+
       }
-       steps {
-         sh 'echo step 2'
-            }
+
     }
+
   }
 }
