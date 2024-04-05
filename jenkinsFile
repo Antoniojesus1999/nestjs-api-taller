@@ -11,15 +11,5 @@ pipeline {
             }
     }
 
-    stage('RM') {
 
-          steps {
-    sh 'echo steps 3'
-          }
-          steps {
-          sh 'echo steps 4'
-                }
-        }
-
-  }
 }
