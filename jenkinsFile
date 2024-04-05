@@ -10,12 +10,10 @@ pipeline {
            credentialsId: 'token-git',
            url: 'https://github.com/Antoniojesus1999/nestjs-api-taller.git'
     }
-      
+
       echo('Despues de ejcutar')
       sh 'ls -la'
       sh 'pwd'
-    }
 
-   
   }
 }
