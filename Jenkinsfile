@@ -17,5 +17,6 @@ pipeline {
                 sh 'echo Check website is up'
             }
         }
+
     }
 }
