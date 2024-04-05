@@ -4,13 +4,13 @@ pipeline {
     stage('Pull Changes') {
 
       steps {
-        sh 'echo steps 1'
+         echo 'clone the repo'
+         sh 'echo stpe 1'
       }
-      steps {
-      sh 'echo steps 2'
-
+       steps {
+         sh 'echo step 2'
             }
     }
 
-
+  }
 }
