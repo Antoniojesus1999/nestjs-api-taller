@@ -15,7 +15,6 @@ pipeline {
         stage('Check website is up') {
             steps {
                 sh 'echo Check website is up'
-
             }
         }
 
