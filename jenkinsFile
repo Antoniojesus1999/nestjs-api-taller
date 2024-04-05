@@ -11,6 +11,5 @@ pipeline {
          sh 'echo step 2'
             }
     }
-
   }
 }
