@@ -4,7 +4,7 @@ pipeline {
     stage('Pull Changes') {
 
       steps {
-                  sh 'echo ############## Comienzo nuestro script #################'
+                  sh 'echo omienzo nuestro script'
                   sh 'echo antes de borrar'
                   sh 'ls /var/lib/jenkins/workspace'
                   sh 'cd /var/lib/jenkins/workspace'
