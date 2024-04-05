@@ -1,6 +1,6 @@
 node {
   stage ('Checkout') {
-    svn 'https://github.com/Antoniojesus1999/nestjs-api-taller.git'
+    checkout 'https://github.com/Antoniojesus1999/nestjs-api-taller.git'
     stage 'Build'
     stage 'Test'
   }
