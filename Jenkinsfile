@@ -4,6 +4,7 @@ pipeline {
         stage('Clone the repo') {
             steps {
                 echo 'clone the repo'
+                 echo 'clone the repo'
             }
         }
         stage('push repo to remote host') {
