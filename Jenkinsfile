@@ -7,7 +7,10 @@ pipeline {
               sh 'who'
               sh 'id'
               sh 'groups'
-              sh '/home/antonio/Escritorio/docker docker-compose up -d'
+              dir('ios') { // or absolute path
+                     sh '/home/antonio/Escritorio/docker docker-compose up -d'
+                 }
+
               sh 'pwd'
               sh 'docker-compose up'
               sh 'cd /var/lib/jenkins/workspace/nestjs-api-taller'
