@@ -45,7 +45,7 @@ pipeline {
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker compose up'
+                sh 'docker compose up -d'
             }
         }
 
