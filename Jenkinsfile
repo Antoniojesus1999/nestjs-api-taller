@@ -3,21 +3,22 @@ pipeline {
     stages {
         stage('Up Mongo db') {
             steps {
-              sh 'pwd'
-              sh 'who'
-              sh 'id'
-              sh 'groups'
-
-              sh 'docker-compose  /home/antonio/Escritorio/docker/docker-compose.yml up -d'
-
-              sh 'pwd'
-              sh 'docker-compose up'
-              sh 'cd /var/lib/jenkins/workspace/nestjs-api-taller'
-              sh 'pwd'
-
+              sh 'docker-compose /home/antonio/Escritorio/docker/docker-compose.yml down -d'
+              sh 'docker-compose /home/antonio/Escritorio/docker/docker-compose.yml up -d'
             }
+            steps {
+              sh 'echo prueba de otro step'
+             }
         }
-
+        stage('Clean and build api-taller') {
+            steps {
+                sh 'npm run build'
+                    }
+        }
+        stage('Build Docker') {
+            steps {
+                sh 'docker build -t api-taller-dev .'
+        }
         stage('Up nestjs-api-taller') {
             steps {
                 sh 'docker-compose up'

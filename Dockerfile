@@ -22,7 +22,7 @@ COPY nest-cli.json .
 COPY src src
 
 EXPOSE $PORT
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
 
 FROM base AS build
 
