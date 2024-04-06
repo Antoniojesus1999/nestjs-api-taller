@@ -19,6 +19,7 @@ pipeline {
 
         stage('Clean and build api-taller') {
             steps {
+                sh 'npm install -g rimraf'
                 sh 'npm run build'
                 }
         }
