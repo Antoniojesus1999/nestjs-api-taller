@@ -26,7 +26,7 @@ pipeline {
              steps {
                    sh 'ls'
                   script {
-                        rm -rf node_modules
+                        sh 'rm -rf node_modules'
                       }
                    sh 'ls'
                   }
