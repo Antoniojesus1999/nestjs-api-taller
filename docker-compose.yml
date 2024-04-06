@@ -19,7 +19,7 @@ services:
           cpus: "0.25"
           memory: "256m"
     volumes:
-      - .:.
+      - .:/
       - ./node_modules:./node_modules/
     networks:
       docker_mi-red:
