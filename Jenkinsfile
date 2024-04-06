@@ -25,7 +25,9 @@ pipeline {
          stage('delete node_modules') {
              steps {
                    sh 'ls'
-                   sh 'rm -fr /node_modules'
+                  script {
+                        rm -rf node_modules
+                      }
                    sh 'ls'
                   }
           }
