@@ -19,13 +19,13 @@ pipeline {
 
         stage('NPM INSTALL') {
                     steps {
-                        sh 'npm install'
+                        //sh 'npm install'
                     }
                 }
 
         stage('Build Docker') {
             steps {
-                sh 'docker build -t .'
+                //sh 'docker build -t .'
             }
         }
 
