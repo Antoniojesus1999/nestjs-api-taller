@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools{
+    nodejs '20.10.0'
+    }
     stages {
 
         stage('Down Mongo db') {
