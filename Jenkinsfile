@@ -14,13 +14,18 @@ pipeline {
         stage('Up mongo db') {
            steps {
              sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml up -d'
-             //sh 'docker build -t .'
             }
         }
 
+         stage('Up nestjs-api-taller') {
+                    steps {
+                        sh 'docker compose down'
+                    }
+                }
+
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker-compose up'
+                sh 'docker compose up'
             }
         }
 
