@@ -7,8 +7,8 @@ pipeline {
               sh 'who'
               sh 'id'
               sh 'groups'
-              dir('ios') { // or absolute path
-                     sh '/home/antonio/Escritorio/docker docker-compose up -d'
+              dir('/home/antonio/Escritorio/docker') { // or absolute path
+                     sh 'docker-compose up -d'
                  }
 
               sh 'pwd'
