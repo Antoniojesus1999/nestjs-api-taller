@@ -17,12 +17,6 @@ pipeline {
             }
         }
 
-        stage('Clean and build api-taller') {
-            steps {
-                sh 'npm run build'
-                }
-        }
-
         stage('Build Docker') {
             steps {
                 sh 'docker build -t api-taller-pro .'
