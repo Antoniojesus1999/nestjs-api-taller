@@ -7,7 +7,10 @@ pipeline {
               sh 'who'
               sh 'id'
               sh 'groups'
-              sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml up -d'
+              dir('/home/antonio/Escritorio/docker') {
+                    sh 'docker-compose -fu p -d'
+                 }
+              //sh 'docker-compose  /home/antonio/Escritorio/docker/docker-compose.yml up -d'
 
               sh 'pwd'
               sh 'docker-compose up'
