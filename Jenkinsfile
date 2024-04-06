@@ -24,7 +24,7 @@ pipeline {
          stage('npm install') {
             steps {
             script {
-                sh 'npm install --prefix /workspace'
+                sh 'npm install'
                 }
             }
          }
