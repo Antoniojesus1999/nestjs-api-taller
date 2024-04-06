@@ -4,7 +4,7 @@ pipeline {
         stage('Up Mongo db') {
             steps {
               sh 'pwd'
-              sh 'cd ~/Escritorio/docker'
+              sh 'cd /home/antonio/Escritorio/docker'
               sh 'pwd'
               sh 'docker-compose up'
               sh 'cd /var/lib/jenkins/workspace/nestjs-api-taller'
