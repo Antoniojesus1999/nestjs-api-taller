@@ -7,9 +7,9 @@ services:
       target: production
       context: .
       args:
-        - PORT=${PORT:-3100}
+        - PORT=3100
     ports:
-      - "${PORT:-3100}:${PORT:-3100}"
+      - "3100:3100"
     deploy:
       resources:
         limits:
