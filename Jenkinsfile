@@ -1,7 +1,10 @@
 pipeline {
     agent any
     tools {nodejs 'node'}
-
+volumes {
+    - hostPath: /opt/node-v20.10.0-linux-x64
+      workspacePath: /node_modules
+  }
     stages {
 
         stage('Down Mongo db') {
@@ -22,6 +25,13 @@ pipeline {
                   sh 'docker compose down'
                     }
                 }
+         stage('npm install') {
+            steps {
+            script {
+                npm install --prefix /workspace
+                  }
+            }
+         }
 
          stage('npm run build') {
             steps {
@@ -37,3 +47,6 @@ pipeline {
 
     }
 }
+
+
+
