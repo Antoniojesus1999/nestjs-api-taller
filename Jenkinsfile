@@ -23,6 +23,7 @@ pipeline {
         stage('Build Docker') {
             steps {
                 sh 'docker build -t api-taller-dev .'
+            }
         }
         stage('Up nestjs-api-taller') {
             steps {
