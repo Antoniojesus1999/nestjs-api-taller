@@ -17,9 +17,15 @@ pipeline {
             }
         }
 
+        stage('NPM INSTALL') {
+                    steps {
+                        sh 'npm install'
+                    }
+                }
+
         stage('Build Docker') {
             steps {
-                sh 'docker build -t api-taller-pro .'
+                sh 'docker build -t .'
             }
         }
 
