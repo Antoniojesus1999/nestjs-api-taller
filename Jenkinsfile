@@ -4,6 +4,9 @@ pipeline {
         stage('Up Mongo db') {
             steps {
               sh 'pwd'
+              sh 'who'
+              sh 'id'
+              sh 'groups'
               sh '/home/antonio/Escritorio/docker'
               sh 'pwd'
               sh 'docker-compose up'
