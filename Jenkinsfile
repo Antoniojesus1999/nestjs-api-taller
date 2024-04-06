@@ -14,18 +14,7 @@ pipeline {
         stage('Up mongo db') {
            steps {
              sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml up -d'
-            }
-        }
-
-        stage('NPM INSTALL') {
-                    steps {
-                        //sh 'npm install'
-                    }
-                }
-
-        stage('Build Docker') {
-            steps {
-                //sh 'docker build -t .'
+             //sh 'docker build -t .'
             }
         }
 
