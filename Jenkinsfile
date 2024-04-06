@@ -30,8 +30,8 @@ volumes {
          stage('npm install') {
             steps {
             script {
-                npm install --prefix /workspace
-                  }
+                sh 'npm install --prefix /workspace'
+                }
             }
          }
 
