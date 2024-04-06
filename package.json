@@ -21,7 +21,7 @@
     "node": ">=18.x",
     "npm": ">=9.x"
   },
-  "main": "app/dist/main.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "npm run build:clean && nest build --path tsconfig.prod.json",
     "start": "node dist/main.js",
