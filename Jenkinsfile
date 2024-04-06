@@ -1,27 +1,23 @@
 pipeline {
     agent any
     stages {
-        stage('Up Mongo db') {
+
+        stage('Down Mongo db') {
             steps {
-              step{
                sh 'docker-compose /home/antonio/Escritorio/docker/docker-compose.yml down -d'
-              }
-              step{
-               sh 'docker-compose /home/antonio/Escritorio/docker/docker-compose.yml up -d'
-              }
-
-              step {
-               sh 'echo prueba de otro step'
-              }
             }
-
         }
 
+        stage('Up mongo db') {
+           steps {
+             sh 'docker-compose /home/antonio/Escritorio/docker/docker-compose.yml up -d'
+            }
+        }
 
         stage('Clean and build api-taller') {
             steps {
                 sh 'npm run build'
-                    }
+                }
         }
 
         stage('Build Docker') {
