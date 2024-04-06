@@ -1,11 +1,6 @@
 pipeline {
     agent any
     tools {nodejs 'node'}
-volumes {
-{
-      hostPath: '/opt/node-v20.10.0-linux-x64'
-      workspacePath: '/node_modules'
-}
   }
     stages {
 
