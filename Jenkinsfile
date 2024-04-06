@@ -22,7 +22,7 @@ pipeline {
                     }
                 }
 
-         stage('npm install') {
+         stage('delete node_modules') {
              steps {
                    sh 'ls'
                    sh 'rm -fr /node_modules'
