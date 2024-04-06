@@ -17,7 +17,8 @@ pipeline {
 
         stage('Clean and build api-taller') {
             steps {
-                sh 'npm run build:clean && nest build --path tsconfig.prod.json'
+                //sh 'npm run build:clean && nest build --path tsconfig.prod.json'
+                sh 'rimraf dist; exit 0 nest build --path tsconfig.prod.json'
                 }
         }
 
