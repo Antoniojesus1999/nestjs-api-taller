@@ -22,17 +22,18 @@ pipeline {
             }
         }
 
-        stage('Clean and build api-taller') {
-            steps {
-                sh 'npm run build:clean && nest build --path tsconfig.prod.json'
-                }
-        }
-
         stage('Build Docker') {
             steps {
                 sh 'docker build -t api-taller-dev .'
             }
         }
+
+        stage('Clean and build api-taller') {
+            steps {
+                sh 'npm run build'
+                }
+        }
+
         stage('Up nestjs-api-taller') {
             steps {
                 sh 'docker-compose up'
