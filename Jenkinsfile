@@ -3,12 +3,7 @@ pipeline {
     tools {nodejs 'node'}
 
     stages {
-        stage('Version de node') {
-            steps {
-               sh 'npm version'
 
-            }
-        }
         stage('Down Mongo db') {
             steps {
                sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml down'
@@ -22,16 +17,16 @@ pipeline {
             }
         }
 
-        stage('Build Docker') {
-            steps {
-                sh 'docker build -t api-taller-pro .'
-            }
-        }
-
         stage('Clean and build api-taller') {
             steps {
                 sh 'npm run build'
                 }
+        }
+
+        stage('Build Docker') {
+            steps {
+                sh 'docker build -t api-taller-pro .'
+            }
         }
 
         stage('Up nestjs-api-taller') {
