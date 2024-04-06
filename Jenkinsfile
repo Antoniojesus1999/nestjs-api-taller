@@ -1,10 +1,16 @@
 pipeline {
     agent any
-    tools{
-    nodejs '20.10.0'
+    tools {
+     nodejs
     }
-    stages {
 
+    stages {
+        stage('Version de node') {
+            steps {
+               sh 'npm version'
+
+            }
+        }
         stage('Down Mongo db') {
             steps {
                sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml down'
