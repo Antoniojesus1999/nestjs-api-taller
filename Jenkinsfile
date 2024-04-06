@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-         stage('Up nestjs-api-taller') {
+         stage('Down nestjs-api-taller') {
                     steps {
                         sh 'docker compose down'
                     }
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker compose up'
+                sh 'docker-compose up'
             }
         }
 
