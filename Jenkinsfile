@@ -23,6 +23,12 @@ pipeline {
                     }
                 }
 
+         stage('npm run build') {
+            steps {
+                sh 'npm run build'
+                }
+         }
+
         stage('Up nestjs-api-taller') {
             steps {
                 sh 'docker compose up'
