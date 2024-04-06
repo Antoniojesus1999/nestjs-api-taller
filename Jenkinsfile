@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    tools {nodejs 'node'}
     stages {
 
         stage('Down Mongo db') {
@@ -22,10 +23,7 @@ pipeline {
                 }
          stage('npm install') {
             steps {
-                nodejs() {
                   sh 'npm install'
-
-                 }
             }
          }
 
