@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build Docker') {
             steps {
-                sh 'docker build -t api-taller-dev .'
+                sh 'docker build -t api-taller-pro .'
             }
         }
 
