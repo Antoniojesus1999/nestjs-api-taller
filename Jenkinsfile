@@ -8,7 +8,7 @@ pipeline {
               sh 'id'
               sh 'groups'
               dir('/home/antonio/Escritorio/docker') {
-                     'docker-compose up -d'
+                    sh 'docker-compose up -d'
                  }
 
               sh 'pwd'
