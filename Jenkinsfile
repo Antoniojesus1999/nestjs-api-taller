@@ -7,7 +7,7 @@ pipeline {
               sh 'who'
               sh 'id'
               sh 'groups'
-              sh '/home/antonio/Escritorio/docker'
+              sh 'cd /home/antonio/Escritorio/docker'
               sh 'pwd'
               sh 'docker-compose up'
               sh 'cd /var/lib/jenkins/workspace/nestjs-api-taller'
