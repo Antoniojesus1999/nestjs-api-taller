@@ -22,6 +22,13 @@ pipeline {
                     }
                 }
          stage('npm install') {
+                     steps {
+                           sh 'ls'
+                           sh 'rm -fr /node_modules'
+                           sh 'ls'
+                     }
+                  }
+         stage('npm install') {
             steps {
                   sh 'npm install'
             }
