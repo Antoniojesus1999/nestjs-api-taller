@@ -4,7 +4,8 @@ pipeline {
 
         stage('Down Mongo db') {
             steps {
-               sh 'docker-compose /home/antonio/Escritorio/docker/docker-compose.yml down'
+               sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml down -d'
+
             }
         }
 
