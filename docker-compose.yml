@@ -1,24 +1,6 @@
 version: "3.8"
 
 services:
-  api-taller-pro:
-    container_name: api-taller-pro
-    build:
-      target: production
-      context: .
-      args:
-        - PORT=3100
-    ports:
-      - "3100:3100"
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: "512m"
-        reservations:
-          cpus: "0.25"
-          memory: "256m"
-
   api-taller-dev:
     container_name: api-taller-dev
     restart: unless-stopped
@@ -41,7 +23,7 @@ services:
       resources:
         limits:
           cpus: "1"
-          memory: "512m"
+          memory: "1024m"
         reservations:
           cpus: "0.25"
           memory: "256m"
