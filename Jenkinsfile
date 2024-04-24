@@ -24,11 +24,9 @@ pipeline {
 
          stage('delete node_modules') {
              steps {
-                   sh 'ls'
                   script {
                         sh 'rm -rf node_modules'
                       }
-                   sh 'ls'
                   }
           }
          stage('npm install') {
@@ -39,13 +37,16 @@ pipeline {
 
          stage('npm run build') {
             steps {
+
                 sh 'npm run build'
                 }
          }
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker compose up -d'
+
+                echo 'Pulling...' + env.BRANCH_NAME
+                sh 'BRANCH_NAME=stagingdocker compose up -d'
             }
         }
 

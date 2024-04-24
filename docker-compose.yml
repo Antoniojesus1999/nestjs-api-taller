@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   api-taller-pro:
-    container_name: api-taller-pro
+    container_name: api-taller-pro-${BRANCH_NAME}
     build:
       target: production
       context: .
