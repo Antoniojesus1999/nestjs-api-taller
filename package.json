@@ -46,7 +46,7 @@
     "firebase-admin": "^12.0.0",
     "google-auth-library": "^9.6.3",
     "googleapis": "^133.0.0",
-    "mongoose": "^8.2.0",
+    "mongoose": "^8.3.2",
     "mongoose-aggregate-paginate-v2": "^1.0.7",
     "mongoose-paginate-v2": "^1.8.0",
     "passport": "^0.7.0",
