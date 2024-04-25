@@ -44,7 +44,7 @@
     "@nestjs/platform-fastify": "^10.3.3",
     "class-validator": "^0.14.1",
     "firebase-admin": "^12.0.0",
-    "google-auth-library": "^9.6.3",
+    "google-auth-library": "^9.9.0",
     "googleapis": "^133.0.0",
     "mongoose": "^8.2.0",
     "mongoose-aggregate-paginate-v2": "^1.0.7",
