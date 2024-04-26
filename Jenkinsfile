@@ -46,7 +46,7 @@ pipeline {
             steps {
 
                 echo 'Pulling...' + env.BRANCH_NAME
-                sh 'BRANCH_NAME=stagingdocker compose up -d'
+                sh 'BRANCH_NAME='+env.BRANCH_NAME+' docker compose up -d'
             }
         }
 
