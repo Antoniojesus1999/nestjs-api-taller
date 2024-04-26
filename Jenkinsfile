@@ -1,25 +1,55 @@
 pipeline {
     agent any
+    tools {nodejs 'node'}
     stages {
-        stage('Clone the repo') {
+
+        stage('Down Mongo db') {
             steps {
-                sh 'echo clone the repo'
-                sh 'ls /var/lib/jenkins/workspace'
+               sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml down'
+
             }
         }
 
-        stage('push repo to remote host') {
-            steps {
-                sh 'echo connect to remote host and pull down the latest version'
-                sh 'docker ps'
-                sh 'ls /var/lib/jenkins/workspace/nestjs-api-taller'
+        stage('Up mongo db') {
+           steps {
+             sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml up -d'
             }
         }
-        stage('Check website is up') {
+
+         stage('Down nestjs-api-taller') {
+              steps {
+                  sh 'docker compose down'
+                    }
+                }
+
+         stage('delete node_modules') {
+             steps {
+                  script {
+                        sh 'rm -rf node_modules'
+                      }
+                  }
+          }
+         stage('npm install') {
             steps {
-                sh 'echo Check website is up'
+                  sh 'npm install'
+            }
+         }
+
+         stage('npm run build') {
+            steps {
+
+                sh 'npm run build'
+                }
+         }
+
+        stage('Up nestjs-api-taller') {
+            steps {
+                sh 'docker compose up -d'
             }
         }
 
     }
 }
+
+
+
