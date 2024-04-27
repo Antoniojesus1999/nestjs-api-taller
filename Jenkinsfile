@@ -44,7 +44,7 @@ pipeline {
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker-compose up -d --force-recreate'
+                sh 'docker-compose up -d -s --force-recreate'
             }
         }
 
