@@ -44,7 +44,7 @@ pipeline {
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker-compose up --force-rm nombre-servicio -d'
             }
         }
 
