@@ -4,6 +4,8 @@ export class CreatePdfDto {
   @IsNotEmpty({ message: "El campo no puede estar vacío" })
   nombreTaller: string;
 
+  direccionTaller: string;
+
   cpTaller: string;
 
   munYProvinTaller: string;
@@ -19,10 +21,7 @@ export class CreatePdfDto {
   @MaxLength(9, { message: "El campo no puede tener más de 9 caracteres" })
   numResgDepoTaller: string;
 
-  @MaxLength(7, { message: "El campo no puede tener más de 7 caracteres" })
-  matriculaVeh: string;
-
-  marcaModeloVeh: string;
+  matriMarcaModeloVeh: string;
 
   combustibleVeh: string;
 
@@ -34,7 +33,7 @@ export class CreatePdfDto {
 
   chasisVeh: string;
 
-  ape1Cliente_2: string;
+  ape2Cliente: string;
 
   fecEntradaVeh: string;
 
@@ -57,20 +56,20 @@ export class CreatePdfDto {
 
   constructor(
     nombreTaller: string,
+    direccionTaller: string,
     cpTaller: string,
     munYProvinTaller: string,
     nifTaller: string,
     riiaTaller: string,
     tlfTaller: string,
     numResgDepoTaller: string,
-    matriculaVeh: string,
-    marcaModeloVeh: string,
+    matriMarcaModeloVeh: string,
     combustibleVeh: string,
     seguroVeh: string,
     polizaVeh: string,
     kmsVeh: string,
     chasisVeh: string,
-    ape1Cliente_2: string,
+    ape2Cliente: string,
     fecEntradaVeh: string,
     fecSalidaVeh: string,
     nomCliente: string,
@@ -81,20 +80,20 @@ export class CreatePdfDto {
     tareasRealizadas: string,
   ) {
     this.nombreTaller = nombreTaller;
+    this.direccionTaller = direccionTaller;
     this.cpTaller = cpTaller;
     this.munYProvinTaller = munYProvinTaller;
     this.nifTaller = nifTaller;
     this.riiaTaller = riiaTaller;
     this.tlfTaller = tlfTaller;
     this.numResgDepoTaller = numResgDepoTaller;
-    this.matriculaVeh = matriculaVeh;
-    this.marcaModeloVeh = marcaModeloVeh;
+    this.matriMarcaModeloVeh = matriMarcaModeloVeh;
     this.combustibleVeh = combustibleVeh;
     this.seguroVeh = seguroVeh;
     this.polizaVeh = polizaVeh;
     this.kmsVeh = kmsVeh;
     this.chasisVeh = chasisVeh;
-    this.ape1Cliente_2 = ape1Cliente_2;
+    this.ape2Cliente = ape2Cliente;
     this.fecEntradaVeh = fecEntradaVeh;
     this.fecSalidaVeh = fecSalidaVeh;
     this.nomCliente = nomCliente;
