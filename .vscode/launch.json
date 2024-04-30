@@ -7,7 +7,7 @@
       "name": "Attach to docker",
       "restart": true,
       "port": 9229,
-      "remoteRoot": "/app"
+      "remoteRoot": "/"
     }
   ]
 }

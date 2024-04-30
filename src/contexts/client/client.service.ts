@@ -23,7 +23,7 @@ export class ClientService {
     const options: PaginateOptions = {
       page: page,
       limit: limit,
-      sort: { createdAt: "desc" }, // Ordenar por el atributo "aaa" de tipo fecha de forma descendente
+      sort: { createdAt: "desc" }, // Ordenar por el atributo "createdAt" de tipo fecha de forma descendente
     };
     this.logger.log(
       `Se va a buscar todos los clientes por con los parametros ${JSON.stringify(options)}`,

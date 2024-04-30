@@ -3,13 +3,15 @@ version: "3.8"
 services:
   api-taller-pro:
     container_name: api-taller-pro
+    image: api-taller-pro
     build:
       target: production
       context: .
       args:
-        - PORT=${PORT:-3100}
+        - PORT=3000
     ports:
-      - "${PORT:-3100}:${PORT:-3100}"
+      - "3000:3000"
+    restart: always
     deploy:
       resources:
         limits:
@@ -18,33 +20,12 @@ services:
         reservations:
           cpus: "0.25"
           memory: "256m"
-
-  api-taller-dev:
-    container_name: api-taller-dev
-    restart: unless-stopped
-    env_file: .env
-    build:
-      target: dev
-      context: .
-      args:
-        - PORT=${PORT:-3000}
-    ports:
-      - "${PORT:-3000}:${PORT:-3000}"
-      - "9229:9229"
     volumes:
       - .:/app
       - ./node_modules:/app/node_modules/
     networks:
       docker_mi-red:
         ipv4_address: 172.0.0.5
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: "512m"
-        reservations:
-          cpus: "0.25"
-          memory: "256m"
 networks:
   docker_mi-red:
     external: true
