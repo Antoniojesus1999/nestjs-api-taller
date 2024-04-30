@@ -18,8 +18,10 @@ pipeline {
 
          stage('Down nestjs-api-taller') {
               steps {
-                  sh 'docker-compose -f /var/lib/jenkins/workspace/api-taller-multibranch_develop/docker-compose.yml down'
-                  sh 'docker-compose -f /var/lib/jenkins/workspace/api-taller-multibranch_main/docker-compose.yml down'
+                  sh 'docker-compose down -f /var/lib/jenkins/workspace/api-taller-multibranch_develop/docker-compose.yml'
+                  sh 'docker-compose down -f /var/lib/jenkins/workspace/api-taller-multibranch_main/docker-compose.yml'
+                  sh 'docker stop api-taller-pro'
+                  sh 'docker rm api-taller-pro'
                     }
                 }
 
