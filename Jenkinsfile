@@ -25,8 +25,7 @@ pipeline {
                     //Si el contenedor no está que no pare la ejecución
               post {
                   always {
-                      // Marcar la etapa como exitosa incluso si el comando falla
-                      markStageAsSuccessful()
+                      // Si falla no hacer nada
                           }
                     }
                 }
