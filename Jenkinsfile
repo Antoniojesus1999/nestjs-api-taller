@@ -17,17 +17,19 @@ pipeline {
         }
 
          stage('Down nestjs-api-taller') {
+
               steps {
-                  sh 'docker stop api-taller-pro'
-                  sh 'docker rm api-taller-pro'
+                  script{
+                     try {
+                      sh 'docker stop api-taller-pro'
+                      sh 'docker rm api-taller-pro'
+                      } catch (err) {
+                        echo err.getMessage()
+                        echo "No hay contenedores levantados para apagar."
                     }
 
-                    //Si el contenedor no está que no pare la ejecución
-              post {
-                  always {
-                      // Si falla no hacer nada
-                      sh 'docker ps -a'
-                          }
+                  }
+
                     }
                 }
 
