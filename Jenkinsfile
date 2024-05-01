@@ -21,14 +21,16 @@ pipeline {
                   sh 'docker stop api-taller-pro'
                   sh 'docker rm api-taller-pro'
                     }
+
+                    //Si el contenedor no está que no pare la ejecución
+              post {
+                  always {
+                      // Marcar la etapa como exitosa incluso si el comando falla
+                      markStageAsSuccessful()
+                          }
+                    }
                 }
-                //Si el contenedor no está que no pare la ejecución
-                post {
-                always {
-                    // Marcar la etapa como exitosa incluso si el comando falla
-                    markStageAsSuccessful()
-                }
-            }
+
 
          stage('delete node_modules') {
              steps {
