@@ -26,6 +26,7 @@ pipeline {
               post {
                   always {
                       // Si falla no hacer nada
+                      sh 'docker ps -a'
                           }
                     }
                 }
