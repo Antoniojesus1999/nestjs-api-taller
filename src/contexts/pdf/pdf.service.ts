@@ -32,11 +32,7 @@ export class PdfService {
         .map(f => f.getName());
       this.logger.log(fieldNames);
       const form = pdfDoc.getForm();
-      const imgPath = path.join(
-        process.cwd() + "/src/resources",
-        "",
-        "car_plane.png",
-      );
+      const imgPath = path.join("src/resources/car_plane.png");
       const img = await pdfDoc.embedPng(fs.readFileSync(imgPath));
       const imagePage = pdfDoc.getPage(0);
       imagePage.drawImage(img, {
