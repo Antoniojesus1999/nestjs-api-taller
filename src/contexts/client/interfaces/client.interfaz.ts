@@ -7,5 +7,5 @@ export interface IClient {
   surName2: string;
   tlfn: string;
   email: string;
-  cars: IVehicle[];
+  vehicles: IVehicle[];
 }

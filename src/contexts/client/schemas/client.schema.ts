@@ -18,7 +18,7 @@ export class Client extends Document {
   @Prop({ required: true, trim: true })
   email: string;
   @Prop({ type: [VehicleSchema] })
-  cars: Vehicle[];
+  vehicles: Vehicle[];
 
   constructor(
     name: string,
@@ -27,7 +27,7 @@ export class Client extends Document {
     surName2: string,
     tlfn: string,
     email: string,
-    cars: Vehicle[],
+    vehicles: Vehicle[],
   ) {
     super();
     this.name = name;
@@ -36,7 +36,7 @@ export class Client extends Document {
     this.surName2 = surName2;
     this.tlfn = tlfn;
     this.email = email;
-    this.cars = cars;
+    this.vehicles = vehicles;
   }
 }
 

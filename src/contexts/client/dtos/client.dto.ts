@@ -22,7 +22,7 @@ export class ClientDto {
   email: string;
 
   @IsOptional()
-  cars: [Vehicle];
+  vehicles: [Vehicle];
   constructor(
     name: string,
     nif: string,
@@ -30,7 +30,7 @@ export class ClientDto {
     surName2: string,
     tlfn: string,
     email: string,
-    cars: [Vehicle],
+    vehicles: [Vehicle],
   ) {
     this.name = name;
     this.nif = nif;
@@ -38,6 +38,6 @@ export class ClientDto {
     this.surName2 = surName2;
     this.tlfn = tlfn;
     this.email = email;
-    this.cars = cars;
+    this.vehicles = vehicles;
   }
 }

@@ -56,8 +56,8 @@ export class ClientService {
     );
 
     const allRepairs: IWorkAndIdClient[] = clients.docs.flatMap(client =>
-      client.cars.flatMap(car =>
-        car.repairs.map(repair => ({
+      client.vehicles.flatMap(vehicle =>
+        vehicle.repairs.map(repair => ({
           description: repair.description,
           dateStart: repair.dateStart,
           works: repair.works,
@@ -78,7 +78,7 @@ export class ClientService {
 
     try {
       const client = await this.clientModel
-        .findOne({ "cars.repairs.works._id": idWork })
+        .findOne({ "vehicles.repairs.works._id": idWork })
         .exec();
       return client;
     } catch (error) {
