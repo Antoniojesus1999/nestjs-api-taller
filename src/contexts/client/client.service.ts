@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
+import { ClientDto } from "./dtos/client.dto";
 import { IClient } from "./interfaces/client.interfaz";
 import { IRepairAndIdClient as IWorkAndIdClient } from "./interfaces/repair.interfaz";
 import { Client } from "./schemas/client.schema";
@@ -14,12 +18,13 @@ export class ClientService {
     @InjectModel(Client.name) private clientModel: PaginateModel<Client>,
   ) {}
 
-  async create(client: IClient): Promise<Client> {
-    const newClient = new this.clientModel(client);
-    return newClient.save();
+  async create(client: IClient): Promise<ClientDto> {
+    const clientRepository = new this.clientModel(client);
+    const newClient = await clientRepository.save();
+    return this.mapToClientDto(newClient);
   }
 
-  async update(id: string, client: IClient) {
+  async update(id: string, client: IClient): Promise<ClientDto> {
     const updatedClient = await this.clientModel.findOneAndUpdate(
       { _id: id },
       client,
@@ -29,11 +34,11 @@ export class ClientService {
     );
     if (!updatedClient) {
       this.logger.log(
-        `No hemos encontrado ese usuario por ese id al actualizar ${client.name}`,
+        `No hemos encontrado ese usuario por ese id al actualizar ${client.name} email ${client.email}`,
       );
       throw new NotFoundException(`Client with ID ${id} not found`);
     }
-    return updatedClient.toObject() as IClient;
+    return this.mapToClientDto(updatedClient);
   }
 
   async findAll(page: number, limit: number) {
@@ -105,5 +110,21 @@ export class ClientService {
       this.logger.error(error);
       throw error;
     }
+  }
+
+  private mapToClientDto(client: Client): ClientDto {
+    const { _id, name, nif, surName1, surName2, tlfn, email, vehicles, __v } =
+      client;
+    return {
+      id: _id.toString(),
+      name: name,
+      nif: nif,
+      surName1: surName1,
+      surName2: surName2,
+      tlfn: tlfn,
+      email: email,
+      vehicles: vehicles,
+      __v: __v,
+    };
   }
 }
