@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Logger, Post, Query } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from "@nestjs/common";
 
 import { ClientService } from "./client.service";
 import { IClient } from "./interfaces/client.interfaz";
@@ -13,6 +22,12 @@ export class ClientController {
   async create(@Body() client: IClient) {
     return this.clientService.create(client);
   }
+
+  @Patch(":id")
+  async update(@Param("id") id: string, @Body() client: IClient) {
+    return this.clientService.update(id, client);
+  }
+
   @Get()
   async findAll(
     @Query("page") page: number = 1,
@@ -20,6 +35,7 @@ export class ClientController {
   ) {
     return this.clientService.findAll(page, limit);
   }
+
   @Get("works")
   async findAllWorks(
     @Query("page") page: number = 1,
@@ -34,10 +50,5 @@ export class ClientController {
   @Get("client-by-id-work")
   async findClientByIdWork(@Query("idWork") idWork: string) {
     return this.clientService.findClientByIdWork(idWork);
-  }
-
-  @Get("prueba_roberto")
-  async pruebaRoberto() {
-    return "prueba Roberto";
   }
 }

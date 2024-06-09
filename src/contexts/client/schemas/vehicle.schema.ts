@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { Repair, RepairSchema } from "./repair.schema";
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, optimisticConcurrency: true })
 export class Vehicle {
   @Prop({ trim: true })
   model: string;

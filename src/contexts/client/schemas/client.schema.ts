@@ -3,7 +3,11 @@ import { Document } from "mongoose";
 
 import { Vehicle, VehicleSchema } from "./vehicle.schema";
 
-@Schema({ collection: "clients", timestamps: true })
+@Schema({
+  collection: "clients",
+  timestamps: true,
+  optimisticConcurrency: true,
+})
 export class Client extends Document {
   @Prop({ trim: true })
   name: string;
@@ -15,7 +19,7 @@ export class Client extends Document {
   surName2: string;
   @Prop({ trim: true })
   tlfn: string;
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true, trim: true, unique: true })
   email: string;
   @Prop({ type: [VehicleSchema] })
   vehicles: Vehicle[];

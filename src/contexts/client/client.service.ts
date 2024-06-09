@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
@@ -17,6 +17,23 @@ export class ClientService {
   async create(client: IClient): Promise<Client> {
     const newClient = new this.clientModel(client);
     return newClient.save();
+  }
+
+  async update(id: string, client: IClient) {
+    const updatedClient = await this.clientModel.findOneAndUpdate(
+      { _id: id },
+      client,
+      {
+        new: true,
+      },
+    );
+    if (!updatedClient) {
+      this.logger.log(
+        `No hemos encontrado ese usuario por ese id al actualizar ${client.name}`,
+      );
+      throw new NotFoundException(`Client with ID ${id} not found`);
+    }
+    return updatedClient.toObject() as IClient;
   }
 
   async findAll(page: number, limit: number) {

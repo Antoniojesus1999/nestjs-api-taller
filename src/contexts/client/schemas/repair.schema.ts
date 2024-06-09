@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { Work, WorkSchema } from "./work.schema";
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, optimisticConcurrency: true })
 export class Repair {
   @Prop({ required: true, trim: true })
   description: string;
@@ -10,7 +10,6 @@ export class Repair {
   dateStart: Date;
   @Prop()
   dateEnd: Date;
-
   @Prop()
   fuel: number;
   @Prop()
