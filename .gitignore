@@ -6,3 +6,4 @@ coverage/
 .npm
 .nyc_output
 output.pdf
+.env
