@@ -41,8 +41,8 @@ export class PdfService {
       const img = await pdfDoc.embedPng(fs.readFileSync(imgPath));
       const imagePage = pdfDoc.getPage(0);
       imagePage.drawImage(img, {
-        x: 375,
-        y: 405,
+        x: 375.5,
+        y: 406,
         width: 187,
         height: 104,
       });
