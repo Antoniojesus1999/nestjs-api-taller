@@ -3,17 +3,10 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 @Schema({ timestamps: true })
 export class Work {
   @Prop({ trim: true })
-  nameEmployeePerformedWork: string;
+  description: string;
 
-  @Prop()
-  date: Date;
-
-  @Prop()
-  hours: number;
-  constructor(nameEmployeePerformedWork: string, date: Date, hours: number) {
-    this.nameEmployeePerformedWork = nameEmployeePerformedWork;
-    this.date = date;
-    this.hours = hours;
+  constructor(description: string) {
+    this.description = description;
   }
 }
 

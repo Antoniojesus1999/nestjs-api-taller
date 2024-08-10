@@ -14,7 +14,7 @@ export class ClientService {
     @InjectModel(Client.name) private clientModel: PaginateModel<Client>,
   ) {}
 
-  async create(client: IClient): Promise<Client> {
+  async saveClient(client: IClient): Promise<Client> {
     const newClient = new this.clientModel(client);
     return newClient.save();
   }

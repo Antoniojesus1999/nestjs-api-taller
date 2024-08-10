@@ -17,7 +17,7 @@ export class ClientDto {
   @IsOptional()
   tlfn: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEmail()
   email: string;
 

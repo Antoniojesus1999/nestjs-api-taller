@@ -9,9 +9,9 @@ export class ClientController {
     private readonly logger: Logger,
   ) {}
 
-  @Post()
-  async create(@Body() client: IClient) {
-    return this.clientService.create(client);
+  @Post("save-client")
+  async saveClient(@Body() client: IClient) {
+    return this.clientService.saveClient(client);
   }
   @Get()
   async findAll(

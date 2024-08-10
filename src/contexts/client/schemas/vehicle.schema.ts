@@ -13,6 +13,21 @@ export class Vehicle {
   @Prop({ trim: true })
   registration: string;
 
+  @Prop()
+  fuel: number;
+
+  @Prop()
+  km: number;
+
+  @Prop({ trim: true })
+  insurance: string;
+
+  @Prop({ trim: true })
+  chassis: string;
+
+  @Prop({ trim: true })
+  poliza: string;
+
   @Prop({ type: [RepairSchema] })
   repairs: Repair[];
 
@@ -20,11 +35,21 @@ export class Vehicle {
     model: string,
     brand: string,
     registration: string,
+    fuel: number,
+    km: number,
+    insurance: string,
+    chassis: string,
+    poliza: string,
     repairs: [Repair],
   ) {
     this.model = model;
     this.brand = brand;
     this.registration = registration;
+    this.fuel = fuel;
+    this.km = km;
+    this.insurance = insurance;
+    this.chassis = chassis;
+    this.poliza = poliza;
     this.repairs = repairs;
   }
 }
