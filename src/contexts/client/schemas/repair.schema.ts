@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 import { Work, WorkSchema } from "./work.schema";
+import { Damage, DamageSchema } from "./damage.schema";
 
 @Schema({ timestamps: true })
 export class Repair {
