@@ -20,6 +20,7 @@ pipeline {
               steps {
                   sh 'docker stop api-taller-pro'
                   sh 'docker rm api-taller-pro'
+                  sh 'docker rmi api-taller-pro'
                     }
                 }
 
