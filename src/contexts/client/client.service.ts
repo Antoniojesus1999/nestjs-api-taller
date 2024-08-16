@@ -58,9 +58,15 @@ export class ClientService {
     const allRepairs: IWorkAndIdClient[] = clients.docs.flatMap(client =>
       client.cars.flatMap(car =>
         car.repairs.map(repair => ({
-          description: repair.description,
           dateStart: repair.dateStart,
+          dateEnd: repair.dateEnd,
+          fuel: repair.fuel,
+          km: repair.km,
+          insurance: repair.insurance,
+          chassis: repair.chassis,
+          poliza: repair.poliza,
           works: repair.works,
+          damages: repair.damages,
           idClient: String(client._id), // Convertir a string u otro tipo adecuado
         })),
       ),

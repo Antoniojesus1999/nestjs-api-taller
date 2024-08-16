@@ -22,4 +22,4 @@ export class Damage {
   }
 }
 
-export const WorkSchema = SchemaFactory.createForClass(Work);
+export const DamageSchema = SchemaFactory.createForClass(Damage);
