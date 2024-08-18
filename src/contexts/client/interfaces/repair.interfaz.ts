@@ -1,5 +1,5 @@
-import { IWork } from "./work.interfaz";
 import { IDamage } from "./damage.interfaz";
+import { IWork } from "./work.interfaz";
 
 export interface IRepair {
   dateStart: Date;

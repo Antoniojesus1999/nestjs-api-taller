@@ -20,7 +20,7 @@ export class Taller extends Document {
   @Prop({ required: true, trim: true })
   riia: string;
   @Prop({ required: true, trim: true })
-  telefono: string
+  telefono: string;
   @Prop({ trim: true })
   fax: string;
   @Prop({ trim: true })
@@ -29,29 +29,29 @@ export class Taller extends Document {
   empleados: Empleado[];
 
   constructor(
-    cif       : string,
-    nombre    : string,
-    direccion : string,
-    cp        : string,
-    municipio : string,
-    provincia : string,
-    riia      : string,
-    telefono  : string,
-    fax       : string,
-    email     : string,
-    empleados : Empleado[],
+    cif: string,
+    nombre: string,
+    direccion: string,
+    cp: string,
+    municipio: string,
+    provincia: string,
+    riia: string,
+    telefono: string,
+    fax: string,
+    email: string,
+    empleados: Empleado[],
   ) {
     super();
-    this.cif       = cif;
-    this.nombre    = nombre;
+    this.cif = cif;
+    this.nombre = nombre;
     this.direccion = direccion;
-    this.cp        = cp;
+    this.cp = cp;
     this.municipio = municipio;
     this.provincia = provincia;
-    this.riia      = riia;
-    this.telefono  = telefono;
-    this.fax       = fax;
-    this.email     = email;
+    this.riia = riia;
+    this.telefono = telefono;
+    this.fax = fax;
+    this.email = email;
     this.empleados = empleados;
   }
 }

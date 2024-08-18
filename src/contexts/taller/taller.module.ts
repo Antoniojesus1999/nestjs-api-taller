@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
+import { Taller, TallerSchema } from "./schemas/taller.schema";
 import { TallerController } from "./taller.controller";
 import { TallerService } from "./taller.service";
-import { Taller, TallerSchema } from "./schemas/taller.schema";
 
 @Module({
   imports: [
@@ -17,5 +17,4 @@ import { Taller, TallerSchema } from "./schemas/taller.schema";
   providers: [TallerService],
   controllers: [TallerController],
 })
-
 export class TallerModule {}

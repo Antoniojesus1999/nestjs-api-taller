@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-import { Work, WorkSchema } from "./work.schema";
 import { Damage, DamageSchema } from "./damage.schema";
+import { Work, WorkSchema } from "./work.schema";
 
 @Schema({ timestamps: true })
 export class Repair {
@@ -41,7 +41,7 @@ export class Repair {
     chassis: string,
     poliza: string,
     works: [Work],
-    damages: [Damage]
+    damages: [Damage],
   ) {
     this.dateStart = dateStart;
     this.dateEnd = dateEnd;

@@ -1,8 +1,17 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Put, Query } from "@nestjs/common";
-
-import { TallerService } from "./taller.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Post,
+  Put,
+  Query,
+} from "@nestjs/common";
 import { ObjectId } from "mongoose";
+
 import { TallerDto } from "./dtos/taller.dto";
+import { TallerService } from "./taller.service";
 
 @Controller("taller")
 export class TallerController {
@@ -17,12 +26,15 @@ export class TallerController {
   }
 
   @Put("update-taller")
-  async updateTaller(@Query('idTaller') idTaller: string, @Body() taller: TallerDto) {
+  async updateTaller(
+    @Query("idTaller") idTaller: string,
+    @Body() taller: TallerDto,
+  ) {
     return this.tallerService.updateTaller(idTaller, taller);
   }
 
   @Delete("delete-taller")
-  async deleteTaller(@Query('idTaller') idTaller: ObjectId) {
+  async deleteTaller(@Query("idTaller") idTaller: ObjectId) {
     return this.tallerService.deleteTaller(idTaller);
   }
 
@@ -41,5 +53,3 @@ export class TallerController {
     return this.tallerService.findAll();
   }
 }
-
-

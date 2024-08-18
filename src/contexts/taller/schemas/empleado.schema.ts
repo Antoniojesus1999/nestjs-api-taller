@@ -6,7 +6,7 @@ export class Empleado {
   email: string;
 
   constructor(email: string) {
-    this.email   = email;
+    this.email = email;
   }
 }
 

@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, IsOptional } from "class-validator";
+
 import { EmpleadoDto } from "./empleado.dto";
 
 export class TallerDto {
@@ -37,31 +38,28 @@ export class TallerDto {
   empleados: [EmpleadoDto];
 
   constructor(
-    cif       : string,
-    nombre    : string,
-    direccion : string,
-    cp        : string,
-    municipio : string,
-    provincia : string,
-    riia      : string,
-    telefono  : string,
-    fax       : string,
-    email     : string,
-    empleados : [EmpleadoDto]   
-
+    cif: string,
+    nombre: string,
+    direccion: string,
+    cp: string,
+    municipio: string,
+    provincia: string,
+    riia: string,
+    telefono: string,
+    fax: string,
+    email: string,
+    empleados: [EmpleadoDto],
   ) {
-    this.cif       = cif;
-    this.nombre    = nombre;
+    this.cif = cif;
+    this.nombre = nombre;
     this.direccion = direccion;
-    this.cp        = cp;
+    this.cp = cp;
     this.municipio = municipio;
     this.provincia = provincia;
-    this.riia      = riia;
-    this.telefono  = telefono;
-    this.fax       = fax;
-    this.email     = email;
+    this.riia = riia;
+    this.telefono = telefono;
+    this.fax = fax;
+    this.email = email;
     this.empleados = empleados;
   }
 }
-
-

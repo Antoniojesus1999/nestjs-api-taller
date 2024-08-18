@@ -3,9 +3,9 @@ import { ConfigModule } from "@nestjs/config";
 
 import { LoggerModule } from "@core/logger/logger.module";
 
-import { ClientModule } from "./contexts/cliente/client.module";
-import { TallerModule } from "./contexts/taller/taller.module";
+import { ClientModule } from "./contexts/client/client.module";
 import { PdfModule } from "./contexts/pdf/pdf.module";
+import { TallerModule } from "./contexts/taller/taller.module";
 import { MongoModule } from "./core/mongo/mongo.module";
 
 @Module({
@@ -18,7 +18,6 @@ import { MongoModule } from "./core/mongo/mongo.module";
     PdfModule,
   ],
 })
-
 export class AppModule implements NestModule {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   configure(consumer: MiddlewareConsumer) {
@@ -29,7 +28,7 @@ export class AppModule implements NestModule {
         // { path: 'cats', method: RequestMethod.POST },
         "cats/(.*)",
       )
-      
+
       .forRoutes(ClientController);*/
   }
 }

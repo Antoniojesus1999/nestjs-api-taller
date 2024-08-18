@@ -35,9 +35,4 @@ export class ClientController {
   async findClientByIdWork(@Query("idWork") idWork: string) {
     return this.clientService.findClientByIdWork(idWork);
   }
-
-  @Get("prueba_roberto")
-  async pruebaRoberto() {
-    return "prueba Roberto";
-  }
 }
