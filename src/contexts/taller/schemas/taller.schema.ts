@@ -5,7 +5,7 @@ import { Empleado, EmpleadoSchema } from "../../taller/schemas/empleado.schema";
 
 @Schema({ collection: "talleres", timestamps: true })
 export class Taller extends Document {
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true, trim: true, unique: true })
   cif: string;
   @Prop({ required: true, trim: true })
   nombre: string;
