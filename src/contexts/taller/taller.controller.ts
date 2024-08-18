@@ -36,9 +36,12 @@ export class TallerController {
     return this.tallerService.findByEmpleado(email);
   }
 
-  @Get("find-all")
-  async findAll() {
-    return this.tallerService.findAll();
+  @Get()
+  async findAll(
+    @Query("page") page: number = 1,
+    @Query("limit") limit: number = 10,
+  ) {
+    return this.tallerService.findAll(page, limit);
   }
 }
 

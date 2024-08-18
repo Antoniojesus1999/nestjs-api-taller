@@ -1,6 +1,6 @@
-import { HttpException, HttpStatus, Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
+import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, ObjectId, Types } from "mongoose";
+import { PaginateModel, ObjectId, PaginateOptions } from "mongoose";
 
 import { Taller } from "./schemas/taller.schema";
 import { TallerDto } from "./dtos/taller.dto";
@@ -9,8 +9,12 @@ import { TallerDto } from "./dtos/taller.dto";
 export class TallerService {
   private readonly logger = new Logger(TallerService.name);
 
+  // constructor(
+  //   @InjectModel(Taller.name) private tallerModel: Model<Taller>,
+  // ) {}
+
   constructor(
-    @InjectModel(Taller.name) private tallerModel: Model<Taller>,
+    @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
   ) {}
 
   async saveTaller(taller: TallerDto): Promise<Taller> {
@@ -54,10 +58,24 @@ export class TallerService {
     return taller as Taller;
   }
 
-  async findAll(): Promise<Taller[]> {
-    const talleres = await this.tallerModel.find();
-        
-    return talleres;
+  async findAll(page: number, limit: number) {
+    const options: PaginateOptions = {
+      page: page,
+      limit: limit,
+      sort: { nombre: "asc" }, // Ordenar por el atributo "createdAt" de tipo fecha de forma descendente
+    };
+
+    try {
+      const result = await this.tallerModel.paginate({}, options);
+      return result;
+
+    } catch (error) {
+      this.logger.log(
+        `Error al hacer la petición con los parametros ${JSON.stringify(options)}`,
+      );
+      this.logger.log(error);
+      return error;
+    }
   }
 
 }
