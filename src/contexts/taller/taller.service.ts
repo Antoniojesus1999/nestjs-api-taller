@@ -1,17 +1,19 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { PaginateModel, ObjectId, PaginateOptions } from "mongoose";
+import {
+  Document,
+  ObjectId,
+  PaginateModel,
+  PaginateOptions,
+  PaginateResult,
+} from "mongoose";
 
-import { Taller } from "./schemas/taller.schema";
 import { TallerDto } from "./dtos/taller.dto";
+import { Taller } from "./schemas/taller.schema";
 
 @Injectable()
 export class TallerService {
   private readonly logger = new Logger(TallerService.name);
-
-  // constructor(
-  //   @InjectModel(Taller.name) private tallerModel: Model<Taller>,
-  // ) {}
 
   constructor(
     @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
@@ -23,14 +25,16 @@ export class TallerService {
   }
 
   async updateTaller(id: string, taller: TallerDto): Promise<Taller> {
-		const updatedTaller = await this.tallerModel.findByIdAndUpdate(id, taller, { new: true });
+    const updatedTaller = await this.tallerModel.findByIdAndUpdate(id, taller, {
+      new: true,
+    });
 
     if (!updatedTaller) {
-      throw new NotFoundException('Taller no encontrado');
+      throw new NotFoundException("Taller no encontrado");
     }
 
     return updatedTaller;
-	}
+  }
 
   async deleteTaller(idTaller: ObjectId): Promise<void> {
     await this.tallerModel.findByIdAndDelete(idTaller);
@@ -40,7 +44,7 @@ export class TallerService {
     const taller = await this.tallerModel.findOne({ cif });
 
     if (!taller) {
-      throw new NotFoundException('Taller no encontrado');
+      throw new NotFoundException("Taller no encontrado");
     }
 
     return taller as Taller;
@@ -48,11 +52,11 @@ export class TallerService {
 
   async findByEmpleado(email: string): Promise<Taller> {
     const taller = await this.tallerModel.findOne({
-      'empleados.email': email
+      "empleados.email": email,
     });
 
     if (!taller) {
-      throw new NotFoundException('Taller o empleado no encontrado');
+      throw new NotFoundException("Taller o empleado no encontrado");
     }
 
     return taller as Taller;
@@ -62,13 +66,30 @@ export class TallerService {
     const options: PaginateOptions = {
       page: page,
       limit: limit,
-      sort: { nombre: "asc" }, // Ordenar por el atributo "createdAt" de tipo fecha de forma descendente
+      sort: { cif: "asc" }, // Ordenar por el atributo "createdAt" de tipo fecha de forma descendente
     };
-
+    let result:
+      | Promise<(Document<Taller> & Taller & { _id: ObjectId })[]>
+      | Promise<
+          PaginateResult<
+            Document<PaginateOptions, Taller> & Taller & { _id: ObjectId }
+          >
+        >;
     try {
-      const result = await this.tallerModel.paginate({}, options);
-      return result;
+      if (page == -1) {
+        this.logger.log("Buscando todos los talleres sin paginar");
+        result = this.tallerModel
+          .find()
+          .sort({ cif: "asc" })
+          .collation({ locale: "es" });
+      } else {
+        this.logger.log(
+          `Buscando los talleres paginados page -> ${page} page, limit ${limit}`,
+        );
+        result = this.tallerModel.paginate({}, options);
+      }
 
+      return result;
     } catch (error) {
       this.logger.log(
         `Error al hacer la petición con los parametros ${JSON.stringify(options)}`,
