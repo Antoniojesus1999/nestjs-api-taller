@@ -10,6 +10,8 @@ import {
 
 import { TallerDto } from "./dtos/taller.dto";
 import { Taller } from "./schemas/taller.schema";
+import { IEmpleado } from "./interfaces/empleado.interfaz";
+import { ITaller } from "./interfaces/taller.interfaz";
 
 @Injectable()
 export class TallerService {
@@ -19,12 +21,12 @@ export class TallerService {
     @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
   ) {}
 
-  async saveTaller(taller: TallerDto): Promise<Taller> {
+  async saveTaller(taller: ITaller): Promise<Taller> {
     const newTaller = new this.tallerModel(taller);
     return await newTaller.save();
   }
 
-  async updateTaller(id: string, taller: TallerDto): Promise<Taller> {
+  async updateTaller(id: string, taller: ITaller): Promise<Taller> {
     const updatedTaller = await this.tallerModel.findByIdAndUpdate(id, taller, {
       new: true,
     });
@@ -34,6 +36,18 @@ export class TallerService {
     }
 
     return updatedTaller;
+  }
+
+  async addEmployeeToTaller(idTaller: string, empleado: IEmpleado): Promise<Taller> {
+    const taller = await this.tallerModel.findById(idTaller);
+
+    if (!taller) {
+      throw new NotFoundException("Taller no encontrado");
+    }
+
+    taller.empleados.push(empleado); // Add the new employee to the 'empleados' array
+
+    return await taller.save();
   }
 
   async deleteTaller(idTaller: ObjectId): Promise<void> {
@@ -98,4 +112,5 @@ export class TallerService {
       return error;
     }
   }
+
 }
