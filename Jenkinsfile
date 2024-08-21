@@ -18,8 +18,18 @@ pipeline {
 
          stage('Down nestjs-api-taller') {
               steps {
-                  sh 'docker stop api-taller-pro'
-                  sh 'docker rm api-taller-pro'
+                 try {
+                    def stopResult = sh(script: 'docker stop api-taller-pro', returnStatus: true)
+                    if (stopResult != 0) {
+                        echo "Error al detener el contenedor: ${stopResult}"
+                    }
+                    def rmResult = sh(script: 'docker rm api-taller-pro', returnStatus: true)
+                    if (rmResult != 0) {
+                        echo "Error al eliminar el contenedor: ${rmResult}"
+                    }
+                } catch (Exception e) {
+                    echo "Error general al detener y eliminar el contenedor: ${e.message}"
+                }
                     }
                 }
 
