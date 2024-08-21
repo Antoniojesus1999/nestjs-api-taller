@@ -18,13 +18,16 @@ pipeline {
 
          stage('Down nestjs-api-taller') {
               steps {
+                script{
                   try {
                     sh 'docker stop api-taller-pro'
                     sh 'docker rm api-taller-pro'
-                } catch (Exception e) {
+                  } catch (Exception e) {
                     // Si ocurre un error, simplemente lo registramos en el log
                     echo "Error al detener y eliminar el contenedor: ${e.message}"
                 }
+                }
+
                     }
                 }
 
