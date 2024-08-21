@@ -12,6 +12,8 @@ import { ObjectId } from "mongoose";
 
 import { TallerDto } from "./dtos/taller.dto";
 import { TallerService } from "./taller.service";
+import { IEmpleado } from "./interfaces/empleado.interfaz";
+import { ITaller } from "./interfaces/taller.interfaz";
 
 @Controller("taller")
 export class TallerController {
@@ -21,16 +23,24 @@ export class TallerController {
   ) {}
 
   @Post("save-taller")
-  async saveTaller(@Body() taller: TallerDto) {
+  async saveTaller(@Body() taller: ITaller) {
     return this.tallerService.saveTaller(taller);
   }
 
   @Put("update-taller")
   async updateTaller(
     @Query("idTaller") idTaller: string,
-    @Body() taller: TallerDto,
+    @Body() taller: ITaller,
   ) {
     return this.tallerService.updateTaller(idTaller, taller);
+  }
+
+  @Put("add-empleado-taller")
+  async addEmpleadoToTaller(
+    @Query("idTaller") idTaller: string,
+    @Body() empleado: IEmpleado,
+  ) {
+    return this.tallerService.addEmployeeToTaller(idTaller, empleado);
   }
 
   @Delete("delete-taller")
