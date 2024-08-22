@@ -15,7 +15,6 @@ pipeline {
              sh 'docker-compose -f /home/antonio/Escritorio/docker/docker-compose.yml up -d'
             }
         }
-
          stage('Down nestjs-api-taller') {
               steps {
                 script{
