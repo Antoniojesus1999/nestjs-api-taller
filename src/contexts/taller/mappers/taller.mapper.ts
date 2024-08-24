@@ -8,7 +8,7 @@ export class TallerMapper {
     const empleadosDto = taller.empleados?.map(empleado => this.empleadoToDto(empleado)) || [];
 
     return new TallerDto(
-      taller._id?.toString,
+      taller._id,
       taller.cif,
       taller.nombre,
       taller.direccion,

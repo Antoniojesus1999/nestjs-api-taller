@@ -58,10 +58,10 @@ export class TallerController {
     return this.tallerService.findByEmpleado(email);
   }
 
-  @Get()
+  @Get("find-all")
   async findAll(
-    @Query("page") page: number = 1,
-    @Query("limit") limit: number = 10,
+    @Query("page") page: number,
+    @Query("limit") limit: number,
   ) {
     return this.tallerService.findAll(page, limit);
   }

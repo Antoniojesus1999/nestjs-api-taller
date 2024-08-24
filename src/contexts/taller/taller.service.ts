@@ -1,7 +1,6 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import {
-  Document,
   ObjectId,
   PaginateModel,
   PaginateOptions,
@@ -77,42 +76,47 @@ export class TallerService {
     return TallerMapper.toDto(taller);
   }
 
-  async findAll(page: number, limit: number) {
-    const options: PaginateOptions = {
-      page: page,
-      limit: limit,
-      sort: { cif: "asc" }, // Ordenar por el atributo "createdAt" de tipo fecha de forma descendente
-    };
-    let result:
-      | Promise<(Document<Taller> & Taller & { _id: ObjectId })[]>
-      | Promise<
-          PaginateResult<
-            Document<PaginateOptions, Taller> & Taller & { _id: ObjectId }
-          >
-        >;
-    try {
-      if (page == -1) {
-        this.logger.log("Buscando todos los talleres sin paginar");
-        result = this.tallerModel
-          .find()
-          .sort({ cif: "asc" })
-          .collation({ locale: "es" });
-      } else {
-        this.logger.log(
-          `Buscando los talleres paginados page -> ${page} page, limit ${limit}`,
-        );
-        result = this.tallerModel.paginate({}, options);
-      }
+async findAll(page: number, limit: number): Promise<TallerDto[] | PaginateResult<TallerDto>> {
+  const options: PaginateOptions = {
+    page: page,
+    limit: limit,
+    sort: { createdAt: "desc" }, // Ordenar por "createdAt" de forma descendente
+  };
 
-      return result;
+  try {
+    let result;
 
-    } catch (error) {
-      this.logger.log(
-        `Error al hacer la petición con los parametros ${JSON.stringify(options)}`,
-      );
-      this.logger.log(error);
-      return error;
+    if (page == 0) {
+      this.logger.log("Buscando todos los talleres sin paginar");
+      const talleres = await this.tallerModel
+        .find()
+        .sort({ cif: "asc" })
+        .collation({ locale: "es" })
+        .exec();
+
+      // Mapear los documentos Taller a TallerDto
+      result = talleres.map((taller) => TallerMapper.toDto(taller));
+    } else {
+      this.logger.log(`Buscando los talleres paginados page -> ${page}, limit ${limit}`);
+      const paginatedResult = await this.tallerModel.paginate({}, options);
+
+      // Crear un nuevo objeto PaginateResult<TallerDto>
+      const dtoPaginatedResult: PaginateResult<TallerDto> = {
+        ...paginatedResult,
+        docs: paginatedResult.docs.map((taller) => TallerMapper.toDto(taller)),
+      };
+
+      result = dtoPaginatedResult;
     }
+
+    return result;
+  } catch (error) {
+    this.logger.error(
+      `Error al hacer la petición con los parámetros ${JSON.stringify(options)}`,
+    );
+    this.logger.error(error);
+    throw error;
   }
+}
 
 }
