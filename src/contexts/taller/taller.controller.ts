@@ -65,4 +65,10 @@ export class TallerController {
   ) {
     return this.tallerService.findAll(page, limit);
   }
+
+  @Get("find-reparaciones-by-taller")
+  async findReparacionesByTaller(@Query("idTaller") idTaller: string) {
+    return this.tallerService.findReparacionesByTallerId(idTaller);
+  }
+
 }

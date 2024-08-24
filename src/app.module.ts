@@ -8,6 +8,7 @@ import { TallerModule } from "./contexts/taller/taller.module";
 import { MongoModule } from "./core/mongo/mongo.module";
 import { VehiculoModule } from "./contexts/vehiculo/vehiculo.module";
 import { ClienteModule } from "./contexts/cliente/cliente.module";
+import { ReparacionModule } from "./contexts/reparacion/reparacion.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ClienteModule } from "./contexts/cliente/cliente.module";
     TallerModule,
     VehiculoModule,
     ClienteModule,
+    ReparacionModule,
     MongoModule,
     PdfModule,
   ],

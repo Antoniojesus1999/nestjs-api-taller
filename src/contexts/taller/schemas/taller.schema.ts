@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
 import { Empleado, EmpleadoSchema } from "../../taller/schemas/empleado.schema";
+import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
 
 @Schema({ collection: "talleres", timestamps: true })
 export class Taller extends Document {
@@ -31,6 +32,7 @@ export class Taller extends Document {
   updatedAt: Date;
   @Prop({ type: [EmpleadoSchema] })
   empleados: Empleado[];
+  reparaciones?: Reparacion[];
 
   constructor(
     cif: string,
@@ -65,3 +67,9 @@ export class Taller extends Document {
 }
 
 export const TallerSchema = SchemaFactory.createForClass(Taller);
+
+TallerSchema.virtual('reparaciones', {
+  ref: 'Reparacion',  // El nombre del modelo de referencia
+  localField: '_id',  // El campo local en el schema de Taller
+  foreignField: 'taller',  // El campo en Reparacion que almacena la referencia
+});

@@ -1,6 +1,8 @@
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 import { EmpleadoDto } from "./empleado.dto";
+import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
+import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
 export class TallerDto {
   @IsOptional()
@@ -48,6 +50,9 @@ export class TallerDto {
   @IsOptional()
   empleados: [EmpleadoDto];
 
+  @IsOptional()
+  reparaciones: [ReparacionDto];
+
   constructor(
     id: string,
     cif: string,
@@ -62,7 +67,9 @@ export class TallerDto {
     email: string,
     createdAt: Date,
     updatedAt: Date,
-    empleados: [EmpleadoDto]
+    empleados: [EmpleadoDto],
+    reparaciones: [ReparacionDto]
+  
   ) {
     this.id = id;
     this.cif = cif;
@@ -78,5 +85,6 @@ export class TallerDto {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.empleados = empleados;
+    this.reparaciones = reparaciones
   }
 }

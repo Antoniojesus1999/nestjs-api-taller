@@ -2,10 +2,13 @@ import { Taller } from "../schemas/taller.schema";
 import { TallerDto } from "../dtos/taller.dto";
 import { Empleado } from "../schemas/empleado.schema";
 import { EmpleadoDto } from "../dtos/empleado.dto";
+import { ReparacionMapper } from "@src/contexts/reparacion/mappers/reparacion.mapper";
+import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
 export class TallerMapper {
   static toDto(taller: Taller): TallerDto {
     const empleadosDto = taller.empleados?.map(empleado => this.empleadoToDto(empleado)) || [];
+    const reparacionesDto = taller.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)) || [];
 
     return new TallerDto(
       taller._id,
@@ -22,6 +25,7 @@ export class TallerMapper {
       taller.createdAt,
       taller.updatedAt,
       empleadosDto as [EmpleadoDto],
+      reparacionesDto as [ReparacionDto]
     );
   }
 

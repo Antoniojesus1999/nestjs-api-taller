@@ -1,6 +1,8 @@
+import { IReparacion } from "@src/contexts/reparacion/interfaces/reparacion.interfaz";
 import { IEmpleado } from "./empleado.interfaz";
 
 export interface ITaller {
+  id: string;
   cif: string;
   nombre: string;
   direccion: string;
@@ -12,4 +14,5 @@ export interface ITaller {
   fax: string;
   email: string;
   empleados: IEmpleado[];
+  reparaciones: IReparacion[];
 }

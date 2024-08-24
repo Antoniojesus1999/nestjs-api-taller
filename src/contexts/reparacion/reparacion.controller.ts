@@ -1,0 +1,58 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Post,
+  Put,
+  Query,
+} from "@nestjs/common";
+import { ObjectId } from "mongoose";
+import { ReparacionService } from "./reparacion.service";
+import { IReparacion } from "./interfaces/reparacion.interfaz";
+import { ITrabajo } from "./interfaces/trabajo.interfaz";
+import { IDanyo } from "./interfaces/danyo.interfaz";
+
+@Controller("reparacion")
+export class ReparacionController {
+  constructor(
+    private reparacionService: ReparacionService,
+    private readonly logger: Logger,
+  ) {}
+
+  @Post("save-reparacion")
+  async saveReparacion(@Body() reparacion: IReparacion) {
+    return this.reparacionService.saveReparacion(reparacion);
+  }
+
+  @Put("update-reparacion")
+  async updateReparacion(
+    @Query("idReparacion") idReparacion: string,
+    @Body() reparacion: IReparacion,
+  ) {
+    return this.reparacionService.updateReparacion(idReparacion, reparacion);
+  }
+
+  @Put("add-trabajo-raparacion")
+  async addTrabajoToReparacion(
+    @Query("idReparacion") idReparacion: string,
+    @Body() trabajo: ITrabajo,
+  ) {
+    return this.reparacionService.addTrabajoToReparacion(idReparacion, trabajo);
+  }
+
+  @Put("add-danyo-raparacion")
+  async addDanyoToReparacion(
+    @Query("idReparacion") idReparacion: string,
+    @Body() danyo: IDanyo,
+  ) {
+    return this.reparacionService.addDanyoToReparacion(idReparacion, danyo);
+  }
+
+  @Delete("delete-reparacion")
+  async deleteReparacion(@Query("idReparacion") idReparacion: ObjectId) {
+    return this.reparacionService.deleteReparacion(idReparacion);
+  }
+
+}
