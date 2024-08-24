@@ -12,6 +12,7 @@ import { TallerDto } from "./dtos/taller.dto";
 import { Taller } from "./schemas/taller.schema";
 import { IEmpleado } from "./interfaces/empleado.interfaz";
 import { ITaller } from "./interfaces/taller.interfaz";
+import { TallerMapper } from "./mappers/taller.mapper";
 
 @Injectable()
 export class TallerService {
@@ -21,12 +22,12 @@ export class TallerService {
     @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
   ) {}
 
-  async saveTaller(taller: ITaller): Promise<Taller> {
+  async saveTaller(taller: ITaller): Promise<TallerDto> {
     const newTaller = new this.tallerModel(taller);
-    return await newTaller.save();
+    return TallerMapper.toDto(await newTaller.save());
   }
 
-  async updateTaller(id: string, taller: ITaller): Promise<Taller> {
+  async updateTaller(id: string, taller: ITaller): Promise<TallerDto> {
     const updatedTaller = await this.tallerModel.findByIdAndUpdate(id, taller, {
       new: true,
     });
@@ -35,10 +36,10 @@ export class TallerService {
       throw new NotFoundException("Taller no encontrado");
     }
 
-    return updatedTaller;
+    return TallerMapper.toDto(updatedTaller);
   }
 
-  async addEmployeeToTaller(idTaller: string, empleado: IEmpleado): Promise<Taller> {
+  async addEmployeeToTaller(idTaller: string, empleado: IEmpleado): Promise<TallerDto> {
     const taller = await this.tallerModel.findById(idTaller);
 
     if (!taller) {
@@ -47,24 +48,24 @@ export class TallerService {
 
     taller.empleados.push(empleado); // Add the new employee to the 'empleados' array
 
-    return await taller.save();
+    return TallerMapper.toDto(await taller.save());
   }
 
   async deleteTaller(idTaller: ObjectId): Promise<void> {
     await this.tallerModel.findByIdAndDelete(idTaller);
   }
 
-  async findTallerByCif(cif: string): Promise<Taller> {
+  async findTallerByCif(cif: string): Promise<TallerDto> {
     const taller = await this.tallerModel.findOne({ cif });
 
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
 
-    return taller as Taller;
+    return TallerMapper.toDto(taller);
   }
 
-  async findByEmpleado(email: string): Promise<Taller> {
+  async findByEmpleado(email: string): Promise<TallerDto> {
     const taller = await this.tallerModel.findOne({
       "empleados.email": email,
     });
@@ -73,7 +74,7 @@ export class TallerService {
       throw new NotFoundException("Taller o empleado no encontrado");
     }
 
-    return taller as Taller;
+    return TallerMapper.toDto(taller);
   }
 
   async findAll(page: number, limit: number) {
@@ -104,6 +105,7 @@ export class TallerService {
       }
 
       return result;
+
     } catch (error) {
       this.logger.log(
         `Error al hacer la petición con los parametros ${JSON.stringify(options)}`,

@@ -25,6 +25,10 @@ export class Taller extends Document {
   fax: string;
   @Prop({ trim: true })
   email: string;
+  @Prop({ default: Date.now })
+  createdAt: Date;
+  @Prop({ default: Date.now })
+  updatedAt: Date;
   @Prop({ type: [EmpleadoSchema] })
   empleados: Empleado[];
 
@@ -39,6 +43,8 @@ export class Taller extends Document {
     telefono: string,
     fax: string,
     email: string,
+    createdAt: Date,
+    updatedAt: Date,
     empleados: Empleado[],
   ) {
     super();
@@ -52,6 +58,8 @@ export class Taller extends Document {
     this.telefono = telefono;
     this.fax = fax;
     this.email = email;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
     this.empleados = empleados;
   }
 }
