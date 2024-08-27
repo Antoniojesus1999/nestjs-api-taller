@@ -1,6 +1,9 @@
 export interface IVehiculo {
-  matricula: string;
-  marca    : string;
-  modelo   : string;
+  id: string;
+  matricula : string;
+  marca     : string;
+  modelo    : string;
+  createdAt : Date;
+  updatedAt : Date;
 
 }

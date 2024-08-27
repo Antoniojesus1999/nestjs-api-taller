@@ -9,17 +9,24 @@ export class Vehiculo extends Document {
   marca: string;
   @Prop({ required: true, trim: true })
   modelo: string;
+  @Prop({ default: Date.now })
+  createdAt: Date;
+  @Prop({ default: Date.now })
+  updatedAt: Date;
  
   constructor(
     matricula : string,
     marca     : string,
-    modelo    : string
-
+    modelo    : string,
+    createdAt : Date,
+    updatedAt : Date,
    ) {
     super();
     this.matricula = matricula;
     this.marca     = marca;
     this.modelo    = modelo;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
 
   }
 }

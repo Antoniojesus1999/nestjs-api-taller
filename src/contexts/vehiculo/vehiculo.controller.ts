@@ -26,15 +26,12 @@ export class VehiculoController {
   }
 
   @Put("update-vehiculo")
-  async updateVehiculo(
-    @Query("idVehiculo") idVehiculo: string,
-    @Body() vehiculo: IVehiculo,
-  ) {
-    return this.vehiculoService.updateVehiculo(idVehiculo, vehiculo);
+  async updateVehiculo( @Body() vehiculo: IVehiculo) {
+    return this.vehiculoService.updateVehiculo(vehiculo.id, vehiculo);
   }
 
   @Delete("delete-vehiculo")
-  async deleteVehiculo(@Query("idVehiculo") idVehiculo: ObjectId) {
+  async deleteVehiculo(@Query("idVehiculo") idVehiculo: string) {
     return this.vehiculoService.deleteVehículo(idVehiculo);
   }
 
@@ -43,7 +40,7 @@ export class VehiculoController {
     return this.vehiculoService.findVehiculoByMatricula(matricula);
   }
 
-  @Get()
+  @Get("find-all")
   async findAll() {
     return this.vehiculoService.findAll();
   }
