@@ -31,7 +31,7 @@ export class Taller extends Document {
   @Prop({ default: Date.now })
   updatedAt: Date;
   @Prop({ type: [EmpleadoSchema] })
-  empleados: Empleado[];
+  empleados?: Empleado[];
   reparaciones?: Reparacion[];
 
   constructor(
@@ -47,7 +47,6 @@ export class Taller extends Document {
     email: string,
     createdAt: Date,
     updatedAt: Date,
-    empleados: Empleado[],
   ) {
     super();
     this.cif = cif;
@@ -62,7 +61,6 @@ export class Taller extends Document {
     this.email = email;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
-    this.empleados = empleados;
   }
 }
 
@@ -73,3 +71,7 @@ TallerSchema.virtual('reparaciones', {
   localField: '_id',  // El campo local en el schema de Taller
   foreignField: 'taller',  // El campo en Reparacion que almacena la referencia
 });
+
+// Habilitar las propiedades virtuales
+TallerSchema.set('toObject', { virtuals: true });
+TallerSchema.set('toJSON', { virtuals: true });

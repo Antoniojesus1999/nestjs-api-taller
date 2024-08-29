@@ -10,10 +10,10 @@ import {
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
 
-import { TallerDto } from "./dtos/taller.dto";
 import { TallerService } from "./taller.service";
 import { IEmpleado } from "./interfaces/empleado.interfaz";
 import { ITaller } from "./interfaces/taller.interfaz";
+import { AddEmpleadoDto } from "./dtos/addEmpleado.dto";
 
 @Controller("taller")
 export class TallerController {
@@ -28,23 +28,18 @@ export class TallerController {
   }
 
   @Put("update-taller")
-  async updateTaller(
-    @Query("idTaller") idTaller: string,
-    @Body() taller: ITaller,
-  ) {
-    return this.tallerService.updateTaller(idTaller, taller);
+  async updateTaller(@Body() taller: ITaller) {
+    return this.tallerService.updateTaller(taller.id, taller);
   }
 
   @Put("add-empleado-taller")
-  async addEmpleadoToTaller(
-    @Query("idTaller") idTaller: string,
-    @Body() empleado: IEmpleado,
-  ) {
-    return this.tallerService.addEmployeeToTaller(idTaller, empleado);
+  async addEmpleadoToTaller(@Body() addEmpleadoDto: AddEmpleadoDto) {
+    const {idTaller, email} = addEmpleadoDto;
+    return this.tallerService.addEmployeeToTaller(idTaller, email);
   }
 
   @Delete("delete-taller")
-  async deleteTaller(@Query("idTaller") idTaller: ObjectId) {
+  async deleteTaller(@Query("idTaller") idTaller: string) {
     return this.tallerService.deleteTaller(idTaller);
   }
 

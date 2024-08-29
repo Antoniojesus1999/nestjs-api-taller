@@ -15,4 +15,6 @@ export interface ITaller {
   email: string;
   empleados: IEmpleado[];
   reparaciones: IReparacion[];
+  createdAt : Date;
+  updatedAt : Date;
 }

@@ -1,7 +1,6 @@
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 import { EmpleadoDto } from "./empleado.dto";
-import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
 export class TallerDto {

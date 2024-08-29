@@ -44,8 +44,7 @@ export class TallerMapper {
         tallerDto.fax,
         tallerDto.email,
         tallerDto.createdAt,
-        tallerDto.updatedAt,
-        empleados as Empleado[]
+        tallerDto.updatedAt
       );
   
       if (tallerDto.id) {

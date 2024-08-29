@@ -14,6 +14,7 @@ import { ITaller } from "./interfaces/taller.interfaz";
 import { TallerMapper } from "./mappers/taller.mapper";
 import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
+import { Empleado } from "./schemas/empleado.schema";
 
 @Injectable()
 export class TallerService {
@@ -40,19 +41,25 @@ export class TallerService {
     return TallerMapper.toDto(updatedTaller);
   }
 
-  async addEmployeeToTaller(idTaller: string, empleado: IEmpleado): Promise<TallerDto> {
+  async addEmployeeToTaller(idTaller: string, email: string): Promise<TallerDto> {
     const taller = await this.tallerModel.findById(idTaller);
 
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
 
-    taller.empleados.push(empleado); // Add the new employee to the 'empleados' array
-
+    if (taller.empleados != null) {
+      taller.empleados.push(new Empleado(email));
+    } else {
+      const empleados = new Array();
+      empleados.push(new Empleado(email));
+      taller.empleados = empleados;
+    }
+    
     return TallerMapper.toDto(await taller.save());
   }
 
-  async deleteTaller(idTaller: ObjectId): Promise<void> {
+  async deleteTaller(idTaller: string): Promise<void> {
     await this.tallerModel.findByIdAndDelete(idTaller);
   }
 
@@ -128,7 +135,7 @@ export class TallerService {
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
-
+    this.logger.log("taller reparaciones : " + JSON.stringify(taller));
     return taller.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)); // Devolver las reparaciones asociadas al taller
   }
 
