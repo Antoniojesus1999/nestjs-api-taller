@@ -11,7 +11,7 @@ export interface IReparacion {
   chasis: string;
   trabajos: ITrabajo[];
   danyos: IDanyo[];
-  taller: ObjectId;
+  taller: string;
   createdAt: Date;
   updatedAt: Date;
 }

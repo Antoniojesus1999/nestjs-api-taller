@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import {
   ObjectId,
   PaginateModel,
+  Types,
 } from "mongoose";
 import { Reparacion } from "./schemas/reparacion.schema";
 import { IReparacion } from "./interfaces/reparacion.interfaz";
@@ -21,6 +22,7 @@ export class ReparacionService {
 
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
     const newReparacion = new this.reparacionModel(reparacion);
+    newReparacion.taller = new Types.ObjectId(reparacion.taller);
     return ReparacionMapper.toDto(await newReparacion.save());
   }
 
