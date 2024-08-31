@@ -1,6 +1,9 @@
-import { IsEmail, IsNotEmpty, IsOptional } from "class-validator";
+import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 export class ClienteDto {
+  @IsOptional()
+  id: string;
+
   @IsNotEmpty()
   nif: string;
 
@@ -20,19 +23,33 @@ export class ClienteDto {
   @IsEmail()
   email: string;
 
+  @IsOptional()
+  @IsDate()
+  createdAt: Date;
+
+  @IsOptional()
+  @IsDate()
+  updatedAt: Date;
+
   constructor(
-    nif       : string,
-    nombre    : string,
-    apellido_1: string,
-    apellido_2: string,
-    telefono  : string,
-    email     : string,
+    id         : string,
+    nif        : string,
+    nombre     : string,
+    apellido_1 : string,
+    apellido_2 : string,
+    telefono   : string,
+    email      : string,
+    createdAt  : Date,
+    updatedAt  : Date,
   ) {
+    this.id         = id;
     this.nif        = nif;
     this.nombre     = nombre;
     this.apellido_1 = apellido_1;
     this.apellido_2 = apellido_2;
     this.telefono   = telefono;
     this.email      = email;
+    this.createdAt  = createdAt;
+    this.updatedAt  = updatedAt;
   }
 }

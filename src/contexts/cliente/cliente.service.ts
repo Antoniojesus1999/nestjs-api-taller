@@ -4,6 +4,8 @@ import { ObjectId, PaginateModel, PaginateOptions, PaginateResult } from "mongoo
 
 import { ICliente} from "./interfaces/cliente.interfaz";
 import { Cliente } from "./schemas/cliente.schema";
+import { ClienteMapper } from "./mappers/cliente.mapper";
+import { ClienteDto } from "./dtos/cliente.dto";
 
 @Injectable()
 export class ClienteService {
@@ -13,12 +15,12 @@ export class ClienteService {
     @InjectModel(Cliente.name) private clienteModel: PaginateModel<Cliente>,
   ) {}
 
-  async saveCliente(cliente: ICliente): Promise<Cliente> {
+  async saveCliente(cliente: ICliente): Promise<ClienteDto> {
     const newCliente = new this.clienteModel(cliente);
-    return newCliente.save();
+    return ClienteMapper.toDto(await newCliente.save());
   }
 
-  async updateCliente(id: string, cliente: ICliente): Promise<Cliente> {
+  async updateCliente(id: string, cliente: ICliente): Promise<ClienteDto> {
     const updatedCliente = await this.clienteModel.findByIdAndUpdate(id, cliente, {
       new: true,
     });
@@ -27,44 +29,21 @@ export class ClienteService {
       throw new NotFoundException("Cliente no encontrado");
     }
 
-    return updatedCliente;
+    return ClienteMapper.toDto(updatedCliente);
   }
 
-  async deleteCliente(idCliente: ObjectId): Promise<void> {
+  async deleteCliente(idCliente: string): Promise<void> {
     await this.clienteModel.findByIdAndDelete(idCliente);
   }
 
-  async findClieeteByNif(nif: string): Promise<Cliente> {
+  async findClieeteByNif(nif: string): Promise<ClienteDto> {
     const cliente = await this.clienteModel.findOne({ nif });
 
     if (!cliente) {
       throw new NotFoundException("Cliente no encontrado");
     }
 
-    return cliente as Cliente;
+    return ClienteMapper.toDto(cliente);
   }
 
-  async findAll(page: number, limit: number) {
-    const options: PaginateOptions = {
-      page: page,
-      limit: limit,
-      sort: { createdAt: "desc" }, // Ordenar por el atributo "createdAt" de tipo fecha de forma descendente
-    };
-    this.logger.log(
-      `Se va a buscar todos los clientes por con los parametros ${JSON.stringify(options)}`,
-    );
-
-    try {
-      const result = await this.clienteModel.paginate({}, options);
-      return result;
-    } catch (error) {
-      this.logger.log(
-        `Error al hacer la petición con los parametros ${JSON.stringify(options)}`,
-      );
-      this.logger.log(error);
-      return error;
-    }
-  }
-  
-  
 }

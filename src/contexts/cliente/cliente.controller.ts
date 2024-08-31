@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Logger, Post, Put, Query } from "@nestjs
 
 import { ClienteService } from "./cliente.service";
 import { ICliente} from "./interfaces/cliente.interfaz";
-import { ObjectId } from "mongoose";
 @Controller("cliente")
 export class ClienteController {
   constructor(
@@ -16,29 +15,18 @@ export class ClienteController {
   }
 
   @Put("update-cliente")
-  async updateCliente(
-    @Query("idCliente") idCliente: string,
-    @Body() cliente: ICliente,
-  ) {
-    return this.clienteService.updateCliente(idCliente, cliente);
+  async updateCliente(@Body() cliente: ICliente) {
+    return this.clienteService.updateCliente(cliente.id, cliente);
   }
 
   @Delete("delete-cliente")
-  async deleteCliente(@Query("idCliente") idCliente: ObjectId) {
+  async deleteCliente(@Query("idCliente") idCliente: string) {
     return this.clienteService.deleteCliente(idCliente);
   }
 
   @Get("find-cliente-by-nif")
   async findClienteByNif(@Query("nif") nif: string) {
     return this.clienteService.findClieeteByNif(nif);
-  }
-
-  @Get()
-  async findAll(
-    @Query("page") page: number = 1,
-    @Query("limit") limit: number = 10,
-  ) {
-    return this.clienteService.findAll(page, limit);
   }
 
 }
