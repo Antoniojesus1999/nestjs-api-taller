@@ -12,6 +12,7 @@ export interface IReparacion {
   danyos: IDanyo[];
   taller: string;
   cliente: string;
+  vehiculo: string;
   createdAt: Date;
   updatedAt: Date;
 }

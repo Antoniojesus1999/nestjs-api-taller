@@ -26,13 +26,13 @@ export class Taller extends Document {
   fax: string;
   @Prop({ trim: true })
   email: string;
+  @Prop({ type: [EmpleadoSchema] })
+  empleados?: Empleado[];
+  reparaciones?: Reparacion[];
   @Prop({ default: Date.now })
   createdAt: Date;
   @Prop({ default: Date.now })
   updatedAt: Date;
-  @Prop({ type: [EmpleadoSchema] })
-  empleados?: Empleado[];
-  reparaciones?: Reparacion[];
 
   constructor(
     cif: string,

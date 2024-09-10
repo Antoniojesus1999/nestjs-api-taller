@@ -44,4 +44,10 @@ export class VehiculoController {
   async findAll() {
     return this.vehiculoService.findAll();
   }
+
+  @Get("find-reparaciones-by-vehiculo")
+  async findReparacionesByVehiculo(@Query("idVehiculo") idVehiculo: string) {
+    return this.vehiculoService.findReparacionesByVehiculoId(idVehiculo);
+  }
+
 }

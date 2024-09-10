@@ -6,6 +6,8 @@ import { Vehiculo } from "./schemas/vehiculo.schema";
 import { IVehiculo } from "./interfaces/vehiculo.interfaz";
 import { VehiculoMapper } from "./mappers/vehiculo.mapper";
 import { VehiculoDto } from "./dtos/vehiculo.dto";
+import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
+import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
 
 @Injectable()
 export class VehiculoService {
@@ -51,6 +53,17 @@ export class VehiculoService {
     const vehiculos = await this.vehiculoModel.find();
 
     return vehiculos.map(vehiculo => VehiculoMapper.toDto(vehiculo));
+  }
+
+  async findReparacionesByVehiculoId(idVehiculo: string): Promise<ReparacionDto[] | undefined> {
+    // Buscar el taller por su ID y poblar las reparaciones
+    const vehiculo = await this.vehiculoModel.findById(idVehiculo).populate('reparaciones').exec();
+
+    if (!vehiculo) {
+      throw new NotFoundException("Taller no encontrado");
+    }
+
+    return vehiculo.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)); // Devolver las reparaciones asociadas al vehiculo
   }
 
 }

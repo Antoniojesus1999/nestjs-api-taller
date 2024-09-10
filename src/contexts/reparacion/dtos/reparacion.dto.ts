@@ -35,6 +35,9 @@ export class ReparacionDto {
   @IsNotEmpty()
   cliente: Types.ObjectId;
 
+  @IsNotEmpty()
+  vehiculo: Types.ObjectId;
+  
   @IsOptional()
   @IsDate()
   createdAt: Date;
@@ -54,6 +57,7 @@ export class ReparacionDto {
     danyos: [DanyoDto],
     taller: Types.ObjectId,
     cliente: Types.ObjectId,
+    vehiculo: Types.ObjectId,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -66,6 +70,7 @@ export class ReparacionDto {
     this.trabajos = trabajos;
     this.danyos = danyos;
     this.taller = taller;
+    this.vehiculo = vehiculo;
     this.cliente = cliente;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

@@ -24,6 +24,8 @@ export class ReparacionService {
     const newReparacion = new this.reparacionModel(reparacion);
     newReparacion.taller = new Types.ObjectId(reparacion.taller);
     newReparacion.cliente = new Types.ObjectId(reparacion.cliente);
+    newReparacion.vehiculo = new Types.ObjectId(reparacion.vehiculo);
+    
     return ReparacionMapper.toDto(await newReparacion.save());
   }
 

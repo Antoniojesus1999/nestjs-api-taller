@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
 import { Document } from "mongoose";
 
 @Schema({ collection: "vehiculos", timestamps: true })
@@ -9,6 +10,7 @@ export class Vehiculo extends Document {
   marca: string;
   @Prop({ required: true, trim: true })
   modelo: string;
+  reparaciones?: Reparacion[];
   @Prop({ default: Date.now })
   createdAt: Date;
   @Prop({ default: Date.now })
@@ -32,3 +34,12 @@ export class Vehiculo extends Document {
 }
 
 export const VehiculoSchema = SchemaFactory.createForClass(Vehiculo);
+
+VehiculoSchema.virtual('reparaciones', {
+  ref: 'Reparacion',  // El nombre del modelo de referencia
+  localField: '_id',  // El campo local en el schema de Vehiculo
+  foreignField: 'vehiculo',  // El campo en Reparacion que almacena la referencia
+});
+
+VehiculoSchema.set('toObject', { virtuals: true });
+VehiculoSchema.set('toJSON', { virtuals: true });
