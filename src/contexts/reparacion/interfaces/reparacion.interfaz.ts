@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { IDanyo } from "./danyo.interfaz";
 import { ITrabajo } from "./trabajo.interfaz";
 

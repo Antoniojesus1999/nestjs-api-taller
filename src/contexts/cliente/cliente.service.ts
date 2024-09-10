@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { ObjectId, PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
+import { ObjectId, PaginateModel, PaginateOptions, PaginateResult, Types } from "mongoose";
 
 import { ICliente} from "./interfaces/cliente.interfaz";
 import { Cliente } from "./schemas/cliente.schema";
@@ -36,7 +36,7 @@ export class ClienteService {
     await this.clienteModel.findByIdAndDelete(idCliente);
   }
 
-  async findClieeteByNif(nif: string): Promise<ClienteDto> {
+  async findClienteByNif(nif: string): Promise<ClienteDto> {
     const cliente = await this.clienteModel.findOne({ nif });
 
     if (!cliente) {
@@ -44,6 +44,12 @@ export class ClienteService {
     }
 
     return ClienteMapper.toDto(cliente);
+  }
+
+  async findClienteByIds(ids: Types.ObjectId[]): Promise<ClienteDto[]> {
+    const clientes = await this.clienteModel.find({ _id: {$in : ids }});
+
+    return clientes.map(cliente => ClienteMapper.toDto(cliente));
   }
 
 }

@@ -26,7 +26,7 @@ export class ClienteController {
 
   @Get("find-cliente-by-nif")
   async findClienteByNif(@Query("nif") nif: string) {
-    return this.clienteService.findClieeteByNif(nif);
+    return this.clienteService.findClienteByNif(nif);
   }
 
 }

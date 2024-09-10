@@ -1,17 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId, SchemaTypes } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema()
 export class TallerCliente extends Document {
-  @Prop({ type: [SchemaTypes.ObjectId], ref: 'Taller' })
-  idTaller: ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'Taller' })
+  idTaller: Types.ObjectId;
 
-  @Prop({ type: [SchemaTypes.ObjectId], ref: 'Cliente' })
-  idCliente: ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'Cliente' })
+  idCliente: Types.ObjectId;
 
   constructor(
-    idTaller  : ObjectId,
-    idCliente : ObjectId,
+    idTaller  : Types.ObjectId,
+    idCliente : Types.ObjectId,
   ) {
     super();
     this.idTaller  = idTaller;
