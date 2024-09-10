@@ -21,6 +21,8 @@ export class Reparacion extends Document {
   danyos: Danyo[];
   @Prop({ type: Types.ObjectId, ref: 'Taller', required: true })
   taller: Types.ObjectId; 
+  @Prop({ type: Types.ObjectId, ref: 'Cliente', required: true })
+  cliente: Types.ObjectId; 
   @Prop({ default: Date.now })
   createdAt: Date;
   @Prop({ default: Date.now })
@@ -35,6 +37,7 @@ export class Reparacion extends Document {
     trabajos: Trabajo[],
     danyos: Danyo[],
     taller: Types.ObjectId,
+    cliente: Types.ObjectId,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -47,6 +50,7 @@ export class Reparacion extends Document {
     this.trabajos = trabajos;
     this.danyos = danyos;
     this.taller = taller;
+    this.cliente = cliente;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

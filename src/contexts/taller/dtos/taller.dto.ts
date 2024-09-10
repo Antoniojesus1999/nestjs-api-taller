@@ -39,18 +39,18 @@ export class TallerDto {
   email: string;
 
   @IsOptional()
+  empleados: [EmpleadoDto];
+
+  @IsOptional()
+  reparaciones: [ReparacionDto];
+
+  @IsOptional()
   @IsDate()
   createdAt: Date;
 
   @IsOptional()
   @IsDate()
   updatedAt: Date;
-
-  @IsOptional()
-  empleados: [EmpleadoDto];
-
-  @IsOptional()
-  reparaciones: [ReparacionDto];
 
   constructor(
     id: string,
@@ -64,11 +64,10 @@ export class TallerDto {
     telefono: string,
     fax: string,
     email: string,
-    createdAt: Date,
-    updatedAt: Date,
     empleados: [EmpleadoDto],
-    reparaciones: [ReparacionDto]
-  
+    reparaciones: [ReparacionDto],
+    createdAt: Date,
+    updatedAt: Date
   ) {
     this.id = id;
     this.cif = cif;
@@ -81,9 +80,9 @@ export class TallerDto {
     this.telefono = telefono;
     this.fax = fax;
     this.email = email;
+    this.empleados = empleados;
+    this.reparaciones = reparaciones;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
-    this.empleados = empleados;
-    this.reparaciones = reparaciones
   }
 }

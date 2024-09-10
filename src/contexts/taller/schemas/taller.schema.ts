@@ -45,6 +45,7 @@ export class Taller extends Document {
     telefono: string,
     fax: string,
     email: string,
+    empleados: [Empleado],
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -59,6 +60,7 @@ export class Taller extends Document {
     this.telefono = telefono;
     this.fax = fax;
     this.email = email;
+    this.empleados = empleados;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

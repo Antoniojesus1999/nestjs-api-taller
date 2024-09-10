@@ -23,6 +23,7 @@ export class ReparacionService {
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
     const newReparacion = new this.reparacionModel(reparacion);
     newReparacion.taller = new Types.ObjectId(reparacion.taller);
+    newReparacion.cliente = new Types.ObjectId(reparacion.cliente);
     return ReparacionMapper.toDto(await newReparacion.save());
   }
 

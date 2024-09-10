@@ -1,8 +1,12 @@
+import { ReparacionMapper } from "@src/contexts/reparacion/mappers/reparacion.mapper";
 import { ClienteDto } from "../dtos/cliente.dto";
 import { Cliente } from "../schemas/cliente.schema";
+import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
 export class ClienteMapper {
   static toDto(cliente: Cliente): ClienteDto {
+
+    const reparacionesDto = cliente.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)) || [];
 
     return new ClienteDto(
       cliente._id,
@@ -12,6 +16,7 @@ export class ClienteMapper {
       cliente.apellido_2,
       cliente.telefono,
       cliente.email,
+      reparacionesDto as [ReparacionDto],
       cliente.createdAt,
       cliente.updatedAt
     );

@@ -22,10 +22,10 @@ export class TallerMapper {
       taller.telefono,
       taller.fax,
       taller.email,
-      taller.createdAt,
-      taller.updatedAt,
       empleadosDto as [EmpleadoDto],
-      reparacionesDto as [ReparacionDto]
+      reparacionesDto as [ReparacionDto],
+      taller.createdAt,
+      taller.updatedAt
     );
   }
 
@@ -43,6 +43,7 @@ export class TallerMapper {
         tallerDto.telefono,
         tallerDto.fax,
         tallerDto.email,
+        empleados as [Empleado],
         tallerDto.createdAt,
         tallerDto.updatedAt
       );

@@ -1,3 +1,4 @@
+import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 export class ClienteDto {
@@ -24,6 +25,9 @@ export class ClienteDto {
   email: string;
 
   @IsOptional()
+  reparaciones: [ReparacionDto];
+
+  @IsOptional()
   @IsDate()
   createdAt: Date;
 
@@ -39,6 +43,7 @@ export class ClienteDto {
     apellido_2 : string,
     telefono   : string,
     email      : string,
+    reparaciones: [ReparacionDto],
     createdAt  : Date,
     updatedAt  : Date,
   ) {
@@ -49,6 +54,7 @@ export class ClienteDto {
     this.apellido_2 = apellido_2;
     this.telefono   = telefono;
     this.email      = email;
+    this.reparaciones = reparaciones;
     this.createdAt  = createdAt;
     this.updatedAt  = updatedAt;
   }

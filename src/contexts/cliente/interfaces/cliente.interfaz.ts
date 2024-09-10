@@ -1,3 +1,5 @@
+import { IReparacion } from "@src/contexts/reparacion/interfaces/reparacion.interfaz";
+
 export interface ICliente {
   id        : string;
   nif       : string;
@@ -6,4 +8,7 @@ export interface ICliente {
   apellido_2: string;
   telefono  : string;
   email     : string;
+  reparaciones: IReparacion[];
+  createdAt : Date;
+  updatedAt : Date;
 }

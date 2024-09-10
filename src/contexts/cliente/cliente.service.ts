@@ -6,6 +6,8 @@ import { ICliente} from "./interfaces/cliente.interfaz";
 import { Cliente } from "./schemas/cliente.schema";
 import { ClienteMapper } from "./mappers/cliente.mapper";
 import { ClienteDto } from "./dtos/cliente.dto";
+import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
+import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 
 @Injectable()
 export class ClienteService {
@@ -50,6 +52,17 @@ export class ClienteService {
     const clientes = await this.clienteModel.find({ _id: {$in : ids }});
 
     return clientes.map(cliente => ClienteMapper.toDto(cliente));
+  }
+
+  async findReparacionesByClienteId(idCliente: string): Promise<ReparacionDto[] | undefined> {
+    // Buscar el cliente por su ID y poblar las reparaciones
+    const cliente = await this.clienteModel.findById(idCliente).populate('reparaciones').exec();
+
+    if (!cliente) {
+      throw new NotFoundException("Cliente no encontrado");
+    }
+
+    return cliente.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)); // Devolver las reparaciones asociadas al cliente
   }
 
 }

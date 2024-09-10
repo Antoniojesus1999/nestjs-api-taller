@@ -11,6 +11,7 @@ export interface IReparacion {
   trabajos: ITrabajo[];
   danyos: IDanyo[];
   taller: string;
+  cliente: string;
   createdAt: Date;
   updatedAt: Date;
 }

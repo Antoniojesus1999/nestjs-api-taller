@@ -20,6 +20,7 @@ export class ReparacionMapper {
       trabajosDto as [TrabajoDto],
       danyosDto as [DanyoDto],
       reparacion.taller,
+      reparacion.cliente,
       reparacion.createdAt,
       reparacion.updatedAt
     );
@@ -38,6 +39,7 @@ export class ReparacionMapper {
         trabajos as Trabajo[],
         danyos as Danyo[],
         reparacionDto.taller,
+        reparacionDto.cliente,
         reparacionDto.createdAt,
         reparacionDto.updatedAt,
       );
