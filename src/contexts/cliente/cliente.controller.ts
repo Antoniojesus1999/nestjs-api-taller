@@ -29,4 +29,9 @@ export class ClienteController {
     return this.clienteService.findClienteByNif(nif);
   }
 
+  @Get("find-reparaciones-by-cliente")
+  async findReparacionesByCliente(@Query("idCliente") idCliente: string) {
+    return this.clienteService.findReparacionesByClienteId(idCliente);
+  }
+
 }
