@@ -40,20 +40,20 @@ pipeline {
           }
          stage('npm install') {
             steps {
-                  sh 'npm install'
+                  sh 'sudo npm install'
             }
          }
 
          stage('npm run build') {
             steps {
 
-                sh 'npm run build'
+                sh 'sudo npm run build'
                 }
          }
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker-compose up -d --force-recreate'
+                sh 'sudo docker-compose up -d --force-recreate'
             }
         }
 
