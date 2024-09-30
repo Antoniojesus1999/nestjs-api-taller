@@ -49,6 +49,7 @@
     "mongoose": "^8.2.0",
     "mongoose-aggregate-paginate-v2": "^1.0.7",
     "mongoose-paginate-v2": "^1.8.0",
+    "nestjs-service-template": "file:",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pdf-lib": "^1.17.1",
