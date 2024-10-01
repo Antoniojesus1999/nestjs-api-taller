@@ -1,10 +1,14 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { TallerCliente, TallerClienteSchema } from "../schemas/taller-cliente.schema";
-import { TallerClienteService } from "../services/taller-cliente.service";
-import { TallerClienteController } from "../controllers/taller-cliente.controller";
 import { ClienteModule } from "@src/contexts/cliente/cliente.module";
+
+import { TallerClienteController } from "../controllers/taller-cliente.controller";
+import {
+  TallerCliente,
+  TallerClienteSchema,
+} from "../schemas/taller-cliente.schema";
+import { TallerClienteService } from "../services/taller-cliente.service";
 
 @Module({
   imports: [

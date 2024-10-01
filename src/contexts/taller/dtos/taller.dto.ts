@@ -1,12 +1,13 @@
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
-import { EmpleadoDto } from "./empleado.dto";
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
+
+import { EmpleadoDto } from "./empleado.dto";
 
 export class TallerDto {
   @IsOptional()
   id: string;
-  
+
   @IsNotEmpty()
   cif: string;
 
@@ -67,7 +68,7 @@ export class TallerDto {
     empleados: [EmpleadoDto],
     reparaciones: [ReparacionDto],
     createdAt: Date,
-    updatedAt: Date
+    updatedAt: Date,
   ) {
     this.id = id;
     this.cif = cif;

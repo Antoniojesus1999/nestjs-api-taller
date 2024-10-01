@@ -19,9 +19,9 @@ export class DanyoDto {
     origWidth: string,
     origHeight: string,
   ) {
-    this.positionX = positionX; 
-    this.positionY = positionY; 
-    this.origWidth = origWidth; 
-    this.origHeight = origHeight; 
+    this.positionX = positionX;
+    this.positionY = positionY;
+    this.origWidth = origWidth;
+    this.origHeight = origHeight;
   }
 }

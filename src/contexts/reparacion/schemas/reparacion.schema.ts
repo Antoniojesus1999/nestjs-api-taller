@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import { Trabajo, TrabajoSchema } from "./trabajo.schema";
+
 import { Danyo, DanyoSchema } from "./danyo.schema";
+import { Trabajo, TrabajoSchema } from "./trabajo.schema";
 
 @Schema({ collection: "reparaciones", timestamps: true })
 export class Reparacion extends Document {
@@ -19,12 +20,12 @@ export class Reparacion extends Document {
   trabajos: Trabajo[];
   @Prop({ type: [DanyoSchema] })
   danyos: Danyo[];
-  @Prop({ type: Types.ObjectId, ref: 'Taller', required: true })
-  taller: Types.ObjectId; 
-  @Prop({ type: Types.ObjectId, ref: 'Cliente', required: true })
-  cliente: Types.ObjectId; 
-  @Prop({ type: Types.ObjectId, ref: 'Vehiculo', required: true })
-  vehiculo: Types.ObjectId; 
+  @Prop({ type: Types.ObjectId, ref: "Taller", required: true })
+  taller: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: "Cliente", required: true })
+  cliente: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: "Vehiculo", required: true })
+  vehiculo: Types.ObjectId;
   @Prop({ default: Date.now })
   createdAt: Date;
   @Prop({ default: Date.now })

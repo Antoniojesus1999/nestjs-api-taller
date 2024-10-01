@@ -8,12 +8,10 @@ import {
   Put,
   Query,
 } from "@nestjs/common";
-import { ObjectId } from "mongoose";
 
-import { TallerService } from "./taller.service";
-import { IEmpleado } from "./interfaces/empleado.interfaz";
+import { AddEmpleadoDto } from "./dtos/add-empleado.dto";
 import { ITaller } from "./interfaces/taller.interfaz";
-import { AddEmpleadoDto } from "./dtos/addEmpleado.dto";
+import { TallerService } from "./taller.service";
 
 @Controller("taller")
 export class TallerController {
@@ -34,7 +32,7 @@ export class TallerController {
 
   @Put("add-empleado-taller")
   async addEmpleadoToTaller(@Body() addEmpleadoDto: AddEmpleadoDto) {
-    const {idTaller, email} = addEmpleadoDto;
+    const { idTaller, email } = addEmpleadoDto;
     return this.tallerService.addEmployeeToTaller(idTaller, email);
   }
 
@@ -54,10 +52,7 @@ export class TallerController {
   }
 
   @Get("find-all")
-  async findAll(
-    @Query("page") page: number,
-    @Query("limit") limit: number,
-  ) {
+  async findAll(@Query("page") page: number, @Query("limit") limit: number) {
     return this.tallerService.findAll(page, limit);
   }
 
@@ -65,5 +60,4 @@ export class TallerController {
   async findReparacionesByTaller(@Query("idTaller") idTaller: string) {
     return this.tallerService.findReparacionesByTallerId(idTaller);
   }
-
 }

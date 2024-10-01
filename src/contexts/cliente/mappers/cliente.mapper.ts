@@ -1,12 +1,15 @@
+import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "@src/contexts/reparacion/mappers/reparacion.mapper";
+
 import { ClienteDto } from "../dtos/cliente.dto";
 import { Cliente } from "../schemas/cliente.schema";
-import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
-export class ClienteMapper {
-  static toDto(cliente: Cliente): ClienteDto {
-
-    const reparacionesDto = cliente.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)) || [];
+export const ClienteMapper = {
+  toDto(cliente: Cliente): ClienteDto {
+    const reparacionesDto =
+      cliente.reparaciones?.map(reparacion =>
+        ReparacionMapper.toDto(reparacion),
+      ) || [];
 
     return new ClienteDto(
       cliente._id,
@@ -18,28 +21,26 @@ export class ClienteMapper {
       cliente.email,
       reparacionesDto as [ReparacionDto],
       cliente.createdAt,
-      cliente.updatedAt
+      cliente.updatedAt,
     );
-  }
+  },
 
-  static toEntity(clienteDto: ClienteDto): Cliente {
-
+  toEntity(clienteDto: ClienteDto): Cliente {
     const cliente = new Cliente(
-        clienteDto.nif,
-        clienteDto.nombre,
-        clienteDto.apellido_1,
-        clienteDto.apellido_2,
-        clienteDto.telefono,
-        clienteDto.email,
-        clienteDto.createdAt,
-        clienteDto.updatedAt,
-      );
-  
-      if (clienteDto.id) {
-        cliente._id = clienteDto.id;
-      }
-  
-      return cliente;
-  }
+      clienteDto.nif,
+      clienteDto.nombre,
+      clienteDto.apellido_1,
+      clienteDto.apellido_2,
+      clienteDto.telefono,
+      clienteDto.email,
+      clienteDto.createdAt,
+      clienteDto.updatedAt,
+    );
 
-}
+    if (clienteDto.id) {
+      cliente._id = clienteDto.id;
+    }
+
+    return cliente;
+  },
+};

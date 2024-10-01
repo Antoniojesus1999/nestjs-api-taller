@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
-import { Empleado, EmpleadoSchema } from "../../taller/schemas/empleado.schema";
 import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
+
+import { Empleado, EmpleadoSchema } from "../../taller/schemas/empleado.schema";
 
 @Schema({ collection: "talleres", timestamps: true })
 export class Taller extends Document {
@@ -68,12 +69,12 @@ export class Taller extends Document {
 
 export const TallerSchema = SchemaFactory.createForClass(Taller);
 
-TallerSchema.virtual('reparaciones', {
-  ref: 'Reparacion',  // El nombre del modelo de referencia
-  localField: '_id',  // El campo local en el schema de Taller
-  foreignField: 'taller',  // El campo en Reparacion que almacena la referencia
+TallerSchema.virtual("reparaciones", {
+  ref: "Reparacion", // El nombre del modelo de referencia
+  localField: "_id", // El campo local en el schema de Taller
+  foreignField: "taller", // El campo en Reparacion que almacena la referencia
 });
 
 // Habilitar las propiedades virtuales
-TallerSchema.set('toObject', { virtuals: true });
-TallerSchema.set('toJSON', { virtuals: true });
+TallerSchema.set("toObject", { virtuals: true });
+TallerSchema.set("toJSON", { virtuals: true });
