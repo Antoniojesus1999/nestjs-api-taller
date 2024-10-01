@@ -38,6 +38,7 @@ export const ReparacionMapper = {
       reparacionDto.danyos?.map(danyoDto => this.dtoToDanyo(danyoDto)) || [];
 
     const reparacion = new Reparacion(
+      reparacionDto._id ?? 0,
       reparacionDto.fecEntrada,
       reparacionDto.combustible,
       reparacionDto.kilometros,
@@ -51,10 +52,6 @@ export const ReparacionMapper = {
       reparacionDto.createdAt,
       reparacionDto.updatedAt,
     );
-
-    if (reparacionDto.id) {
-      reparacion._id = reparacionDto.id;
-    }
 
     return reparacion;
   },
