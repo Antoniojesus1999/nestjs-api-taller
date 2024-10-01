@@ -1,12 +1,12 @@
 import { IsDate, IsNotEmpty, IsOptional } from "class-validator";
-import { Types } from "mongoose";
+import { ObjectId, Types } from "mongoose";
 
 import { DanyoDto } from "./danyo.dto";
 import { TrabajoDto } from "./trabajo.dto";
 
 export class ReparacionDto {
   @IsOptional()
-  id: string;
+  _id: ObjectId;
 
   @IsNotEmpty()
   @IsDate()
@@ -48,7 +48,7 @@ export class ReparacionDto {
   updatedAt: Date;
 
   constructor(
-    id: string,
+    _id: ObjectId,
     fecEntrada: Date,
     combustible: string,
     kilometros: string,
@@ -62,7 +62,7 @@ export class ReparacionDto {
     createdAt: Date,
     updatedAt: Date,
   ) {
-    this.id = id;
+    this._id = _id;
     this.fecEntrada = fecEntrada;
     this.combustible = combustible;
     this.kilometros = kilometros;
