@@ -1,5 +1,6 @@
+import { IsNotEmpty, IsString } from "class-validator";
+
 import { ICliente } from "@src/contexts/cliente/interfaces/cliente.interfaz";
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class SaveTallerClienteDto {
   @IsNotEmpty()

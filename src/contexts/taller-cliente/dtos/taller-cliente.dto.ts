@@ -11,13 +11,8 @@ export class TallerClienteDto {
   @IsNotEmpty()
   @IsString()
   idCliente: string;
-  
-  constructor(
-    id: string,
-    idTaller: string, 
-    idCliente: string
-  ) 
-  {
+
+  constructor(id: string, idTaller: string, idCliente: string) {
     this.id = id;
     this.idTaller = idTaller;
     this.idCliente = idCliente;
