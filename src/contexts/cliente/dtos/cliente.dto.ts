@@ -1,5 +1,6 @@
-import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
+
+import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
 export class ClienteDto {
   @IsOptional()
@@ -36,26 +37,26 @@ export class ClienteDto {
   updatedAt: Date;
 
   constructor(
-    id         : string,
-    nif        : string,
-    nombre     : string,
-    apellido_1 : string,
-    apellido_2 : string,
-    telefono   : string,
-    email      : string,
+    id: string,
+    nif: string,
+    nombre: string,
+    apellido_1: string,
+    apellido_2: string,
+    telefono: string,
+    email: string,
     reparaciones: [ReparacionDto],
-    createdAt  : Date,
-    updatedAt  : Date,
+    createdAt: Date,
+    updatedAt: Date,
   ) {
-    this.id         = id;
-    this.nif        = nif;
-    this.nombre     = nombre;
+    this.id = id;
+    this.nif = nif;
+    this.nombre = nombre;
     this.apellido_1 = apellido_1;
     this.apellido_2 = apellido_2;
-    this.telefono   = telefono;
-    this.email      = email;
+    this.telefono = telefono;
+    this.email = email;
     this.reparaciones = reparaciones;
-    this.createdAt  = createdAt;
-    this.updatedAt  = updatedAt;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
