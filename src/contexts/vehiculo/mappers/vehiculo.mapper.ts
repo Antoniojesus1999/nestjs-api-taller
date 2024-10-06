@@ -12,7 +12,7 @@ export const VehiculoMapper = {
       ) || [];
 
     return new VehiculoDto(
-      vehiculo._id,
+      vehiculo._id as string,
       vehiculo.matricula,
       vehiculo.marca,
       vehiculo.modelo,
