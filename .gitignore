@@ -1,5 +1,4 @@
 node_modules/
-./package-lock.json
 dist/
 .tmp
 .idea
@@ -7,3 +6,4 @@ coverage/
 .npm
 .nyc_output
 output.pdf
+package-lock.json
