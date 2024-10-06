@@ -16,7 +16,7 @@ export const TallerMapper = {
       ) || [];
 
     return new TallerDto(
-      taller._id,
+      taller._id as string,
       taller.cif,
       taller.nombre,
       taller.direccion,
