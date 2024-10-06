@@ -1,20 +1,14 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import {
-  ObjectId,
-  PaginateModel,
-  PaginateOptions,
-  PaginateResult,
-} from "mongoose";
+import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
-import { TallerDto } from "./dtos/taller.dto";
-import { Taller } from "./schemas/taller.schema";
-import { IEmpleado } from "./interfaces/empleado.interfaz";
-import { ITaller } from "./interfaces/taller.interfaz";
-import { TallerMapper } from "./mappers/taller.mapper";
 import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
+import { TallerDto } from "./dtos/taller.dto";
+import { ITaller } from "./interfaces/taller.interfaz";
+import { TallerMapper } from "./mappers/taller.mapper";
 import { Empleado } from "./schemas/empleado.schema";
+import { Taller } from "./schemas/taller.schema";
 
 @Injectable()
 export class TallerService {
@@ -41,21 +35,24 @@ export class TallerService {
     return TallerMapper.toDto(updatedTaller);
   }
 
-  async addEmployeeToTaller(idTaller: string, email: string): Promise<TallerDto> {
+  async addEmployeeToTaller(
+    idTaller: string,
+    email: string,
+  ): Promise<TallerDto> {
     const taller = await this.tallerModel.findById(idTaller);
 
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
 
-    if (taller.empleados != null) {
-      taller.empleados.push(new Empleado(email));
-    } else {
-      const empleados = new Array();
+    if (taller.empleados == undefined) {
+      const empleados = [];
       empleados.push(new Empleado(email));
       taller.empleados = empleados;
+    } else {
+      taller.empleados.push(new Empleado(email));
     }
-    
+
     return TallerMapper.toDto(await taller.save());
   }
 
@@ -85,7 +82,10 @@ export class TallerService {
     return TallerMapper.toDto(taller);
   }
 
-  async findAll(page: number, limit: number): Promise<TallerDto[] | PaginateResult<TallerDto>> {
+  async findAll(
+    page: number,
+    limit: number,
+  ): Promise<TallerDto[] | PaginateResult<TallerDto>> {
     const options: PaginateOptions = {
       page: page,
       limit: limit,
@@ -104,15 +104,17 @@ export class TallerService {
           .exec();
 
         // Mapear los documentos Taller a TallerDto
-        result = talleres.map((taller) => TallerMapper.toDto(taller));
+        result = talleres.map(taller => TallerMapper.toDto(taller));
       } else {
-        this.logger.log(`Buscando los talleres paginados page -> ${page}, limit ${limit}`);
+        this.logger.log(
+          `Buscando los talleres paginados page -> ${page}, limit ${limit}`,
+        );
         const paginatedResult = await this.tallerModel.paginate({}, options);
 
         // Crear un nuevo objeto PaginateResult<TallerDto>
         const dtoPaginatedResult: PaginateResult<TallerDto> = {
           ...paginatedResult,
-          docs: paginatedResult.docs.map((taller) => TallerMapper.toDto(taller)),
+          docs: paginatedResult.docs.map(taller => TallerMapper.toDto(taller)),
         };
 
         result = dtoPaginatedResult;
@@ -128,15 +130,21 @@ export class TallerService {
     }
   }
 
-  async findReparacionesByTallerId(idTaller: string): Promise<ReparacionDto[] | undefined> {
+  async findReparacionesByTallerId(
+    idTaller: string,
+  ): Promise<ReparacionDto[] | undefined> {
     // Buscar el taller por su ID y poblar las reparaciones
-    const taller = await this.tallerModel.findById(idTaller).populate('reparaciones').exec();
+    const taller = await this.tallerModel
+      .findById(idTaller)
+      .populate("reparaciones")
+      .exec();
 
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
     this.logger.log("taller reparaciones : " + JSON.stringify(taller));
-    return taller.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)); // Devolver las reparaciones asociadas al taller
+    return taller.reparaciones?.map(reparacion =>
+      ReparacionMapper.toDto(reparacion),
+    ); // Devolver las reparaciones asociadas al taller
   }
-
 }

@@ -2,12 +2,12 @@ import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
-import { Vehiculo } from "./schemas/vehiculo.schema";
-import { IVehiculo } from "./interfaces/vehiculo.interfaz";
-import { VehiculoMapper } from "./mappers/vehiculo.mapper";
-import { VehiculoDto } from "./dtos/vehiculo.dto";
 import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
+import { VehiculoDto } from "./dtos/vehiculo.dto";
+import { IVehiculo } from "./interfaces/vehiculo.interfaz";
+import { VehiculoMapper } from "./mappers/vehiculo.mapper";
+import { Vehiculo } from "./schemas/vehiculo.schema";
 
 @Injectable()
 export class VehiculoService {
@@ -24,9 +24,13 @@ export class VehiculoService {
   }
 
   async updateVehiculo(id: string, vehiculo: IVehiculo): Promise<VehiculoDto> {
-    const updatedVehiculo = await this.vehiculoModel.findByIdAndUpdate(id, vehiculo, {
-      new: true,
-    });
+    const updatedVehiculo = await this.vehiculoModel.findByIdAndUpdate(
+      id,
+      vehiculo,
+      {
+        new: true,
+      },
+    );
 
     if (!updatedVehiculo) {
       throw new NotFoundException("Vehiculo no encontrado");
@@ -46,7 +50,7 @@ export class VehiculoService {
       throw new NotFoundException("Vehículo no encontrado");
     }
 
-    return VehiculoMapper.toDto(vehiculo);;
+    return VehiculoMapper.toDto(vehiculo);
   }
 
   async findAll(): Promise<VehiculoDto[]> {
@@ -55,15 +59,21 @@ export class VehiculoService {
     return vehiculos.map(vehiculo => VehiculoMapper.toDto(vehiculo));
   }
 
-  async findReparacionesByVehiculoId(idVehiculo: string): Promise<ReparacionDto[] | undefined> {
+  async findReparacionesByVehiculoId(
+    idVehiculo: string,
+  ): Promise<ReparacionDto[] | undefined> {
     // Buscar el taller por su ID y poblar las reparaciones
-    const vehiculo = await this.vehiculoModel.findById(idVehiculo).populate('reparaciones').exec();
+    const vehiculo = await this.vehiculoModel
+      .findById(idVehiculo)
+      .populate("reparaciones")
+      .exec();
 
     if (!vehiculo) {
       throw new NotFoundException("Taller no encontrado");
     }
 
-    return vehiculo.reparaciones?.map(reparacion => ReparacionMapper.toDto(reparacion)); // Devolver las reparaciones asociadas al vehiculo
+    return vehiculo.reparaciones?.map(reparacion =>
+      ReparacionMapper.toDto(reparacion),
+    ); // Devolver las reparaciones asociadas al vehiculo
   }
-
 }

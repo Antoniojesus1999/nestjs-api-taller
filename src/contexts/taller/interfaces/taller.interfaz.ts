@@ -1,4 +1,5 @@
 import { IReparacion } from "@src/contexts/reparacion/interfaces/reparacion.interfaz";
+
 import { IEmpleado } from "./empleado.interfaz";
 
 export interface ITaller {
@@ -15,6 +16,6 @@ export interface ITaller {
   email: string;
   empleados: IEmpleado[];
   reparaciones: IReparacion[];
-  createdAt : Date;
-  updatedAt : Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

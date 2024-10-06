@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types } from "mongoose";
-import { Trabajo, TrabajoSchema } from "./trabajo.schema";
+import { Document, ObjectId, Types } from "mongoose";
+
 import { Danyo, DanyoSchema } from "./danyo.schema";
+import { Trabajo, TrabajoSchema } from "./trabajo.schema";
 
 @Schema({ collection: "reparaciones", timestamps: true })
 export class Reparacion extends Document {
+  @Prop({ required: false, trim: true })
+  _id: ObjectId;
   @Prop({ required: true, default: Date.now })
   fecEntrada: Date;
   @Prop({ required: false, trim: true })
@@ -19,18 +22,19 @@ export class Reparacion extends Document {
   trabajos: Trabajo[];
   @Prop({ type: [DanyoSchema] })
   danyos: Danyo[];
-  @Prop({ type: Types.ObjectId, ref: 'Taller', required: true })
-  taller: Types.ObjectId; 
-  @Prop({ type: Types.ObjectId, ref: 'Cliente', required: true })
-  cliente: Types.ObjectId; 
-  @Prop({ type: Types.ObjectId, ref: 'Vehiculo', required: true })
-  vehiculo: Types.ObjectId; 
+  @Prop({ type: Types.ObjectId, ref: "Taller", required: true })
+  taller: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: "Cliente", required: true })
+  cliente: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: "Vehiculo", required: true })
+  vehiculo: Types.ObjectId;
   @Prop({ default: Date.now })
   createdAt: Date;
   @Prop({ default: Date.now })
   updatedAt: Date;
 
   constructor(
+    _id: ObjectId,
     fecEntrada: Date,
     combustible: string,
     kilometros: string,
@@ -45,6 +49,7 @@ export class Reparacion extends Document {
     updatedAt: Date,
   ) {
     super();
+    this._id = _id;
     this.fecEntrada = fecEntrada;
     this.combustible = combustible;
     this.kilometros = kilometros;

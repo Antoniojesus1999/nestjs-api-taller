@@ -2,17 +2,17 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
   Logger,
   Post,
   Put,
   Query,
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
-import { ReparacionService } from "./reparacion.service";
+
+import { IDanyo } from "./interfaces/danyo.interfaz";
 import { IReparacion } from "./interfaces/reparacion.interfaz";
 import { ITrabajo } from "./interfaces/trabajo.interfaz";
-import { IDanyo } from "./interfaces/danyo.interfaz";
+import { ReparacionService } from "./reparacion.service";
 
 @Controller("reparacion")
 export class ReparacionController {
@@ -54,5 +54,4 @@ export class ReparacionController {
   async deleteReparacion(@Query("idReparacion") idReparacion: ObjectId) {
     return this.reparacionService.deleteReparacion(idReparacion);
   }
-
 }

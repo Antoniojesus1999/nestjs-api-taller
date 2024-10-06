@@ -1,10 +1,10 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 
 export class TrabajoDto {
   @IsNotEmpty()
   descripcion: string;
 
   constructor(descripcion: string) {
-    this.descripcion = descripcion; 
+    this.descripcion = descripcion;
   }
 }

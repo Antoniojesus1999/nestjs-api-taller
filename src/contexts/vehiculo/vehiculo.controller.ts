@@ -8,10 +8,9 @@ import {
   Put,
   Query,
 } from "@nestjs/common";
-import { ObjectId } from "mongoose";
 
-import { VehiculoService } from "./vehiculo.service";
 import { IVehiculo } from "./interfaces/vehiculo.interfaz";
+import { VehiculoService } from "./vehiculo.service";
 
 @Controller("vehiculo")
 export class VehiculoController {
@@ -26,7 +25,7 @@ export class VehiculoController {
   }
 
   @Put("update-vehiculo")
-  async updateVehiculo( @Body() vehiculo: IVehiculo) {
+  async updateVehiculo(@Body() vehiculo: IVehiculo) {
     return this.vehiculoService.updateVehiculo(vehiculo.id, vehiculo);
   }
 
@@ -49,5 +48,4 @@ export class VehiculoController {
   async findReparacionesByVehiculo(@Query("idVehiculo") idVehiculo: string) {
     return this.vehiculoService.findReparacionesByVehiculoId(idVehiculo);
   }
-
 }

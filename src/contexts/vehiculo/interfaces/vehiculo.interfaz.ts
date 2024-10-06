@@ -2,11 +2,10 @@ import { IReparacion } from "@src/contexts/reparacion/interfaces/reparacion.inte
 
 export interface IVehiculo {
   id: string;
-  matricula : string;
-  marca     : string;
-  modelo    : string;
-  reparaciones : IReparacion[];
-  createdAt : Date;
-  updatedAt : Date;
-
+  matricula: string;
+  marca: string;
+  modelo: string;
+  reparaciones: IReparacion[];
+  createdAt: Date;
+  updatedAt: Date;
 }

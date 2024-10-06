@@ -11,7 +11,6 @@ import {
   InternalServerErrorException,
   Logger,
 } from "@nestjs/common";
-
 import { PDFDocument, setFillingRgbColor, StandardFonts } from "pdf-lib";
 
 import { CreatePdfDto } from "./dtos/create.pdf.dto";
@@ -56,7 +55,7 @@ export class PdfService {
       const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
       nombreTaller.defaultUpdateAppearances(helveticaBold);
 
-      const direccionTaller = form.getTextField('direccionTaller');
+      const direccionTaller = form.getTextField("direccionTaller");
       direccionTaller.setText(dataPdfReq.direccionTaller);
       direccionTaller.acroField.setDefaultAppearance(newDa);
       direccionTaller.setFontSize(10);

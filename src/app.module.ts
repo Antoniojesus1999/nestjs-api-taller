@@ -3,13 +3,13 @@ import { ConfigModule } from "@nestjs/config";
 
 import { LoggerModule } from "@core/logger/logger.module";
 
-import { PdfModule } from "./contexts/pdf/pdf.module";
-import { TallerModule } from "./contexts/taller/taller.module";
-import { MongoModule } from "./core/mongo/mongo.module";
-import { VehiculoModule } from "./contexts/vehiculo/vehiculo.module";
 import { ClienteModule } from "./contexts/cliente/cliente.module";
+import { PdfModule } from "./contexts/pdf/pdf.module";
 import { ReparacionModule } from "./contexts/reparacion/reparacion.module";
+import { TallerModule } from "./contexts/taller/taller.module";
 import { TallerClienteModule } from "./contexts/taller-cliente/modules/taller-cliente.module";
+import { VehiculoModule } from "./contexts/vehiculo/vehiculo.module";
+import { MongoModule } from "./core/mongo/mongo.module";
 
 @Module({
   imports: [
