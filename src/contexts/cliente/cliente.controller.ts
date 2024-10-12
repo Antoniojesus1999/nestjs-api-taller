@@ -1,7 +1,16 @@
-import { Body, Controller, Delete, Get, Logger, Post, Put, Query } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Post,
+  Put,
+  Query,
+} from "@nestjs/common";
 
 import { ClienteService } from "./cliente.service";
-import { ICliente} from "./interfaces/cliente.interfaz";
+import { ICliente } from "./interfaces/cliente.interfaz";
 @Controller("cliente")
 export class ClienteController {
   constructor(
@@ -33,5 +42,4 @@ export class ClienteController {
   async findReparacionesByCliente(@Query("idCliente") idCliente: string) {
     return this.clienteService.findReparacionesByClienteId(idCliente);
   }
-
 }
