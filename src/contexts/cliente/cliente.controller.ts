@@ -33,6 +33,11 @@ export class ClienteController {
     return this.clienteService.deleteCliente(idCliente);
   }
 
+  @Get("find-all")
+  async findAll(@Query("page") page: number, @Query("limit") limit: number) {
+    return this.clienteService.findAll(page, limit);
+  }
+
   @Get("find-cliente-by-nif")
   async findClienteByNif(@Query("nif") nif: string) {
     return this.clienteService.findClienteByNif(nif);
