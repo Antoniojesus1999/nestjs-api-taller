@@ -15,7 +15,7 @@ export class Cliente extends Document {
   apellido_2: string;
   @Prop({ required: true, trim: true })
   telefono: string;
-  @Prop({ trim: true })
+  @Prop({ trim: true, unique: true })
   email: string;
   @Prop({ default: Date.now })
   createdAt: Date;
