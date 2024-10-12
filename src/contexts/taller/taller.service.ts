@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
@@ -50,7 +55,14 @@ export class TallerService {
       empleados.push(new Empleado(email));
       taller.empleados = empleados;
     } else {
-      taller.empleados.push(new Empleado(email));
+      const empleadoNew = new Empleado(email);
+      if (taller.empleados.some(e => (e.email = email))) {
+        throw new InternalServerErrorException(
+          "El empleado ya está dado de alta en este taller",
+        );
+      } else {
+        taller.empleados.push(empleadoNew);
+      }
     }
 
     return TallerMapper.toDto(await taller.save());
