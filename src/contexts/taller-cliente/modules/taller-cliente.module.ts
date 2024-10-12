@@ -1,8 +1,6 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { ClienteModule } from "@src/contexts/cliente/cliente.module";
-
 import { TallerClienteController } from "../controllers/taller-cliente.controller";
 import {
   TallerCliente,
@@ -18,9 +16,9 @@ import { TallerClienteService } from "../services/taller-cliente.service";
         schema: TallerClienteSchema,
       },
     ]),
-    ClienteModule,
   ],
   providers: [TallerClienteService],
   controllers: [TallerClienteController],
+  exports: [TallerClienteService],
 })
 export class TallerClienteModule {}
