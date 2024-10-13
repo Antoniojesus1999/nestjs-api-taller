@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Logger,
   Post,
   Put,
@@ -53,5 +54,18 @@ export class ReparacionController {
   @Delete("delete-reparacion")
   async deleteReparacion(@Query("idReparacion") idReparacion: ObjectId) {
     return this.reparacionService.deleteReparacion(idReparacion);
+  }
+
+  @Get("find-reparaciones-by-taller")
+  async findReparacionesByTaller(
+    @Query("page") page: number,
+    @Query("limit") limit: number,
+    @Query("idTaller") idTaller: string,
+  ) {
+    return this.reparacionService.findReparacionesByTallerId(
+      page,
+      limit,
+      idTaller,
+    );
   }
 }

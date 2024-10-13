@@ -1,6 +1,12 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { ObjectId, PaginateModel, Types } from "mongoose";
+import {
+  ObjectId,
+  PaginateModel,
+  PaginateOptions,
+  PaginateResult,
+  Types,
+} from "mongoose";
 
 import { ReparacionDto } from "./dtos/reparacion.dto";
 import { IDanyo } from "./interfaces/danyo.interfaz";
@@ -78,5 +84,42 @@ export class ReparacionService {
 
   async deleteReparacion(idReparacion: ObjectId): Promise<void> {
     await this.reparacionModel.findByIdAndDelete(idReparacion);
+  }
+
+  async findReparacionesByTallerId(
+    page: number,
+    limit: number,
+    idTaller: string,
+  ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto> | undefined> {
+    try {
+      if (page == 0) {
+        return await this.reparacionModel.find({
+          taller: idTaller,
+        });
+      } else {
+        const options: PaginateOptions = {
+          page: page,
+          limit: limit,
+          sort: { createdAt: "desc" }, // Ordenar por "createdAt" de forma descendente
+        };
+
+        const paginatedResult = await this.reparacionModel.paginate(
+          { taller: idTaller },
+          options,
+        );
+
+        const dtoPaginatedResult: PaginateResult<ReparacionDto> = {
+          ...paginatedResult,
+          docs: paginatedResult.docs.map(reparacion =>
+            ReparacionMapper.toDto(reparacion),
+          ),
+        };
+
+        return dtoPaginatedResult;
+      }
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
   }
 }

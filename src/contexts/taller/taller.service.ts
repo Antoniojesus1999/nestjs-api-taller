@@ -7,8 +7,6 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
-import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
-import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
 import { TallerDto } from "./dtos/taller.dto";
 import { ITaller } from "./interfaces/taller.interfaz";
 import { TallerMapper } from "./mappers/taller.mapper";
@@ -140,23 +138,5 @@ export class TallerService {
       this.logger.error(error);
       throw error;
     }
-  }
-
-  async findReparacionesByTallerId(
-    idTaller: string,
-  ): Promise<ReparacionDto[] | undefined> {
-    // Buscar el taller por su ID y poblar las reparaciones
-    const taller = await this.tallerModel
-      .findById(idTaller)
-      .populate("reparaciones")
-      .exec();
-
-    if (!taller) {
-      throw new NotFoundException("Taller no encontrado");
-    }
-    this.logger.log("taller reparaciones : " + JSON.stringify(taller));
-    return taller.reparaciones?.map(reparacion =>
-      ReparacionMapper.toDto(reparacion),
-    ); // Devolver las reparaciones asociadas al taller
   }
 }
