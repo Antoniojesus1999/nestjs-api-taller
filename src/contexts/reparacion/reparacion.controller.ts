@@ -59,15 +59,15 @@ export class ReparacionController {
 
   @Get("find-reparaciones-by-taller")
   async findReparacionesByTaller(
+    @Query("idTaller") idTaller: string,
     @Query("page") page: number,
     @Query("limit") limit: number,
-    @Query("idTaller") idTaller: string,
   ) {
     this.logger.log(`Buscando reparaciones del taller ${idTaller}`);
     return this.reparacionService.findReparacionesByTallerId(
+      idTaller,
       page,
       limit,
-      idTaller,
     );
   }
 }

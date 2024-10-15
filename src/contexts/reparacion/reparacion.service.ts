@@ -87,13 +87,13 @@ export class ReparacionService {
   }
 
   async findReparacionesByTallerId(
+    idTaller: string,
     page: number,
     limit: number,
-    idTaller: string,
   ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto> | undefined> {
-    this.logger.log(`Buscando reparaciones del taller con ID: ${idTaller}`);
     try {
       if (page == 0) {
+        this.logger.log(`Pasa por aquí`);
         return await this.reparacionModel.find({
           taller: idTaller,
         });
@@ -105,7 +105,7 @@ export class ReparacionService {
         };
 
         const paginatedResult = await this.reparacionModel.paginate(
-          { taller: idTaller },
+          { taller: new Types.ObjectId(idTaller) },
           options,
         );
 
