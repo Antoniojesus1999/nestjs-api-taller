@@ -7,11 +7,11 @@ import { TallerCliente } from "../schemas/taller-cliente.schema";
 
 @Injectable()
 export class TallerClienteService {
-  private readonly logger = new Logger(TallerClienteService.name);
-
+  //private readonly logger = new Logger(TallerClienteService.name);
   constructor(
     @InjectModel(TallerCliente.name)
     private tallerClienteModel: PaginateModel<TallerCliente>,
+    private readonly logger: Logger,
   ) {}
 
   async saveTallerCliente(

@@ -17,11 +17,11 @@ import { Reparacion } from "./schemas/reparacion.schema";
 
 @Injectable()
 export class ReparacionService {
-  private readonly logger = new Logger(ReparacionService.name);
-
+  //private readonly logger = new Logger(ReparacionService.name);
   constructor(
     @InjectModel(Reparacion.name)
     private reparacionModel: PaginateModel<Reparacion>,
+    private readonly logger: Logger,
   ) {}
 
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
@@ -91,6 +91,7 @@ export class ReparacionService {
     limit: number,
     idTaller: string,
   ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto> | undefined> {
+    this.logger.log(`Buscando reparaciones del taller con ID: ${idTaller}`);
     try {
       if (page == 0) {
         return await this.reparacionModel.find({

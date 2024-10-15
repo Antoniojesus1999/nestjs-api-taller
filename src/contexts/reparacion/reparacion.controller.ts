@@ -17,6 +17,7 @@ import { ReparacionService } from "./reparacion.service";
 
 @Controller("reparacion")
 export class ReparacionController {
+  //private readonly logger = new Logger(ReparacionController.name);
   constructor(
     private reparacionService: ReparacionService,
     private readonly logger: Logger,
@@ -62,6 +63,7 @@ export class ReparacionController {
     @Query("limit") limit: number,
     @Query("idTaller") idTaller: string,
   ) {
+    this.logger.log(`Buscando reparaciones del taller ${idTaller}`);
     return this.reparacionService.findReparacionesByTallerId(
       page,
       limit,

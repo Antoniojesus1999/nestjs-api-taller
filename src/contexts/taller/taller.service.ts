@@ -15,10 +15,10 @@ import { Taller } from "./schemas/taller.schema";
 
 @Injectable()
 export class TallerService {
-  private readonly logger = new Logger(TallerService.name);
-
+  //private readonly logger = new Logger(TallerService.name);
   constructor(
     @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
+    private readonly logger: Logger,
   ) {}
 
   async saveTaller(taller: ITaller): Promise<TallerDto> {
@@ -88,7 +88,6 @@ export class TallerService {
     if (!taller) {
       throw new NotFoundException("Taller o empleado no encontrado");
     }
-
     return TallerMapper.toDto(taller);
   }
 
