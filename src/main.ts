@@ -16,7 +16,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<string>("PORT", "3000");
-  const ipServer = configService.get<string>("IP_SERVER", "127.18.0.10");
+  const ipServer = configService.get<string>("IP_SERVER", "172.0.0.5");
 
   await app.listen(port, ipServer);
 
