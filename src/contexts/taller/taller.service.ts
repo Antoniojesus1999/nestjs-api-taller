@@ -54,7 +54,11 @@ export class TallerService {
       taller.empleados = empleados;
     } else {
       const empleadoNew = new Empleado(email);
-      if (taller.empleados.some(e => (e.email = email))) {
+      const checkEmail = function (empleado: { email: string }) {
+        return empleado.email === email;
+      };
+
+      if (taller.empleados.some(empleado => checkEmail(empleado))) {
         throw new InternalServerErrorException(
           "El empleado ya está dado de alta en este taller",
         );
