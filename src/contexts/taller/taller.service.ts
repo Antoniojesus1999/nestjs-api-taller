@@ -7,6 +7,7 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
+import { EmpleadoService } from "../empleado/empleado..service";
 import { TallerDto } from "./dtos/taller.dto";
 import { ITaller } from "./interfaces/taller.interfaz";
 import { TallerMapper } from "./mappers/taller.mapper";
@@ -15,10 +16,10 @@ import { Taller } from "./schemas/taller.schema";
 
 @Injectable()
 export class TallerService {
-  //private readonly logger = new Logger(TallerService.name);
+  private readonly logger = new Logger(TallerService.name);
   constructor(
     @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
-    private readonly logger: Logger,
+    private empleadoService: EmpleadoService,
   ) {}
 
   async saveTaller(taller: ITaller): Promise<TallerDto> {
@@ -47,23 +48,23 @@ export class TallerService {
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
+    const empleado: Empleado =
+      await this.empleadoService.findEmpleadoByEmail(email);
 
     if (taller.empleados == undefined) {
       const empleados = [];
-      empleados.push(new Empleado(email));
+      empleados.push(empleado);
       taller.empleados = empleados;
     } else {
-      const empleadoNew = new Empleado(email);
-      const checkEmail = function (empleado: { email: string }) {
-        return empleado.email === email;
-      };
-
-      if (taller.empleados.some(empleado => checkEmail(empleado))) {
+      const existingEmpleado = taller.empleados.find(
+        emp => emp.email === email,
+      );
+      if (existingEmpleado) {
         throw new InternalServerErrorException(
           "El empleado ya está dado de alta en este taller",
         );
       } else {
-        taller.empleados.push(empleadoNew);
+        taller.empleados.push(empleado);
       }
     }
 

@@ -1,37 +1,37 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class EmpleadoDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   photoUrl: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   displayName: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   provider: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   uid: string;
 
   constructor(
     email: string,
-    photoUrl?: string,
-    displayName?: string,
-    provider?: string,
-    uid?: string,
+    photoUrl: string,
+    displayName: string,
+    provider: string,
+    uid: string,
   ) {
     this.email = email;
-    this.photoUrl = photoUrl ?? "";
-    this.displayName = displayName ?? "";
-    this.provider = provider ?? "";
-    this.uid = uid ?? "";
+    this.photoUrl = photoUrl;
+    this.displayName = displayName;
+    this.provider = provider;
+    this.uid = uid;
   }
 }

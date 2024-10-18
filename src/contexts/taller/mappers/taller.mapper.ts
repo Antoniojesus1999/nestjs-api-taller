@@ -64,10 +64,22 @@ export const TallerMapper = {
   },
 
   empleadoToDto(empleado: Empleado): EmpleadoDto {
-    return new EmpleadoDto(empleado.email);
+    return new EmpleadoDto(
+      empleado.email,
+      empleado.photoUrl,
+      empleado.displayName,
+      empleado.provider,
+      empleado.uid,
+    );
   },
 
   dtoToEmpleado(empleadoDto: EmpleadoDto): Empleado {
-    return new Empleado(empleadoDto.email);
+    return new Empleado(
+      empleadoDto.email,
+      empleadoDto.photoUrl,
+      empleadoDto.displayName,
+      empleadoDto.provider,
+      empleadoDto.uid,
+    );
   },
 };

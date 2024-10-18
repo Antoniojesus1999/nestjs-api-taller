@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
+import { plainToClass } from "class-transformer";
 import { Model, ObjectId } from "mongoose";
 
 import { EmpleadoDto } from "../taller/dtos/empleado.dto";
@@ -20,10 +21,10 @@ export class EmpleadoService {
     private empleadoModel: Model<Empleado>,
   ) {}
 
-  async saveEmpleado(empleado: IEmpleado): Promise<EmpleadoDto> {
+  async saveEmpleado(empleado: EmpleadoDto): Promise<EmpleadoDto> {
     const newEmpleado = new this.empleadoModel(empleado);
-
-    return EmpleadoMapper.toDto(await newEmpleado.save());
+    const savedEmpleado = await newEmpleado.save();
+    return plainToClass(EmpleadoDto, savedEmpleado.toObject());
   }
 
   async updateEmpleado(id: string, empleado: IEmpleado): Promise<EmpleadoDto> {
@@ -53,6 +54,21 @@ export class EmpleadoService {
         throw new NotFoundException("Empleado no encontrado");
       }
       return empleados.map(empleado => EmpleadoMapper.toDto(empleado));
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException("Error interno del servidor");
+    }
+  }
+
+  async findEmpleadoByEmail(email: string): Promise<Empleado> {
+    try {
+      const empleado = await this.empleadoModel.findOne({ email }).exec();
+      if (empleado === null) {
+        throw new NotFoundException(
+          "Empleado con email: " + email + " no existe",
+        );
+      }
+      return empleado;
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException("Error interno del servidor");

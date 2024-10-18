@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
 
+import { EmpleadoDto } from "../taller/dtos/empleado.dto";
 import { EmpleadoService } from "./empleado..service";
 import { IEmpleado } from "./interfaces/empleado.interfaz";
 
@@ -19,7 +20,7 @@ export class EmpleadoController {
   constructor(private empleadoService: EmpleadoService) {}
 
   @Post("add-empleado")
-  async saveEmpleado(@Body() empleado: IEmpleado) {
+  async saveEmpleado(@Body() empleado: IEmpleado): Promise<EmpleadoDto> {
     return this.empleadoService.saveEmpleado(empleado);
   }
 
