@@ -38,8 +38,14 @@ export class EmpleadoController {
   }
 
   @Get("find-empleado-by-id")
-  async findReparacionesByTaller(@Query("id") id: string) {
-    this.logger.log(`Buscando empleado por id del taller ${id}`);
+  async findEmpleadoById(@Query("id") id: string) {
+    this.logger.log(`Buscando empleado por id ${id}`);
     return this.empleadoService.findEmpleadoById(id);
+  }
+
+  @Get("find-empleado-by-email")
+  async findEmpeladoByEmail(@Query("email") email: string) {
+    this.logger.log(`Buscando empleado por email ${email}`);
+    return this.empleadoService.findEmpleadoByEmail(email);
   }
 }
