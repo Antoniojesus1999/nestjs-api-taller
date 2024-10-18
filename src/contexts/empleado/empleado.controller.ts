@@ -48,4 +48,10 @@ export class EmpleadoController {
     this.logger.log(`Buscando empleado por email ${email}`);
     return this.empleadoService.findEmpleadoByEmail(email);
   }
+
+  @Get("find-empleado-by-uid")
+  async findEmpeladoByUid(@Query("uid") uid: string) {
+    this.logger.log(`Buscando empleado por uid ${uid}`);
+    return this.empleadoService.findEmpleadoByUid(uid);
+  }
 }

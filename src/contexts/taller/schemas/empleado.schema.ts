@@ -10,7 +10,7 @@ export class Empleado {
   displayName: string;
   @Prop({ trim: true })
   provider: string;
-  @Prop({ trim: true })
+  @Prop({ unique: true, trim: true })
   uid: string;
 
   constructor(

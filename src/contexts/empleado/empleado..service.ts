@@ -75,4 +75,12 @@ export class EmpleadoService {
     }
     return empleado;
   }
+
+  async findEmpleadoByUid(uid: string): Promise<Empleado> {
+    const empleado = await this.empleadoModel.findOne({ uid }).exec();
+    if (empleado === null) {
+      throw new NotFoundException("Empleado con uid: " + uid + " no existe");
+    }
+    return empleado;
+  }
 }
