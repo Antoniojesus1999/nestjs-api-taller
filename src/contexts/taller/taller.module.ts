@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
+import { EmpleadoModule } from "../empleado/empleado.module";
 import { Taller, TallerSchema } from "./schemas/taller.schema";
 import { TallerController } from "./taller.controller";
 import { TallerService } from "./taller.service";
@@ -13,6 +14,7 @@ import { TallerService } from "./taller.service";
         schema: TallerSchema,
       },
     ]),
+    EmpleadoModule,
   ],
   providers: [TallerService],
   controllers: [TallerController],

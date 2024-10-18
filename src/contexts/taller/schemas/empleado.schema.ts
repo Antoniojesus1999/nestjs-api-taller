@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 @Schema({ timestamps: true })
 export class Empleado {
-  @Prop({ trim: true })
+  @Prop({ unique: true, trim: true })
   email: string;
   @Prop({ trim: true })
   photoUrl: string;

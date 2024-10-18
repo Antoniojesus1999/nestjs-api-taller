@@ -16,5 +16,6 @@ import { EmpleadoController } from "./empleado.controller";
   ],
   providers: [EmpleadoService],
   controllers: [EmpleadoController],
+  exports: [EmpleadoService],
 })
 export class EmpleadoModule {}

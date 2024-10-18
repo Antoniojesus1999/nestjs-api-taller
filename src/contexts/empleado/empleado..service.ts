@@ -1,11 +1,13 @@
+/* eslint-disable unicorn/prefer-ternary */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   Logger,
   NotFoundException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { plainToClass } from "class-transformer";
 import { Model, ObjectId } from "mongoose";
 
 import { EmpleadoDto } from "../taller/dtos/empleado.dto";
@@ -21,10 +23,14 @@ export class EmpleadoService {
     private empleadoModel: Model<Empleado>,
   ) {}
 
-  async saveEmpleado(empleado: EmpleadoDto): Promise<EmpleadoDto> {
-    const newEmpleado = new this.empleadoModel(empleado);
+  async saveEmpleado(empleadoDto: EmpleadoDto): Promise<EmpleadoDto> {
+    const newEmpleado = new this.empleadoModel(empleadoDto);
+
+    if (await this.empleadoModel.findOne({ email: empleadoDto.email }).exec()) {
+      throw new ConflictException("El email ya existe");
+    }
     const savedEmpleado = await newEmpleado.save();
-    return plainToClass(EmpleadoDto, savedEmpleado.toObject());
+    return EmpleadoMapper.toDto(savedEmpleado);
   }
 
   async updateEmpleado(id: string, empleado: IEmpleado): Promise<EmpleadoDto> {
@@ -61,17 +67,12 @@ export class EmpleadoService {
   }
 
   async findEmpleadoByEmail(email: string): Promise<Empleado> {
-    try {
-      const empleado = await this.empleadoModel.findOne({ email }).exec();
-      if (empleado === null) {
-        throw new NotFoundException(
-          "Empleado con email: " + email + " no existe",
-        );
-      }
-      return empleado;
-    } catch (error) {
-      this.logger.error(error);
-      throw new InternalServerErrorException("Error interno del servidor");
+    const empleado = await this.empleadoModel.findOne({ email }).exec();
+    if (empleado === null) {
+      throw new NotFoundException(
+        "Empleado con email: " + email + " no existe",
+      );
     }
+    return empleado;
   }
 }
