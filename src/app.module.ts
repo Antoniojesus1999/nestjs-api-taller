@@ -5,6 +5,7 @@ import { LoggerModule } from "@core/logger/logger.module";
 
 import { ClienteModule } from "./contexts/cliente/cliente.module";
 import { EmpleadoModule } from "./contexts/empleado/empleado.module";
+import { MarcaModule } from "./contexts/marca/marca.module";
 import { PdfModule } from "./contexts/pdf/pdf.module";
 import { ReparacionModule } from "./contexts/reparacion/reparacion.module";
 import { TallerModule } from "./contexts/taller/taller.module";
@@ -24,6 +25,7 @@ import { MongoModule } from "./core/mongo/mongo.module";
     MongoModule,
     PdfModule,
     EmpleadoModule,
+    MarcaModule,
   ],
 })
 export class AppModule implements NestModule {

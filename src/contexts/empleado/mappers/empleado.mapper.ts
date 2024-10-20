@@ -5,12 +5,12 @@ import { Empleado } from "@src/contexts/taller/schemas/empleado.schema";
 
 export const EmpleadoMapper = {
   toDto(empleado: Empleado): EmpleadoDto {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
     return plainToClass(EmpleadoDto, instanceToPlain(empleado));
   },
 
   toEntity(empleadoDto: EmpleadoDto): Empleado {
-    const empleado = plainToClass(Empleado, instanceToPlain(empleadoDto));
-
-    return empleado;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
+    return plainToClass(Empleado, instanceToPlain(empleadoDto));
   },
 };
