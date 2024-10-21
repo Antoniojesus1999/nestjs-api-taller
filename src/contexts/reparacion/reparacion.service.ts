@@ -90,16 +90,19 @@ export class ReparacionService {
     idTaller: string,
     page: number,
     limit: number,
-  ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto>> {
+  ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto> | undefined> {
     try {
       if (page == 0) {
-        this.logger.log(`Pasa por aquí`);
-        return await this.reparacionModel
+        const reparaciones = await this.reparacionModel
           .find({
             taller: idTaller,
           })
           .populate("cliente")
           .populate("vehiculo");
+
+        return reparaciones.map(reparacion =>
+          ReparacionMapper.toDto(reparacion),
+        );
       } else {
         const options: PaginateOptions = {
           page: page,
