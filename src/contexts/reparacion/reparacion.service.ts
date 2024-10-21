@@ -90,7 +90,7 @@ export class ReparacionService {
     idTaller: string,
     page: number,
     limit: number,
-  ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto> | undefined> {
+  ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto>> {
     try {
       if (page == 0) {
         this.logger.log(`Pasa por aquí`);
