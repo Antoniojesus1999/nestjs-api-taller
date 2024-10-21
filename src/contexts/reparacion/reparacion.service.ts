@@ -94,14 +94,18 @@ export class ReparacionService {
     try {
       if (page == 0) {
         this.logger.log(`Pasa por aquí`);
-        return await this.reparacionModel.find({
-          taller: idTaller,
-        });
+        return await this.reparacionModel
+          .find({
+            taller: idTaller,
+          })
+          .populate("cliente")
+          .populate("vehiculo");
       } else {
         const options: PaginateOptions = {
           page: page,
           limit: limit,
           sort: { createdAt: "desc" }, // Ordenar por "createdAt" de forma descendente
+          populate: ["cliente", "vehiculo"],
         };
 
         const paginatedResult = await this.reparacionModel.paginate(

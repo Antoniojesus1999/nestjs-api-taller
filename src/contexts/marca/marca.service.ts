@@ -8,7 +8,6 @@ import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
 import { MarcaDto } from "./dtos/marca.dto";
-import { IMarca } from "./interfaces/marca.interfaz";
 import { MarcaMapper } from "./mappers/marca.mapper";
 import { Marca } from "./schemas/marca.schema";
 import { Modelo } from "./schemas/modelo.schema";
@@ -20,7 +19,7 @@ export class MarcaService {
     private readonly logger: Logger,
   ) {}
 
-  async saveMarca(marca: IMarca): Promise<MarcaDto> {
+  async saveMarca(marca: MarcaDto): Promise<MarcaDto> {
     const newMarca = new this.marcaModel(marca);
     return MarcaMapper.toDto(await newMarca.save());
   }
