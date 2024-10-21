@@ -1,3 +1,10 @@
+import { Types } from "mongoose";
+
+import { ClienteMapper } from "@src/contexts/cliente/mappers/cliente.mapper";
+import { Cliente } from "@src/contexts/cliente/schemas/cliente.schema";
+import { VehiculoMapper } from "@src/contexts/vehiculo/mappers/vehiculo.mapper";
+import { Vehiculo } from "@src/contexts/vehiculo/schemas/vehiculo.schema";
+
 import { DanyoDto } from "../dtos/danyo.dto";
 import { ReparacionDto } from "../dtos/reparacion.dto";
 import { TrabajoDto } from "../dtos/trabajo.dto";
@@ -12,6 +19,13 @@ export const ReparacionMapper = {
     const danyosDto =
       reparacion.danyos?.map(danyo => this.danyoToDto(danyo)) || [];
 
+    const clienteDto = ClienteMapper.toDto(
+      reparacion.cliente as unknown as Cliente,
+    );
+    const vehiculoDto = VehiculoMapper.toDto(
+      reparacion.vehiculo as unknown as Vehiculo,
+    );
+
     return new ReparacionDto(
       reparacion._id as string,
       reparacion.fecEntrada,
@@ -22,8 +36,8 @@ export const ReparacionMapper = {
       trabajosDto as [TrabajoDto],
       danyosDto as [DanyoDto],
       reparacion.taller,
-      reparacion.cliente,
-      reparacion.vehiculo,
+      clienteDto,
+      vehiculoDto,
       reparacion.createdAt,
       reparacion.updatedAt,
     );
@@ -46,8 +60,8 @@ export const ReparacionMapper = {
       trabajos,
       danyos,
       reparacionDto.taller,
-      reparacionDto.cliente,
-      reparacionDto.vehiculo,
+      reparacionDto.cliente.id as unknown as Types.ObjectId,
+      reparacionDto.vehiculo.id as unknown as Types.ObjectId,
       reparacionDto.createdAt,
       reparacionDto.updatedAt,
     );
