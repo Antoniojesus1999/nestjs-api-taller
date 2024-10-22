@@ -13,7 +13,7 @@ import { Types } from "mongoose";
 import { TallerClienteDto } from "../taller-cliente/dtos/taller-cliente.dto";
 import { TallerClienteService } from "../taller-cliente/services/taller-cliente.service";
 import { ClienteService } from "./cliente.service";
-import { SaveClienteDto } from "./dtos/save-cliente.dto ";
+import { SaveClienteDto } from "./dtos/save-cliente.dto";
 import { ICliente } from "./interfaces/cliente.interfaz";
 @Controller("cliente")
 export class ClienteController {
