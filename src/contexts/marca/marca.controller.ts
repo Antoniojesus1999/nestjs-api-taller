@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Post, Query } from "@nestjs/common";
 
 import { CargaMarcaDto } from "./dtos/carga-marca.dto";
 import { MarcaDto } from "./dtos/marca.dto";
@@ -37,6 +37,14 @@ export class MarcaController {
     }
 
     return "";
+  }
+
+  @Get("find-all-marcas")
+  async findTallerByCif(
+    @Query("page") page: number,
+    @Query("limit") limit: number = 10,
+  ) {
+    return this.marcaService.findAll(page, limit);
   }
 
   /*
