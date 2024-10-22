@@ -13,7 +13,7 @@ export class Cliente extends Document {
   apellido_1: string;
   @Prop({ trim: true })
   apellido_2: string;
-  @Prop({ required: true, trim: true })
+  @Prop({ trim: true })
   telefono: string;
   @Prop({ trim: true, unique: true })
   email: string;
