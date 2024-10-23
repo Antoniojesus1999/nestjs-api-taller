@@ -37,15 +37,21 @@ export class ClienteController {
         clienteDto.id,
         cliente,
       );
+      this.logger.log(`Cliente actualizado: ${JSON.stringify(clienteDto.id)}`);
     } catch {
       // Si no lo encuentra lo guardamos
       clienteDto = await this.clienteService.saveCliente(cliente);
+      this.logger.log(`Cliente guardado: ${clienteDto.id}`);
     }
 
-    const tallerClienteDto = new TallerClienteDto("", idTaller, clienteDto.id);
+    const tallerClienteDto: TallerClienteDto = new TallerClienteDto(
+      "",
+      idTaller,
+      clienteDto.id,
+    );
 
     await this.tallerClienteService.saveTallerCliente(tallerClienteDto);
-
+    this.logger.log(`Taller guardado: ${JSON.stringify(tallerClienteDto)}`);
     return clienteDto;
   }
 
