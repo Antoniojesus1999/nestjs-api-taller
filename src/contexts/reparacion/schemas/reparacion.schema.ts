@@ -62,3 +62,11 @@ export class Reparacion extends Document {
 }
 
 export const ReparacionSchema = SchemaFactory.createForClass(Reparacion);
+
+// Pre-save hook para establecer la fecha actual si fecEntrada es null
+ReparacionSchema.pre("save", function (next) {
+  if (this.fecEntrada === null) {
+    this.fecEntrada = new Date();
+  }
+  next();
+});
