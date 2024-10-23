@@ -6,7 +6,7 @@ import { Trabajo, TrabajoSchema } from "./trabajo.schema";
 
 @Schema({ collection: "reparaciones", timestamps: true })
 export class Reparacion extends Document {
-  @Prop({ required: true, default: Date.now })
+  @Prop({ default: Date.now })
   fecEntrada: Date;
   @Prop({ required: false, trim: true })
   combustible: string;
