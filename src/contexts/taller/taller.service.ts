@@ -7,7 +7,7 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
-import { EmpleadoService } from "../empleado/empleado..service";
+import { EmpleadoService } from "../empleado/empleado.service";
 import { TallerDto } from "./dtos/taller.dto";
 import { ITaller } from "./interfaces/taller.interfaz";
 import { TallerMapper } from "./mappers/taller.mapper";

@@ -10,8 +10,8 @@ import {
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
 
-import { EmpleadoDto } from "../taller/dtos/empleado.dto";
-import { EmpleadoService } from "./empleado..service";
+import { EmpleadoDto } from "./dtos/empleado.dto";
+import { EmpleadoService } from "./empleado.service";
 import { IEmpleado } from "./interfaces/empleado.interfaz";
 
 @Controller("empleado")
@@ -19,7 +19,7 @@ export class EmpleadoController {
   private readonly logger = new Logger(EmpleadoController.name);
   constructor(private empleadoService: EmpleadoService) {}
 
-  @Post("add-empleado")
+  @Post("save-empleado")
   async saveEmpleado(@Body() empleado: IEmpleado): Promise<EmpleadoDto> {
     return this.empleadoService.saveEmpleado(empleado);
   }

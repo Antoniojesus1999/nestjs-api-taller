@@ -10,8 +10,8 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
 
-import { EmpleadoDto } from "../taller/dtos/empleado.dto";
 import { Empleado } from "../taller/schemas/empleado.schema";
+import { EmpleadoDto } from "./dtos/empleado.dto";
 import { IEmpleado } from "./interfaces/empleado.interfaz";
 import { EmpleadoMapper } from "./mappers/empleado.mapper";
 

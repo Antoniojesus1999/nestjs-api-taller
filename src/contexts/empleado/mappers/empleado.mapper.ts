@@ -1,16 +1,30 @@
-import { instanceToPlain, plainToClass } from "class-transformer";
-
-import { EmpleadoDto } from "@src/contexts/taller/dtos/empleado.dto";
 import { Empleado } from "@src/contexts/taller/schemas/empleado.schema";
+
+import { EmpleadoDto } from "../dtos/empleado.dto";
 
 export const EmpleadoMapper = {
   toDto(empleado: Empleado): EmpleadoDto {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-    return plainToClass(EmpleadoDto, instanceToPlain(empleado));
+    return new EmpleadoDto(
+      empleado._id as string,
+      empleado.email,
+      empleado.photoUrl,
+      empleado.displayName,
+      empleado.provider,
+      empleado.uid,
+      empleado.createdAt,
+      empleado.updatedAt,
+    );
   },
 
   toEntity(empleadoDto: EmpleadoDto): Empleado {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
-    return plainToClass(Empleado, instanceToPlain(empleadoDto));
+    return new Empleado(
+      empleadoDto.email,
+      empleadoDto.photoUrl,
+      empleadoDto.displayName,
+      empleadoDto.provider,
+      empleadoDto.uid,
+      empleadoDto.createdAt,
+      empleadoDto.updatedAt,
+    );
   },
 };
