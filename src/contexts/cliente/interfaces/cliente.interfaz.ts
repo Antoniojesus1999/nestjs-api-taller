@@ -4,8 +4,8 @@ export interface ICliente {
   id: string;
   nif: string;
   nombre: string;
-  apellido_1: string;
-  apellido_2: string;
+  apellido1: string;
+  apellido2: string;
   telefono: string;
   email: string;
   reparaciones: IReparacion[];

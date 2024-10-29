@@ -51,7 +51,9 @@ export class ClienteController {
     );
 
     await this.tallerClienteService.saveTallerCliente(tallerClienteDto);
-    this.logger.log(`Taller guardado: ${JSON.stringify(tallerClienteDto)}`);
+    this.logger.log(
+      `TallerCliente guardado: ${JSON.stringify(tallerClienteDto)}`,
+    );
     return clienteDto;
   }
 
