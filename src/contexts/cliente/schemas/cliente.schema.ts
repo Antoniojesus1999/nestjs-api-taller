@@ -10,12 +10,12 @@ export class Cliente extends Document {
   @Prop({ trim: true })
   nombre: string;
   @Prop({ trim: true })
-  apellido_1: string;
+  apellido1: string;
   @Prop({ trim: true })
-  apellido_2: string;
-  @Prop({ required: true, trim: true })
+  apellido2: string;
+  @Prop({ trim: true })
   telefono: string;
-  @Prop({ trim: true })
+  @Prop({ trim: true, unique: true })
   email: string;
   @Prop({ default: Date.now })
   createdAt: Date;
@@ -26,8 +26,8 @@ export class Cliente extends Document {
   constructor(
     nif: string,
     nombre: string,
-    apellido_1: string,
-    apellido_2: string,
+    apellido1: string,
+    apellido2: string,
     telefono: string,
     email: string,
     createdAt: Date,
@@ -36,8 +36,8 @@ export class Cliente extends Document {
     super();
     this.nif = nif;
     this.nombre = nombre;
-    this.apellido_1 = apellido_1;
-    this.apellido_2 = apellido_2;
+    this.apellido1 = apellido1;
+    this.apellido2 = apellido2;
     this.telefono = telefono;
     this.email = email;
     this.createdAt = createdAt;

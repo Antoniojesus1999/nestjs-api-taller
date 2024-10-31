@@ -2,7 +2,7 @@ import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
-import { EmpleadoDto } from "./empleado.dto";
+import { EmpleadoDto } from "../../empleado/dtos/empleado.dto";
 
 export class TallerDto {
   @IsOptional()

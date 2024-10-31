@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Logger,
   Post,
   Put,
@@ -16,6 +17,7 @@ import { ReparacionService } from "./reparacion.service";
 
 @Controller("reparacion")
 export class ReparacionController {
+  //private readonly logger = new Logger(ReparacionController.name);
   constructor(
     private reparacionService: ReparacionService,
     private readonly logger: Logger,
@@ -53,5 +55,19 @@ export class ReparacionController {
   @Delete("delete-reparacion")
   async deleteReparacion(@Query("idReparacion") idReparacion: ObjectId) {
     return this.reparacionService.deleteReparacion(idReparacion);
+  }
+
+  @Get("find-reparaciones-by-taller")
+  async findReparacionesByTaller(
+    @Query("idTaller") idTaller: string,
+    @Query("page") page: number,
+    @Query("limit") limit: number,
+  ) {
+    this.logger.log(`Buscando reparaciones del taller ${idTaller}`);
+    return this.reparacionService.findReparacionesByTallerId(
+      idTaller,
+      page,
+      limit,
+    );
   }
 }

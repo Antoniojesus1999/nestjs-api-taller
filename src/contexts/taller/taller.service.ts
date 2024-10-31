@@ -1,9 +1,13 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
 
-import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
-import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
+import { EmpleadoService } from "../empleado/empleado.service";
 import { TallerDto } from "./dtos/taller.dto";
 import { ITaller } from "./interfaces/taller.interfaz";
 import { TallerMapper } from "./mappers/taller.mapper";
@@ -13,9 +17,9 @@ import { Taller } from "./schemas/taller.schema";
 @Injectable()
 export class TallerService {
   private readonly logger = new Logger(TallerService.name);
-
   constructor(
     @InjectModel(Taller.name) private tallerModel: PaginateModel<Taller>,
+    private empleadoService: EmpleadoService,
   ) {}
 
   async saveTaller(taller: ITaller): Promise<TallerDto> {
@@ -44,13 +48,24 @@ export class TallerService {
     if (!taller) {
       throw new NotFoundException("Taller no encontrado");
     }
+    const empleado: Empleado =
+      await this.empleadoService.findEmpleadoByEmail(email);
 
     if (taller.empleados == undefined) {
       const empleados = [];
-      empleados.push(new Empleado(email));
+      empleados.push(empleado);
       taller.empleados = empleados;
     } else {
-      taller.empleados.push(new Empleado(email));
+      const existingEmpleado = taller.empleados.find(
+        emp => emp.email === email,
+      );
+      if (existingEmpleado) {
+        throw new InternalServerErrorException(
+          "El empleado ya está dado de alta en este taller",
+        );
+      } else {
+        taller.empleados.push(empleado);
+      }
     }
 
     return TallerMapper.toDto(await taller.save());
@@ -78,7 +93,6 @@ export class TallerService {
     if (!taller) {
       throw new NotFoundException("Taller o empleado no encontrado");
     }
-
     return TallerMapper.toDto(taller);
   }
 
@@ -128,23 +142,5 @@ export class TallerService {
       this.logger.error(error);
       throw error;
     }
-  }
-
-  async findReparacionesByTallerId(
-    idTaller: string,
-  ): Promise<ReparacionDto[] | undefined> {
-    // Buscar el taller por su ID y poblar las reparaciones
-    const taller = await this.tallerModel
-      .findById(idTaller)
-      .populate("reparaciones")
-      .exec();
-
-    if (!taller) {
-      throw new NotFoundException("Taller no encontrado");
-    }
-    this.logger.log("taller reparaciones : " + JSON.stringify(taller));
-    return taller.reparaciones?.map(reparacion =>
-      ReparacionMapper.toDto(reparacion),
-    ); // Devolver las reparaciones asociadas al taller
   }
 }

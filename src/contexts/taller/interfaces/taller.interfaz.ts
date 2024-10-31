@@ -1,6 +1,6 @@
 import { IReparacion } from "@src/contexts/reparacion/interfaces/reparacion.interfaz";
 
-import { IEmpleado } from "./empleado.interfaz";
+import { IEmpleado } from "../../empleado/interfaces/empleado.interfaz";
 
 export interface ITaller {
   id: string;

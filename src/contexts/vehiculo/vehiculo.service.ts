@@ -11,10 +11,10 @@ import { Vehiculo } from "./schemas/vehiculo.schema";
 
 @Injectable()
 export class VehiculoService {
-  private readonly logger = new Logger(VehiculoService.name);
-
+  //private readonly logger = new Logger(VehiculoService.name);
   constructor(
     @InjectModel(Vehiculo.name) private vehiculoModel: Model<Vehiculo>,
+    private readonly logger: Logger,
   ) {}
 
   async saveVehiculo(vehiculo: IVehiculo): Promise<VehiculoDto> {

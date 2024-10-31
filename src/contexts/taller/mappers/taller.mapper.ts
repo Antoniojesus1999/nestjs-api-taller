@@ -1,7 +1,7 @@
+import { EmpleadoDto } from "@src/contexts/empleado/dtos/empleado.dto";
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "@src/contexts/reparacion/mappers/reparacion.mapper";
 
-import { EmpleadoDto } from "../dtos/empleado.dto";
 import { TallerDto } from "../dtos/taller.dto";
 import { Empleado } from "../schemas/empleado.schema";
 import { Taller } from "../schemas/taller.schema";
@@ -16,7 +16,7 @@ export const TallerMapper = {
       ) || [];
 
     return new TallerDto(
-      taller._id,
+      taller._id as string,
       taller.cif,
       taller.nombre,
       taller.direccion,
@@ -64,10 +64,27 @@ export const TallerMapper = {
   },
 
   empleadoToDto(empleado: Empleado): EmpleadoDto {
-    return new EmpleadoDto(empleado.email);
+    return new EmpleadoDto(
+      empleado._id as string,
+      empleado.email,
+      empleado.photoUrl,
+      empleado.displayName,
+      empleado.provider,
+      empleado.uid,
+      empleado.createdAt,
+      empleado.updatedAt,
+    );
   },
 
   dtoToEmpleado(empleadoDto: EmpleadoDto): Empleado {
-    return new Empleado(empleadoDto.email);
+    return new Empleado(
+      empleadoDto.email,
+      empleadoDto.photoUrl,
+      empleadoDto.displayName,
+      empleadoDto.provider,
+      empleadoDto.uid,
+      empleadoDto.createdAt,
+      empleadoDto.updatedAt,
+    );
   },
 };

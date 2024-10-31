@@ -1,14 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, ObjectId, Types } from "mongoose";
+import { Document, Types } from "mongoose";
 
 import { Danyo, DanyoSchema } from "./danyo.schema";
 import { Trabajo, TrabajoSchema } from "./trabajo.schema";
 
 @Schema({ collection: "reparaciones", timestamps: true })
 export class Reparacion extends Document {
-  @Prop({ required: false, trim: true })
-  _id: ObjectId;
-  @Prop({ required: true, default: Date.now })
+  @Prop({ default: Date.now })
   fecEntrada: Date;
   @Prop({ required: false, trim: true })
   combustible: string;
@@ -34,7 +32,6 @@ export class Reparacion extends Document {
   updatedAt: Date;
 
   constructor(
-    _id: ObjectId,
     fecEntrada: Date,
     combustible: string,
     kilometros: string,
@@ -49,7 +46,6 @@ export class Reparacion extends Document {
     updatedAt: Date,
   ) {
     super();
-    this._id = _id;
     this.fecEntrada = fecEntrada;
     this.combustible = combustible;
     this.kilometros = kilometros;
@@ -66,3 +62,11 @@ export class Reparacion extends Document {
 }
 
 export const ReparacionSchema = SchemaFactory.createForClass(Reparacion);
+
+// Pre-save hook para establecer la fecha actual si fecEntrada es null
+ReparacionSchema.pre("save", function (next) {
+  if (this.fecEntrada === null) {
+    this.fecEntrada = new Date();
+  }
+  next();
+});

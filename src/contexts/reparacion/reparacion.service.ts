@@ -1,6 +1,12 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { ObjectId, PaginateModel, Types } from "mongoose";
+import {
+  ObjectId,
+  PaginateModel,
+  PaginateOptions,
+  PaginateResult,
+  Types,
+} from "mongoose";
 
 import { ReparacionDto } from "./dtos/reparacion.dto";
 import { IDanyo } from "./interfaces/danyo.interfaz";
@@ -11,11 +17,11 @@ import { Reparacion } from "./schemas/reparacion.schema";
 
 @Injectable()
 export class ReparacionService {
-  private readonly logger = new Logger(ReparacionService.name);
-
+  //private readonly logger = new Logger(ReparacionService.name);
   constructor(
     @InjectModel(Reparacion.name)
     private reparacionModel: PaginateModel<Reparacion>,
+    private readonly logger: Logger,
   ) {}
 
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
@@ -78,5 +84,50 @@ export class ReparacionService {
 
   async deleteReparacion(idReparacion: ObjectId): Promise<void> {
     await this.reparacionModel.findByIdAndDelete(idReparacion);
+  }
+
+  async findReparacionesByTallerId(
+    idTaller: string,
+    page: number,
+    limit: number,
+  ): Promise<ReparacionDto[] | PaginateResult<ReparacionDto> | undefined> {
+    try {
+      if (page == 0) {
+        const reparaciones = await this.reparacionModel
+          .find({
+            taller: idTaller,
+          })
+          .populate("cliente")
+          .populate("vehiculo");
+
+        return reparaciones.map(reparacion =>
+          ReparacionMapper.toDto(reparacion),
+        );
+      } else {
+        const options: PaginateOptions = {
+          page: page,
+          limit: limit,
+          sort: { createdAt: "desc" }, // Ordenar por "createdAt" de forma descendente
+          populate: ["cliente", "vehiculo"],
+        };
+
+        const paginatedResult = await this.reparacionModel.paginate(
+          { taller: new Types.ObjectId(idTaller) },
+          options,
+        );
+
+        const dtoPaginatedResult: PaginateResult<ReparacionDto> = {
+          ...paginatedResult,
+          docs: paginatedResult.docs.map(reparacion =>
+            ReparacionMapper.toDto(reparacion),
+          ),
+        };
+
+        return dtoPaginatedResult;
+      }
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
   }
 }

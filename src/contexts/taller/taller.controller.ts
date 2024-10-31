@@ -55,9 +55,4 @@ export class TallerController {
   async findAll(@Query("page") page: number, @Query("limit") limit: number) {
     return this.tallerService.findAll(page, limit);
   }
-
-  @Get("find-reparaciones-by-taller")
-  async findReparacionesByTaller(@Query("idTaller") idTaller: string) {
-    return this.tallerService.findReparacionesByTallerId(idTaller);
-  }
 }
