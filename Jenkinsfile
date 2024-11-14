@@ -5,34 +5,31 @@ pipeline {
 
         stage('Down Mongo db') {
             steps {
-               sh 'docker-compose -f /home/aj/Desktop/docker/docker-compose.yml down'
+               sh 'sudo docker-compose -f  /docker/docker-compose.yml down'
 
             }
         }
 
         stage('Up mongo db') {
            steps {
-             sh 'docker-compose -f /home/aj/Desktop/docker/docker-compose.yml up -d'
+             sh 'sudo docker-compose -f  /docker/docker-compose.yml up -d'
             }
         }
-
          stage('Down nestjs-api-taller') {
-
               steps {
-                  script{
-                     try {
-                      sh 'docker stop api-taller-pro'
-                      sh 'docker rm api-taller-pro'
-                      } catch (err) {
-                        echo err.getMessage()
-                        echo "No hay contenedores levantados para apagar."
-                    }
-
-                  }
+                script{
+                  try {
+                    sh 'sudo docker stop api-taller-pro'
+                    sh 'sudo docker rm api-taller-pro'
+                    sh 'sudo docker rmi api-taller-pro'
+                  } catch (Exception e) {
+                    // Si ocurre un error, simplemente lo registramos en el log
+                    echo "Error al detener y eliminar el contenedor: ${e.message}"
+                }
+                }
 
                     }
                 }
-
 
          stage('delete node_modules') {
              steps {
@@ -56,7 +53,7 @@ pipeline {
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker-compose up -d --force-recreate'
+                sh 'sudo docker-compose up -d --force-recreate'
             }
         }
 
