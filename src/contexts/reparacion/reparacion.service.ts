@@ -97,6 +97,7 @@ export class ReparacionService {
           .find({
             taller: idTaller,
           })
+          .populate("taller")
           .populate("cliente")
           .populate("vehiculo");
 

@@ -2,6 +2,8 @@ import { Types } from "mongoose";
 
 import { ClienteMapper } from "@src/contexts/cliente/mappers/cliente.mapper";
 import { Cliente } from "@src/contexts/cliente/schemas/cliente.schema";
+import { TallerMapper } from "@src/contexts/taller/mappers/taller.mapper";
+import { Taller } from "@src/contexts/taller/schemas/taller.schema";
 import { VehiculoMapper } from "@src/contexts/vehiculo/mappers/vehiculo.mapper";
 import { Vehiculo } from "@src/contexts/vehiculo/schemas/vehiculo.schema";
 
@@ -19,6 +21,9 @@ export const ReparacionMapper = {
     const danyosDto =
       reparacion.danyos?.map(danyo => this.danyoToDto(danyo)) || [];
 
+    const tallerDto = TallerMapper.toDto(
+      reparacion.taller as unknown as Taller,
+    );
     const clienteDto = ClienteMapper.toDto(
       reparacion.cliente as unknown as Cliente,
     );
@@ -35,7 +40,7 @@ export const ReparacionMapper = {
       reparacion.chasis,
       trabajosDto as [TrabajoDto],
       danyosDto as [DanyoDto],
-      reparacion.taller,
+      tallerDto,
       clienteDto,
       vehiculoDto,
       reparacion.createdAt,
@@ -59,7 +64,7 @@ export const ReparacionMapper = {
       reparacionDto.chasis,
       trabajos,
       danyos,
-      reparacionDto.taller,
+      reparacionDto.taller.id as unknown as Types.ObjectId,
       reparacionDto.cliente.id as unknown as Types.ObjectId,
       reparacionDto.vehiculo.id as unknown as Types.ObjectId,
       reparacionDto.createdAt,
