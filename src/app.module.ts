@@ -3,21 +3,29 @@ import { ConfigModule } from "@nestjs/config";
 
 import { LoggerModule } from "@core/logger/logger.module";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ClientController } from "./contexts/client/client.controller";
-import { ClientModule } from "./contexts/client/client.module";
+import { ClienteModule } from "./contexts/cliente/cliente.module";
+import { EmpleadoModule } from "./contexts/empleado/empleado.module";
+import { MarcaModule } from "./contexts/marca/marca.module";
 import { PdfModule } from "./contexts/pdf/pdf.module";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AuthMiddleware } from "./core/middleware/auth.middleware";
+import { ReparacionModule } from "./contexts/reparacion/reparacion.module";
+import { TallerModule } from "./contexts/taller/taller.module";
+import { TallerClienteModule } from "./contexts/taller-cliente/modules/taller-cliente.module";
+import { VehiculoModule } from "./contexts/vehiculo/vehiculo.module";
 import { MongoModule } from "./core/mongo/mongo.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, cache: true }),
     LoggerModule,
-    ClientModule,
+    TallerModule,
+    VehiculoModule,
+    ClienteModule,
+    TallerClienteModule,
+    ReparacionModule,
     MongoModule,
     PdfModule,
+    EmpleadoModule,
+    MarcaModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -30,7 +38,7 @@ export class AppModule implements NestModule {
         // { path: 'cats', method: RequestMethod.POST },
         "cats/(.*)",
       )
-      
-      .forRoutes(ClientController);*/
+
+      .forRoutes(ClienteController);*/
   }
 }

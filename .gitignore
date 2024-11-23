@@ -6,4 +6,7 @@ coverage/
 .npm
 .nyc_output
 output.pdf
+.env
+.gitignore
 package-lock.json
+package.json
