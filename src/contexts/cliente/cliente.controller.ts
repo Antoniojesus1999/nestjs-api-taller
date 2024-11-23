@@ -27,7 +27,7 @@ export class ClienteController {
   async saveCliente(@Body() saveClienteDto: SaveClienteDto) {
     const { idTaller, cliente } = saveClienteDto;
     let clienteDto;
-
+    this.logger.log(`Petición recibida con los datos_ Guardando cliente: ${JSON.stringify(cliente)}`);
     // Comprobar si el cliente existe
     try {
       clienteDto = await this.clienteService.findClienteByNif(cliente.nif);
