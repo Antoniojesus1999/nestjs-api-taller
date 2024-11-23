@@ -5,14 +5,14 @@ pipeline {
 
         stage('Down Mongo db') {
             steps {
-               sh 'sudo docker-compose -f  /docker/docker-compose.yml down'
+               sh 'sudo docker-compose -f  /docker/bd/docker-compose.yml down'
 
             }
         }
 
         stage('Up mongo db') {
            steps {
-             sh 'sudo docker-compose -f  /docker/docker-compose.yml up -d'
+             sh 'sudo docker-compose -f  /docker/bd/docker-compose.yml up -d'
             }
         }
          stage('Down nestjs-api-taller') {
