@@ -22,11 +22,11 @@ services:
       - .:/app
       - ./node_modules:/app/node_modules/
     networks:
-      mi-red:
+      red_bd:
         ipv4_address: 172.0.0.5
 networks:
-  mi-red:
-    name: mi-red
+  red_bd:
+    name: red_bd
     driver: bridge
     ipam:
       config:
