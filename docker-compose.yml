@@ -11,8 +11,8 @@ services:
       - "3000:3000"
     restart: always
     volumes:
-      - ./dist:/app/dist
-      - ./node_modules:/app/node_modules
+      - ./dist:/dist
+      - ./node_modules:/node_modules
     networks:
       red_bd:
         ipv4_address: 172.0.0.5
