@@ -26,7 +26,7 @@ CMD ["npm", "run", "dev"]
 
 FROM base AS build
 
-RUN apk update && apk add --no-cache dumb-init=1.2.5-r2
+RUN apk update && apk add --no-cache dumb-init
 
 COPY package*.json .
 # Bellow npm install is a workaround for https://github.com/swc-project/swc/issues/5616#issuecomment-1651214641
