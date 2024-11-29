@@ -34,7 +34,6 @@ pipeline {
          stage('delete node_modules') {
              steps {
                   script {
-                        sh 'npm install'
                         sh 'rm -rf node_modules'
                       }
                   }
