@@ -57,4 +57,4 @@ COPY --from=build $DIR/dist $DIR/dist
 
 USER $USER
 EXPOSE $PORT
-CMD ["dumb-init", "node", "dist/main.js"]
+CMD ["dumb-init", "node", "app/dist/main.js"]
