@@ -1,50 +1,14 @@
-FROM node:lts-alpine AS base
+# Dockerfile
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-ENV DIR /
-
-FROM base AS dev
-
-ENV NODE_ENV=development
-
-COPY package*.json .
-
-
-RUN npm ci
-
-COPY tsconfig*.json .
-COPY .swcrc .
-COPY nest-cli.json .
-COPY src src
-
-EXPOSE $PORT
-CMD ["npm", "run", "dev"]
-
-FROM base AS build
-
-RUN apk update && apk add --no-cache dumb-init
-
-COPY package*.json .
-
-
-RUN npm ci
-
-COPY tsconfig*.json .
-COPY .swcrc .
-COPY nest-cli.json .
-COPY src src
-
-RUN npm run build && \
-    npm prune --production
-
-FROM base AS production
-
-ENV NODE_ENV=production
-ENV USER=node
-
-COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
-COPY --from=build $DIR/node_modules node_modules
-COPY --from=build $DIR/dist dist
-
-USER $USER
-EXPOSE $PORT
-CMD ["dumb-init", "node", "/dist/main.js"]
+FROM node:22-alpine AS production
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["node", "dist/main.js"]
