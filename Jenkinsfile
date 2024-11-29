@@ -5,14 +5,14 @@ pipeline {
 
         stage('Down Mongo db') {
             steps {
-               sh 'docker-compose -f  /home/aj/Escritorio/nestjs-api-taller/docker-compose.yml down'
+               sh 'sudo docker-compose -f  /home/aj/Escritorio/nestjs-api-taller/docker-compose.yml down'
 
             }
         }
 
         stage('Up mongo db') {
            steps {
-             sh 'docker-compose -f  /home/aj/Escritorio/nestjs-api-taller/docker-compose.yml up -d'
+             sh 'sudo docker-compose -f  /home/aj/Escritorio/nestjs-api-taller/docker-compose.yml up -d'
             }
         }
          stage('Down nestjs-api-taller') {
@@ -53,7 +53,7 @@ pipeline {
 
         stage('Up nestjs-api-taller') {
             steps {
-                sh 'docker-compose up -d --force-recreate'
+                sh 'sudo docker-compose up -d --force-recreate'
             }
         }
 
