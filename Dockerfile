@@ -1,4 +1,4 @@
-FROM node:20-alpine3.24 AS base
+FROM node:lts-alpine AS base
 
 ENV DIR /app
 WORKDIR $DIR
