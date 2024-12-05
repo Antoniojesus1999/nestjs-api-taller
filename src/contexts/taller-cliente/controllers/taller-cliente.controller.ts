@@ -36,7 +36,7 @@ export class TallerClienteController {
   @Get("get-taller-find-all-client")
   async getTallerFindAllClient(@Query("idTaller") idTaller: string) {
     this.logger.log(
-      `Recuperando todos los datos de los clientes del taller ${idTaller}`,
+      `Recuperando todos los datos de los clientes del taller: ${idTaller}`,
     );
     return this.tallerClienteService.getTallerFindAllClient(
       new Types.ObjectId(idTaller),
