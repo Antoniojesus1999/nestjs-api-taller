@@ -15,6 +15,7 @@ export class MarcaController {
 
   @Post("cargar-marcas-modelo")
   cargarMarcasModelo(@Body() cargaMarcaDto: CargaMarcaDto[]) {
+    this.logger.log(`Valor del body -> $cargaMarcaDto`);
     for (const marca of cargaMarcaDto) {
       const modeloArray = new Array<Modelo>();
 
