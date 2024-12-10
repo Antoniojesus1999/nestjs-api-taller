@@ -3,6 +3,8 @@ import { Document } from "mongoose";
 
 import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
 
+import { ColorVeh } from "./color.veh..schema";
+
 @Schema({ collection: "vehiculos", timestamps: true })
 export class Vehiculo extends Document {
   @Prop({ required: true, trim: true, unique: true })
@@ -11,6 +13,8 @@ export class Vehiculo extends Document {
   marca: string;
   @Prop({ required: true, trim: true })
   modelo: string;
+  @Prop({ required: true, trim: true })
+  color: ColorVeh;
   reparaciones?: Reparacion[];
   @Prop({ default: Date.now })
   createdAt: Date;
@@ -21,6 +25,7 @@ export class Vehiculo extends Document {
     matricula: string,
     marca: string,
     modelo: string,
+    color: ColorVeh,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -28,6 +33,7 @@ export class Vehiculo extends Document {
     this.matricula = matricula;
     this.marca = marca;
     this.modelo = modelo;
+    this.color = color;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
