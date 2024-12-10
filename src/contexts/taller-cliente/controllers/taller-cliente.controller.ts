@@ -31,4 +31,15 @@ export class TallerClienteController {
       new Types.ObjectId(idCliente),
     );
   }
+
+  //Devolvemos todos los clientes de un taller
+  @Get("get-taller-find-all-client")
+  async getTallerFindAllClient(@Query("idTaller") idTaller: string) {
+    this.logger.log(
+      `Recuperando todos los datos de los clientes del taller: ${idTaller}`,
+    );
+    return this.tallerClienteService.getTallerFindAllClient(
+      new Types.ObjectId(idTaller),
+    );
+  }
 }
