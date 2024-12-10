@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 
 import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
@@ -55,6 +55,12 @@ export class VehiculoService {
 
   async findAll(): Promise<VehiculoDto[]> {
     const vehiculos = await this.vehiculoModel.find();
+
+    return vehiculos.map(vehiculo => VehiculoMapper.toDto(vehiculo));
+  }
+
+  async findVehiculoByIds(ids: Types.ObjectId[]): Promise<VehiculoDto[]> {
+    const vehiculos = await this.vehiculoModel.find({ _id: { $in: ids } });
 
     return vehiculos.map(vehiculo => VehiculoMapper.toDto(vehiculo));
   }

@@ -8,7 +8,11 @@ import {
   Put,
   Query,
 } from "@nestjs/common";
+import { Types } from "mongoose";
 
+import { ClienteVehiculoDto } from "../cliente-vehiculo/dtos/cliente-vehiculo.dto";
+import { ClienteVehiculoService } from "../cliente-vehiculo/services/cliente-vehiculo.service";
+import { SaveVehiculoDto } from "./dtos/save-vehiculo.dto";
 import { IVehiculo } from "./interfaces/vehiculo.interfaz";
 import { VehiculoService } from "./vehiculo.service";
 
@@ -16,12 +20,45 @@ import { VehiculoService } from "./vehiculo.service";
 export class VehiculoController {
   constructor(
     private vehiculoService: VehiculoService,
+    private clienteVehiculoService: ClienteVehiculoService,
     private readonly logger: Logger,
   ) {}
 
   @Post("save-vehiculo")
-  async saveVehiculo(@Body() vehiculo: IVehiculo) {
-    return this.vehiculoService.saveVehiculo(vehiculo);
+  async saveVehiculo(@Body() saveVehiculoDto: SaveVehiculoDto) {
+    const { idCliente, vehiculo } = saveVehiculoDto;
+    let vehiculoDto;
+    // Comprobar si el cliente existe
+    try {
+      vehiculoDto = await this.vehiculoService.findVehiculoByMatricula(
+        vehiculo.matricula,
+      );
+
+      // Si lo encuentra lo actualizamos con el que nos entre por peticion
+      vehiculoDto = await this.vehiculoService.updateVehiculo(
+        vehiculoDto.id,
+        vehiculo,
+      );
+      this.logger.log(
+        `Vehiculo actualizado: ${JSON.stringify(vehiculoDto.id)}`,
+      );
+    } catch {
+      // Si no lo encuentra lo guardamos
+      vehiculoDto = await this.vehiculoService.saveVehiculo(vehiculo);
+      this.logger.log(`Vehiculo guardado: ${vehiculoDto.id}`);
+    }
+
+    const clienteVehiculoDto: ClienteVehiculoDto = new ClienteVehiculoDto(
+      "",
+      idCliente,
+      vehiculoDto.id,
+    );
+
+    await this.clienteVehiculoService.saveClienteVehiculo(clienteVehiculoDto);
+    this.logger.log(
+      `ClienteVehiculo guardado: ${JSON.stringify(clienteVehiculoDto)}`,
+    );
+    return vehiculoDto;
   }
 
   @Put("update-vehiculo")
@@ -47,5 +84,14 @@ export class VehiculoController {
   @Get("find-reparaciones-by-vehiculo")
   async findReparacionesByVehiculo(@Query("idVehiculo") idVehiculo: string) {
     return this.vehiculoService.findReparacionesByVehiculoId(idVehiculo);
+  }
+
+  @Get("find-vehiculos-by-cliente")
+  async getVehiculosByCliente(@Query("idCliente") idCliente: string) {
+    const vehiculosId = await this.clienteVehiculoService.getVehiculosByCliente(
+      new Types.ObjectId(idCliente),
+    );
+
+    return await this.vehiculoService.findVehiculoByIds(vehiculosId);
   }
 }
