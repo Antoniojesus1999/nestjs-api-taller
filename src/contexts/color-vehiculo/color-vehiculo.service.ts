@@ -1,6 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { PaginateModel, PaginateOptions, PaginateResult } from "mongoose";
+import { Model } from "mongoose";
 
 import { ColorVehiculoDto } from "./dtos/color-vehiculo.dto";
 import { IColorVehiculo } from "./interfaces/color.vehiculo.interfaz";
@@ -11,7 +11,7 @@ import { ColorVehiculo } from "./schemas/color-vehiculo.schema";
 export class ColorVehiculoService {
   constructor(
     @InjectModel(ColorVehiculo.name)
-    private colorVehiculoModel: PaginateModel<ColorVehiculo>,
+    private colorVehiculoModel: Model<ColorVehiculo>,
     private readonly logger: Logger,
   ) {}
 
@@ -24,29 +24,18 @@ export class ColorVehiculoService {
     await this.colorVehiculoModel.findByIdAndDelete(idColor);
   }
 
-  async findAll(
-    page: number,
-    limit: number,
-  ): Promise<ColorVehiculoDto[] | PaginateResult<ColorVehiculoDto>> {
-    const options: PaginateOptions = {
-      page: page,
-      limit: limit,
-      sort: { createdAt: "desc" }, // Ordenar por "createdAt" de forma descendente
-    };
-
+  async findAll(): Promise<ColorVehiculoDto[]> {
     try {
       this.logger.log("Buscando todos los colores sin paginar");
       const colores = await this.colorVehiculoModel
         .find()
-        .sort({ nombre: "asc" })
+        .sort({ createdAt: "asc" })
         .collation({ locale: "es" })
         .exec();
 
       return colores.map(color => ColorVehiculoMapper.toDto(color));
     } catch (error) {
-      this.logger.error(
-        `Error al hacer la petición con los parámetros ${JSON.stringify(options)}`,
-      );
+      this.logger.error(`Error al hacer la petición`);
       this.logger.error(error);
       throw error;
     }

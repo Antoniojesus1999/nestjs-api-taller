@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Post } from "@nestjs/common";
 
 import { ColorVehiculoService } from "./color-vehiculo.service";
 import { ColorVehiculoDto } from "./dtos/color-vehiculo.dto";
@@ -32,10 +32,7 @@ export class ColorVehiculoController {
   }
 
   @Get("find-all-colores")
-  async findAllColores(
-    @Query("page") page: number,
-    @Query("limit") limit: number = 10,
-  ) {
-    return this.colorVehiculoService.findAll(page, limit);
+  async findAllColores() {
+    return this.colorVehiculoService.findAll();
   }
 }
