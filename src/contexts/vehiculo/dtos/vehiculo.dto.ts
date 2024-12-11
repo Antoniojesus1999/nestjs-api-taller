@@ -1,8 +1,7 @@
 import { IsDate, IsNotEmpty, IsOptional } from "class-validator";
 
+import { ColorVehiculoDto } from "@src/contexts/color-vehiculo/dtos/color-vehiculo.dto";
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
-
-import { ColorVehDto } from "./color.veh.dto";
 
 export class VehiculoDto {
   @IsOptional()
@@ -18,7 +17,7 @@ export class VehiculoDto {
   modelo: string;
 
   @IsNotEmpty()
-  color: ColorVehDto;
+  color: ColorVehiculoDto;
 
   @IsOptional()
   reparaciones: [ReparacionDto];
@@ -36,7 +35,7 @@ export class VehiculoDto {
     matricula: string,
     marca: string,
     modelo: string,
-    color: ColorVehDto,
+    color: ColorVehiculoDto,
     reparaciones: [ReparacionDto],
     createdAt: Date,
     updatedAt: Date,

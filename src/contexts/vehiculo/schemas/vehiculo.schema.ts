@@ -1,9 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
+import { ColorVehiculo } from "@src/contexts/color-vehiculo/schemas/color-vehiculo.schema";
 import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
-
-import { ColorVeh } from "./color.veh..schema";
 
 @Schema({ collection: "vehiculos", timestamps: true })
 export class Vehiculo extends Document {
@@ -14,7 +13,7 @@ export class Vehiculo extends Document {
   @Prop({ required: true, trim: true })
   modelo: string;
   @Prop({ required: true, trim: true })
-  color: ColorVeh;
+  color: ColorVehiculo;
   reparaciones?: Reparacion[];
   @Prop({ default: Date.now })
   createdAt: Date;
@@ -25,7 +24,7 @@ export class Vehiculo extends Document {
     matricula: string,
     marca: string,
     modelo: string,
-    color: ColorVeh,
+    color: ColorVehiculo,
     createdAt: Date,
     updatedAt: Date,
   ) {

@@ -1,13 +1,12 @@
+import { IColorVehiculo } from "@src/contexts/color-vehiculo/interfaces/color.vehiculo.interfaz";
 import { IReparacion } from "@src/contexts/reparacion/interfaces/reparacion.interfaz";
-
-import { IColorVeh } from "./color.veh.interfaz";
 
 export interface IVehiculo {
   id: string;
   matricula: string;
   marca: string;
   modelo: string;
-  color: IColorVeh;
+  color: IColorVehiculo;
   reparaciones: IReparacion[];
   createdAt: Date;
   updatedAt: Date;
