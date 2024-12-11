@@ -38,7 +38,7 @@ export class TallerClienteController {
     this.logger.log(
       `Recuperando todos los datos de los clientes del taller: ${idTaller}`,
     );
-    return this.tallerClienteService.getTallerFindAllClient(
+    return await this.tallerClienteService.getTallerFindAllClient(
       new Types.ObjectId(idTaller),
     );
   }

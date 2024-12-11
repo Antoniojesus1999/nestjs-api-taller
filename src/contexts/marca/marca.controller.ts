@@ -42,7 +42,7 @@ export class MarcaController {
   }
 
   @Get("find-all-marcas")
-  async findTallerByCif(
+  async findAllMarcas(
     @Query("page") page: number,
     @Query("limit") limit: number = 10,
   ) {
