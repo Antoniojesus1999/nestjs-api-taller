@@ -28,6 +28,7 @@ export class ClienteService {
   }
 
   async updateCliente(id: string, cliente: ICliente): Promise<ClienteDto> {
+    this.logger.log(`Actualizando cliente: ${id}, ${JSON.stringify(cliente)}`);
     const updatedCliente = await this.clienteModel.findByIdAndUpdate(
       id,
       cliente,
@@ -35,6 +36,8 @@ export class ClienteService {
         new: true,
       },
     );
+
+    this.logger.log(`Actualizado cliente: ${JSON.stringify(updatedCliente)}`);
 
     if (!updatedCliente) {
       throw new NotFoundException("Cliente no encontrado");

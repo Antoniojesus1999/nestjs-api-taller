@@ -1,4 +1,6 @@
+import { ColorVehiculoDto } from "@src/contexts/color-vehiculo/dtos/color-vehiculo.dto";
 import { ColorVehiculoMapper } from "@src/contexts/color-vehiculo/mappers/color-vehiculo.mapper";
+import { ColorVehiculo } from "@src/contexts/color-vehiculo/schemas/color-vehiculo.schema";
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "@src/contexts/reparacion/mappers/reparacion.mapper";
 
@@ -7,7 +9,10 @@ import { Vehiculo } from "../schemas/vehiculo.schema";
 
 export const VehiculoMapper = {
   toDto(vehiculo: Vehiculo): VehiculoDto {
-    const colorVehiculoDto = ColorVehiculoMapper.toDto(vehiculo.color);
+    const colorVehiculoDto = vehiculo.color
+      ? ColorVehiculoMapper.toDto(vehiculo.color)
+      : undefined;
+
     const reparacionesDto =
       vehiculo.reparaciones?.map(reparacion =>
         ReparacionMapper.toDto(reparacion),
@@ -18,7 +23,7 @@ export const VehiculoMapper = {
       vehiculo.matricula,
       vehiculo.marca,
       vehiculo.modelo,
-      colorVehiculoDto,
+      (colorVehiculoDto as ColorVehiculoDto) || undefined,
       reparacionesDto as [ReparacionDto],
       vehiculo.createdAt,
       vehiculo.updatedAt,
@@ -26,12 +31,15 @@ export const VehiculoMapper = {
   },
 
   toEntity(vehiculoDto: VehiculoDto): Vehiculo {
-    const colorVehiculo = ColorVehiculoMapper.toEntity(vehiculoDto.color);
+    const colorVehiculo = vehiculoDto.color
+      ? ColorVehiculoMapper.toEntity(vehiculoDto.color)
+      : undefined;
+
     const vehiculo = new Vehiculo(
       vehiculoDto.matricula,
       vehiculoDto.marca,
       vehiculoDto.modelo,
-      colorVehiculo,
+      (colorVehiculo as ColorVehiculo) || undefined,
       vehiculoDto.createdAt,
       vehiculoDto.updatedAt,
     );

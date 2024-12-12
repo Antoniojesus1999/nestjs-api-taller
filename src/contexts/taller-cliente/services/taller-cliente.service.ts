@@ -21,6 +21,9 @@ export class TallerClienteService {
   async saveTallerCliente(
     tallerCliente: ITallerCliente,
   ): Promise<TallerCliente> {
+    this.logger.log(
+      `Guardando taller-cliente: ${JSON.stringify(tallerCliente)}`,
+    );
     const newTallerCliente = new this.tallerClienteModel(tallerCliente);
     newTallerCliente.idTaller = new Types.ObjectId(tallerCliente.idTaller);
     return await newTallerCliente.save();
