@@ -26,14 +26,17 @@ export class ClienteController {
   @Post("save-cliente")
   async saveCliente(@Body() saveClienteDto: SaveClienteDto) {
     const { idTaller, cliente } = saveClienteDto;
-    let clienteDto = await this.clienteService.findClienteByNif(cliente.nif);
 
-    if (clienteDto.id == undefined) {
+    let clienteDto;
+
+    try {
+      clienteDto = await this.clienteService.findClienteByNif(cliente.nif);
+
+      clienteDto = await this.updateCliente(cliente);
+      this.logger.log(`Cliente actualizado: ${JSON.stringify(clienteDto.id)}`);
+    } catch {
       clienteDto = await this.clienteService.saveCliente(cliente);
       this.logger.log(`Cliente guardado: ${clienteDto.id}`);
-    } else {
-      await this.updateCliente(clienteDto as unknown as ICliente);
-      this.logger.log(`Cliente actualizado: ${JSON.stringify(clienteDto.id)}`);
     }
 
     const tallerClienteDto: TallerClienteDto = new TallerClienteDto(

@@ -27,18 +27,16 @@ export class VehiculoController {
   @Post("save-vehiculo")
   async saveVehiculo(@Body() saveVehiculoDto: SaveVehiculoDto) {
     const { idCliente, vehiculo } = saveVehiculoDto;
+
     let vehiculoDto;
-    // Comprobar si el cliente existe
+
     try {
+      // Comprobar si el cliente existe
       vehiculoDto = await this.vehiculoService.findVehiculoByMatricula(
         vehiculo.matricula,
       );
 
-      // Si lo encuentra lo actualizamos con el que nos entre por peticion
-      vehiculoDto = await this.vehiculoService.updateVehiculo(
-        vehiculoDto.id,
-        vehiculo,
-      );
+      await this.updateVehiculo(vehiculoDto as unknown as IVehiculo);
       this.logger.log(
         `Vehiculo actualizado: ${JSON.stringify(vehiculoDto.id)}`,
       );
