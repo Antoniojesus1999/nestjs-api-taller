@@ -2,6 +2,8 @@ import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PaginateModel, Types } from "mongoose";
 
+import { VehiculoService } from "@src/contexts/vehiculo/vehiculo.service";
+
 import { IClienteVehiculo } from "../interfaces/cliente-vehiculo.interfaz";
 import { ClienteVehiculo } from "../schemas/cliente-vehiculo.schema";
 
@@ -10,6 +12,7 @@ export class ClienteVehiculoService {
   constructor(
     @InjectModel(ClienteVehiculo.name)
     private clienteVehiculoModel: PaginateModel<ClienteVehiculo>,
+    private vehiculoService: VehiculoService,
     private readonly logger: Logger,
   ) {}
 
@@ -27,6 +30,10 @@ export class ClienteVehiculoService {
     idCliente: Types.ObjectId,
     idVehiculo: Types.ObjectId,
   ): Promise<void> {
+    //Borramos primero el vehiculo de la colección vehiculos
+    await this.vehiculoService.deleteVehículo(idVehiculo);
+
+    //Borramos de la coleciión clienteVehiculos
     await this.clienteVehiculoModel.findOneAndDelete({ idCliente, idVehiculo });
   }
 
@@ -46,6 +53,11 @@ export class ClienteVehiculoService {
     return clienteVehiculo as ClienteVehiculo;
   }
 
+  /**
+   *  Metodo que recupera los vehiculos de un cliente
+   * @param idCliente
+   * @returns Array de ObjectIds de los vehiculos del cliente
+   */
   async getVehiculosByCliente(
     idCliente: Types.ObjectId,
   ): Promise<Types.ObjectId[]> {

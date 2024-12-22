@@ -4,6 +4,13 @@ import { Document } from "mongoose";
 @Schema({ collection: "empleados", timestamps: true })
 export class Empleado extends Document {
   @Prop({ unique: true, trim: true })
+  /*@Prop({
+    type: String,
+    unique: true,
+    sparse: true,
+    trim: true,
+    default: null,
+  })*/
   email: string;
   @Prop({ trim: true })
   photoUrl: string;
@@ -39,3 +46,4 @@ export class Empleado extends Document {
 }
 
 export const EmpleadoSchema = SchemaFactory.createForClass(Empleado);
+//EmpleadoSchema.index({ email: 1 }, { unique: true, sparse: true });

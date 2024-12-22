@@ -1,6 +1,8 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
+import { VehiculoModule } from "@src/contexts/vehiculo/vehiculo.module";
+
 import { ClienteVehiculoController } from "../controllers/cliente-vehiculo.controller";
 import {
   ClienteVehiculo,
@@ -16,6 +18,7 @@ import { ClienteVehiculoService } from "../services/cliente-vehiculo.service";
         schema: ClienteVehiculoSchema,
       },
     ]),
+    VehiculoModule,
   ],
   providers: [ClienteVehiculoService],
   controllers: [ClienteVehiculoController],

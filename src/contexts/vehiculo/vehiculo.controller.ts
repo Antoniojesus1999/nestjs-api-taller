@@ -31,11 +31,11 @@ export class VehiculoController {
     let vehiculoDto;
 
     try {
-      // Comprobar si el cliente existe
+      // Comprobar si el vehiculo existe
       vehiculoDto = await this.vehiculoService.findVehiculoByMatricula(
         vehiculo.matricula,
       );
-
+      //Si existe se actualiza
       await this.updateVehiculo(vehiculoDto as unknown as IVehiculo);
       this.logger.log(
         `Vehiculo actualizado: ${JSON.stringify(vehiculoDto.id)}`,
@@ -65,7 +65,7 @@ export class VehiculoController {
   }
 
   @Delete("delete-vehiculo")
-  async deleteVehiculo(@Query("idVehiculo") idVehiculo: string) {
+  async deleteVehiculo(@Query("idVehiculo") idVehiculo: Types.ObjectId) {
     return this.vehiculoService.deleteVehículo(idVehiculo);
   }
 

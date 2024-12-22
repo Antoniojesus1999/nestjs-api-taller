@@ -39,7 +39,7 @@ export class VehiculoService {
     return VehiculoMapper.toDto(updatedVehiculo);
   }
 
-  async deleteVehículo(idVehiculo: string): Promise<void> {
+  async deleteVehículo(idVehiculo: Types.ObjectId): Promise<void> {
     await this.vehiculoModel.findByIdAndDelete(idVehiculo);
   }
 

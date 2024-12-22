@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
 import { ClienteVehiculoModule } from "../cliente-vehiculo/modules/cliente-vehiculo.module";
@@ -14,9 +14,10 @@ import { VehiculoService } from "./vehiculo.service";
         schema: VehiculoSchema,
       },
     ]),
-    ClienteVehiculoModule,
+    forwardRef(() => ClienteVehiculoModule),
   ],
   providers: [VehiculoService],
   controllers: [VehiculoController],
+  exports: [VehiculoService],
 })
 export class VehiculoModule {}
