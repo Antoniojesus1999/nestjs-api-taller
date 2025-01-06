@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import {
   ObjectId,
@@ -14,10 +19,10 @@ import { IReparacion } from "./interfaces/reparacion.interfaz";
 import { ITrabajo } from "./interfaces/trabajo.interfaz";
 import { ReparacionMapper } from "./mappers/reparacion.mapper";
 import { Reparacion } from "./schemas/reparacion.schema";
+import { Trabajo } from "./schemas/trabajo.schema";
 
 @Injectable()
 export class ReparacionService {
-  //private readonly logger = new Logger(ReparacionService.name);
   constructor(
     @InjectModel(Reparacion.name)
     private reparacionModel: PaginateModel<Reparacion>,
@@ -31,6 +36,35 @@ export class ReparacionService {
     newReparacion.vehiculo = new Types.ObjectId(reparacion.vehiculo);
 
     return ReparacionMapper.toDto(await newReparacion.save());
+  }
+
+  async saveTrabajo(idReparacion: string, listaTrabajos: string[]) {
+    try {
+      const reparacion = await this.reparacionModel.findById(idReparacion);
+
+      if (!reparacion) {
+        throw new NotFoundException(
+          "No se ha encontrado el ID de la reparación",
+        );
+      }
+
+      const trabajos: Trabajo[] = listaTrabajos.map(descripcion => ({
+        descripcion,
+      }));
+
+      reparacion.trabajos.push(...trabajos);
+
+      const updatedReparacion = await reparacion.save();
+
+      return ReparacionMapper.toDto(updatedReparacion);
+    } catch (error) {
+      this.logger.error(
+        `Error al guardar trabajos en la reparación: ${(error as Error).message}`,
+      );
+      throw new InternalServerErrorException(
+        "Error al guardar trabajos en la reparación",
+      );
+    }
   }
 
   async updateReparacion(

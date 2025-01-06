@@ -28,6 +28,14 @@ export class ReparacionController {
     return this.reparacionService.saveReparacion(reparacion);
   }
 
+  @Post("save-trabajo")
+  async saveTrabajo(
+    @Query("idReparacion") idReparacion: string,
+    @Body() listaTrabajos: Array<string>,
+  ) {
+    return this.reparacionService.saveTrabajo(idReparacion, listaTrabajos);
+  }
+
   @Put("update-reparacion")
   async updateReparacion(
     @Query("idReparacion") idReparacion: string,
