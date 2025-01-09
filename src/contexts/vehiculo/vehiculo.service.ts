@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
 
@@ -18,6 +18,18 @@ export class VehiculoService {
   ) {}
 
   async saveVehiculo(vehiculo: IVehiculo): Promise<VehiculoDto> {
+    //Buscamos si existe un vehiculo con la misma matricula
+    const vehiculoExistente = await this.vehiculoModel.findOne({
+      matricula: vehiculo.matricula,
+    });
+
+    if (vehiculoExistente) {
+      this.logger.log("Coche existente, no se guarda");
+      throw new HttpException(
+        { message: "Coche existente, no se guarda" },
+        HttpStatus.CREATED,
+      );
+    }
     const newVehiculo = new this.vehiculoModel(vehiculo);
 
     return VehiculoMapper.toDto(await newVehiculo.save());

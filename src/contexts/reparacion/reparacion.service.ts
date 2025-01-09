@@ -38,7 +38,19 @@ export class ReparacionService {
     return ReparacionMapper.toDto(await newReparacion.save());
   }
 
-  async saveTrabajo(idReparacion: string, listaTrabajos: string[]) {
+  async findTrabajoByReparacion(idReparacion: string): Promise<Trabajo[]> {
+    const reparacion = await this.reparacionModel.findById(idReparacion);
+
+    if (!reparacion) {
+      throw new NotFoundException("Reparacion no encontrada");
+    }
+
+    return reparacion.trabajos;
+  }
+  async addListTrabajoToReparacion(
+    idReparacion: string,
+    listaTrabajos: string[],
+  ) {
     try {
       const reparacion = await this.reparacionModel.findById(idReparacion);
 
