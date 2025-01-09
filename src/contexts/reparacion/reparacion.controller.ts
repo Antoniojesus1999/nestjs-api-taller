@@ -28,6 +28,25 @@ export class ReparacionController {
     return this.reparacionService.saveReparacion(reparacion);
   }
 
+  @Put("add-list-trabajo-reparacion")
+  async addListTrabajoToReparacion(
+    @Query("idReparacion") idReparacion: string,
+    @Body() listaTrabajos: Array<string>,
+  ) {
+    return this.reparacionService.addListTrabajoToReparacion(
+      idReparacion,
+      listaTrabajos,
+    );
+  }
+
+  @Get("find-trabajo-by-reparacion")
+  async findTrabajoByReparacion(@Query("idReparacion") idReparacion: string) {
+    this.logger.log(
+      `Buscando trabajos de la reparacion con id ${idReparacion}`,
+    );
+    return this.reparacionService.findTrabajoByReparacion(idReparacion);
+  }
+
   @Put("update-reparacion")
   async updateReparacion(
     @Query("idReparacion") idReparacion: string,
