@@ -2,6 +2,8 @@ import { IsDate, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 import { ReparacionDto } from "@src/contexts/reparacion/dtos/reparacion.dto";
 
+import { PuntoDto } from "./punto.dto";
+
 export class ClienteDto {
   @IsOptional()
   id: string;
@@ -26,6 +28,12 @@ export class ClienteDto {
   email: string;
 
   @IsOptional()
+  firma: [PuntoDto];
+
+  @IsOptional()
+  firmaBase64: string;
+
+  @IsOptional()
   reparaciones: [ReparacionDto];
 
   @IsOptional()
@@ -44,6 +52,8 @@ export class ClienteDto {
     apellido2: string,
     telefono: string,
     email: string,
+    firma: [PuntoDto],
+    firmaBase64: string,
     reparaciones: [ReparacionDto],
     createdAt: Date,
     updatedAt: Date,
@@ -55,6 +65,8 @@ export class ClienteDto {
     this.apellido2 = apellido2;
     this.telefono = telefono;
     this.email = email;
+    this.firma = firma;
+    this.firmaBase64 = firmaBase64;
     this.reparaciones = reparaciones;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

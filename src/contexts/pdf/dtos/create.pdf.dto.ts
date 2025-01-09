@@ -54,6 +54,8 @@ export class CreatePdfDto {
 
   tareasRealizadas: string;
 
+  firmaBase64: string;
+
   constructor(
     nombreTaller: string,
     direccionTaller: string,
@@ -78,6 +80,7 @@ export class CreatePdfDto {
     emailCliente: string,
     tlfCliente: string,
     tareasRealizadas: string,
+    firmaBase64: string,
   ) {
     this.nombreTaller = nombreTaller;
     this.direccionTaller = direccionTaller;
@@ -102,5 +105,6 @@ export class CreatePdfDto {
     this.emailCliente = emailCliente;
     this.tlfCliente = tlfCliente;
     this.tareasRealizadas = tareasRealizadas;
+    this.firmaBase64 = firmaBase64;
   }
 }

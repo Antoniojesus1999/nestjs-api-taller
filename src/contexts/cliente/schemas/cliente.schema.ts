@@ -3,6 +3,8 @@ import { Document } from "mongoose";
 
 import { Reparacion } from "@src/contexts/reparacion/schemas/reparacion.schema";
 
+import { Punto, PuntoSchema } from "./punto.schema";
+
 @Schema({ collection: "clientes", timestamps: true })
 export class Cliente extends Document {
   @Prop({ required: true, trim: true, unique: true })
@@ -17,6 +19,10 @@ export class Cliente extends Document {
   telefono: string;
   @Prop({ trim: true, unique: true })
   email: string;
+  @Prop({ type: [PuntoSchema] })
+  firma: Punto[];
+  @Prop({ trim: true })
+  firmaBase64: string;
   @Prop({ default: Date.now })
   createdAt: Date;
   @Prop({ default: Date.now })
@@ -30,6 +36,8 @@ export class Cliente extends Document {
     apellido2: string,
     telefono: string,
     email: string,
+    firma: Punto[],
+    firmaBase64: string,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -40,6 +48,8 @@ export class Cliente extends Document {
     this.apellido2 = apellido2;
     this.telefono = telefono;
     this.email = email;
+    this.firma = firma;
+    this.firmaBase64 = firmaBase64;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
