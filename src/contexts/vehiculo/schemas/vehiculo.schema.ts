@@ -12,6 +12,7 @@ export class Vehiculo extends Document {
   marca: string;
   @Prop({ required: true, trim: true })
   modelo: string;
+  @Prop({ type: ColorVehiculo })
   color: ColorVehiculo;
   reparaciones?: Reparacion[];
   @Prop({ default: Date.now })
