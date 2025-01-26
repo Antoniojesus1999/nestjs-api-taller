@@ -30,12 +30,24 @@ export class ReparacionService {
   ) {}
 
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
-    const newReparacion = new this.reparacionModel(reparacion);
-    newReparacion.taller = new Types.ObjectId(reparacion.taller);
-    newReparacion.cliente = new Types.ObjectId(reparacion.cliente);
-    newReparacion.vehiculo = new Types.ObjectId(reparacion.vehiculo);
-
-    return ReparacionMapper.toDto(await newReparacion.save());
+    const existReparacion = await this.reparacionModel.findOne({
+      cliente: new Types.ObjectId(reparacion.cliente),
+      vehiculo: new Types.ObjectId(reparacion.vehiculo),
+    });
+    if (existReparacion) {
+      this.logger.log(
+        "No se crea la reparación porque ya existe una reparación con el mismo cliente y vehículo",
+        existReparacion,
+      );
+      return ReparacionMapper.toDto(existReparacion);
+    } else {
+      const newReparacion = new this.reparacionModel(reparacion);
+      newReparacion.taller = new Types.ObjectId(reparacion.taller);
+      newReparacion.cliente = new Types.ObjectId(reparacion.cliente);
+      newReparacion.vehiculo = new Types.ObjectId(reparacion.vehiculo);
+      this.logger.log("Reparación creada", newReparacion);
+      return ReparacionMapper.toDto(await newReparacion.save());
+    }
   }
 
   async findTrabajoByReparacion(idReparacion: string): Promise<Trabajo[]> {
