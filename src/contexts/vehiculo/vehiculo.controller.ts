@@ -44,18 +44,18 @@ export class VehiculoController {
       // Si no lo encuentra lo guardamos
       vehiculoDto = await this.vehiculoService.saveVehiculo(vehiculo);
       this.logger.log(`Vehiculo guardado: ${vehiculoDto.id}`);
+      const clienteVehiculoDto: ClienteVehiculoDto = new ClienteVehiculoDto(
+        "",
+        idCliente,
+        vehiculoDto.id,
+      );
+
+      await this.clienteVehiculoService.saveClienteVehiculo(clienteVehiculoDto);
+      this.logger.log(
+        `ClienteVehiculo guardado: ${JSON.stringify(clienteVehiculoDto)}`,
+      );
     }
 
-    const clienteVehiculoDto: ClienteVehiculoDto = new ClienteVehiculoDto(
-      "",
-      idCliente,
-      vehiculoDto.id,
-    );
-
-    await this.clienteVehiculoService.saveClienteVehiculo(clienteVehiculoDto);
-    this.logger.log(
-      `ClienteVehiculo guardado: ${JSON.stringify(clienteVehiculoDto)}`,
-    );
     return vehiculoDto;
   }
 
