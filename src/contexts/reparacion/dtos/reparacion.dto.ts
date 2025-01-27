@@ -9,7 +9,7 @@ import { TrabajoDto } from "./trabajo.dto";
 
 export class ReparacionDto {
   @IsOptional()
-  _id: string;
+  id: string;
 
   @IsNotEmpty()
   @IsDate()
@@ -51,7 +51,7 @@ export class ReparacionDto {
   updatedAt: Date;
 
   constructor(
-    _id: string,
+    id: string,
     fecEntrada: Date,
     combustible: string,
     kilometros: string,
@@ -65,7 +65,7 @@ export class ReparacionDto {
     createdAt: Date,
     updatedAt: Date,
   ) {
-    this._id = _id;
+    this.id = id;
     this.fecEntrada = fecEntrada;
     this.combustible = combustible;
     this.kilometros = kilometros;

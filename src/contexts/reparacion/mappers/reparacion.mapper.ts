@@ -71,8 +71,8 @@ export const ReparacionMapper = {
       reparacionDto.updatedAt,
     );
 
-    if (reparacionDto._id) {
-      reparacion._id = reparacionDto._id;
+    if (reparacionDto.id) {
+      reparacion.id = reparacionDto.id;
     }
 
     return reparacion;
