@@ -30,16 +30,28 @@ export class ReparacionService {
   ) {}
 
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
+    this.logger.log("Datos al inicio de saveReparacion", reparacion);
     const existReparacion = await this.reparacionModel.findOne({
       cliente: new Types.ObjectId(reparacion.cliente),
       vehiculo: new Types.ObjectId(reparacion.vehiculo),
     });
     if (existReparacion) {
       this.logger.log(
-        "No se crea la reparación porque ya existe una reparación con el mismo cliente y vehículo",
+        "Se va ha actualizar la reparación ya que existe una con el mismo cliente y vehículo",
         existReparacion,
       );
-      return ReparacionMapper.toDto(existReparacion);
+      //Pongo esta linea en lugar de utilizar el metodo update ya creado por que si no lo pongo así se guarda en base de datos los ids como string en lugar de ObjectId
+      existReparacion.set({
+        ...reparacion,
+        taller: new Types.ObjectId(reparacion.taller),
+        cliente: new Types.ObjectId(reparacion.cliente),
+        vehiculo: new Types.ObjectId(reparacion.vehiculo),
+      });
+      const updatedReparacion = await existReparacion.save();
+      if (!updatedReparacion) {
+        throw new NotFoundException("Reparacion no encontrada");
+      }
+      return ReparacionMapper.toDto(updatedReparacion);
     } else {
       const newReparacion = new this.reparacionModel(reparacion);
       newReparacion.taller = new Types.ObjectId(reparacion.taller);
