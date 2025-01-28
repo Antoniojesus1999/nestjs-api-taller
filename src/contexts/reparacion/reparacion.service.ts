@@ -62,6 +62,17 @@ export class ReparacionService {
     }
   }
 
+  async findReparacionesById(id: string): Promise<ReparacionDto> {
+    this.logger.log("Buscando reparación por id", id);
+    const reparacion = await this.reparacionModel.findById(id);
+    if (reparacion) {
+      this.logger.log("Reparación encontrada", reparacion);
+    } else {
+      throw new NotFoundException(`Reparacion con ${id} no encontrada`);
+    }
+    return ReparacionMapper.toDto(reparacion);
+  }
+
   async findTrabajoByReparacion(idReparacion: string): Promise<Trabajo[]> {
     const reparacion = await this.reparacionModel.findById(idReparacion);
 

@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
 
+import { ReparacionDto } from "./dtos/reparacion.dto";
 import { IDanyo } from "./interfaces/danyo.interfaz";
 import { IReparacion } from "./interfaces/reparacion.interfaz";
 import { ITrabajo } from "./interfaces/trabajo.interfaz";
@@ -88,5 +89,10 @@ export class ReparacionController {
       page,
       limit,
     );
+  }
+  @Get("find-reparacion-by-id")
+  async findReparacionesByID(@Query("id") id: string): Promise<ReparacionDto> {
+    this.logger.log(`Buscando reparaciones del taller ${id}`);
+    return this.reparacionService.findReparacionesById(id);
   }
 }
