@@ -6,6 +6,7 @@ import { LoggerModule } from "@core/logger/logger.module";
 import { ClienteModule } from "./contexts/cliente/cliente.module";
 import { ClienteVehiculoModule } from "./contexts/cliente-vehiculo/modules/cliente-vehiculo.module";
 import { ColorVehiculoModule } from "./contexts/color-vehiculo/color-vehiculo.module";
+import { DanoVehiculoImageModule } from "./contexts/dano-vehiculo-image/dano-vehiculo-image.module";
 import { EmpleadoModule } from "./contexts/empleado/empleado.module";
 import { MarcaModule } from "./contexts/marca/marca.module";
 import { PdfModule } from "./contexts/pdf/pdf.module";
@@ -30,6 +31,7 @@ import { MongoModule } from "./core/mongo/mongo.module";
     MarcaModule,
     ColorVehiculoModule,
     ClienteVehiculoModule,
+    DanoVehiculoImageModule,
   ],
 })
 export class AppModule implements NestModule {
