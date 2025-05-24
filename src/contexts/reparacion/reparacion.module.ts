@@ -16,5 +16,6 @@ import { Reparacion, ReparacionSchema } from "./schemas/reparacion.schema";
   ],
   providers: [ReparacionService],
   controllers: [ReparacionController],
+  exports: [ReparacionService],
 })
 export class ReparacionModule {}
