@@ -79,7 +79,7 @@
     "@types/supertest": "^6.0.2",
     "@types/multer": "^1.4.12",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
+    "@typescript-eslint/parser": "^8.22.0",
     "@vitest/coverage-istanbul": "^2",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
