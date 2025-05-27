@@ -10,4 +10,5 @@ output.pdf
 .gitignore
 package-lock.json
 package.json
-.env
+pdfReparacion/
+imagesDanos/

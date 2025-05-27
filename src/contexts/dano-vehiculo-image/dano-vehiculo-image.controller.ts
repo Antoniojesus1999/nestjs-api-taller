@@ -8,14 +8,11 @@ import {
   Patch,
   Post,
   Req,
-  UploadedFile,
-  UseInterceptors,
 } from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
+import { FastifyRequest } from "fastify";
 
 import { DanoVehiculoImageService } from "./dano-vehiculo-image.service";
 import { UpdateDanoVehiculoImageDto } from "./dto/update-dano-vehiculo-image.dto";
-import { FastifyRequest } from "fastify";
 
 @Controller("dano-vehiculo-image")
 export class DanoVehiculoImageController {
@@ -44,10 +41,12 @@ export class DanoVehiculoImageController {
     const data = await file.toBuffer(); // Convertir el archivo a un buffer
     const fileName = file.filename;
 
-    await this.danoVehiculoImageService.saveImage({ fileName: fileName, buffer: data });
+    await this.danoVehiculoImageService.saveImage({
+      fileName: fileName,
+      buffer: data,
+    });
     this.logger.log("✅ Imagen guardada correctamente ", file);
   }
-
 
   @Get()
   findAll() {

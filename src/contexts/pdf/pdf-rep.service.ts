@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/await-thenable */
 import * as fs from "node:fs";
 import { writeFile } from "node:fs/promises";
 import * as path from "node:path";
@@ -29,12 +30,17 @@ export class PdfRepService {
         .map(f => f.getName());
       this.logger.log(fieldNames);
       const form = pdfDoc.getForm();
-      const imgPath = path.join(
+
+      /* const imgPath = path.join(
         process.cwd() + "/src/resources",
         "",
         "car_plane.png",
       );
-      const img = await pdfDoc.embedPng(fs.readFileSync(imgPath));
+      const img = await pdfDoc.embedPng(fs.readFileSync(imgPath)); */
+
+      const byteImage: Buffer = await this.getImageDanos(reparacion.id);
+      const img = await pdfDoc.embedPng(byteImage);
+
       const imagePage = pdfDoc.getPage(0);
       imagePage.drawImage(img, {
         x: 375.5,
@@ -180,7 +186,13 @@ export class PdfRepService {
       tareasRealizadas.setFontSize(10);
       */
       const pdfBytes = await pdfDoc.save();
-      await writeFile("output.pdf", pdfBytes);
+
+      const savePdfPath = path.join(
+        process.cwd(),
+        "/pdfReparacion/" + reparacion.id + ".pdf",
+      );
+
+      await writeFile(savePdfPath, pdfBytes);
 
       this.logger.log("PDF creado exitosamente");
     } catch (error) {
@@ -189,6 +201,33 @@ export class PdfRepService {
         code: "INTERNAL_SERVER_ERROR",
         message: "Error en el pdf",
       });
+    }
+  }
+
+  async getImageDanos(repairId: string): Promise<Buffer> {
+    try {
+      const filePath = path.join(
+        process.cwd(),
+        "imagesDanos",
+        repairId + ".png",
+      );
+      this.logger.log(`Buscando imagen de daños en: ${filePath}`);
+
+      // Verificar si el archivo existe
+      await fs.promises.access(filePath, fs.constants.F_OK);
+
+      // Leer el archivo y devolverlo como Buffer
+      const fileBuffer = await fs.promises.readFile(filePath);
+      this.logger.log(`✅ Imagen obtenida correctamente: ${filePath}`);
+      return fileBuffer;
+    } catch (error) {
+      this.logger.error(
+        `❌ Error al obtener la imagen para la reparación ${repairId}:`,
+        error,
+      );
+      throw new Error(
+        `No se pudo obtener la imagen para la reparación ${repairId}`,
+      );
     }
   }
 }
