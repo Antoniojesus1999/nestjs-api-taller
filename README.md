@@ -142,4 +142,6 @@ And for trying to fix lint issues automatically, you can run:
 
 ```bash
 npm run lint:fix
+
 ```
+
