@@ -12,3 +12,5 @@ package-lock.json
 package.json
 pdfReparacion/
 imagesDanos/
+.env
+pubspec.lock
