@@ -64,7 +64,11 @@ export class ReparacionService {
 
   async findReparacionesById(id: string): Promise<ReparacionDto> {
     this.logger.log("Buscando reparación por id", id);
-    const reparacion = await this.reparacionModel.findById(id);
+    const reparacion = await this.reparacionModel
+      .findById(id)
+      .populate("taller")
+      .populate("cliente")
+      .populate("vehiculo");
     if (reparacion) {
       this.logger.log("Reparación encontrada", reparacion);
     } else {
