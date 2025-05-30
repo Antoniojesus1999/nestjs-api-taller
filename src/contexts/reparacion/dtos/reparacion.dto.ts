@@ -16,9 +16,6 @@ export class ReparacionDto {
   fecEntrada: Date;
 
   @IsOptional()
-  combustible: string;
-
-  @IsOptional()
   kilometros: string;
 
   @IsOptional()
@@ -53,7 +50,6 @@ export class ReparacionDto {
   constructor(
     id: string,
     fecEntrada: Date,
-    combustible: string,
     kilometros: string,
     seguro: string,
     chasis: string,
@@ -67,7 +63,6 @@ export class ReparacionDto {
   ) {
     this.id = id;
     this.fecEntrada = fecEntrada;
-    this.combustible = combustible;
     this.kilometros = kilometros;
     this.seguro = seguro;
     this.chasis = chasis;

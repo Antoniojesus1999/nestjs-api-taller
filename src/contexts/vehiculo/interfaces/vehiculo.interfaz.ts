@@ -5,6 +5,7 @@ export interface IVehiculo {
   id: string;
   matricula: string;
   marca: string;
+  combustible: string;
   modelo: string;
   color: IColorVehiculo;
   reparaciones: IReparacion[];

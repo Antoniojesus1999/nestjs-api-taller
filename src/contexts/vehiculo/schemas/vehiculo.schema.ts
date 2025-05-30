@@ -14,6 +14,8 @@ export class Vehiculo extends Document {
   modelo: string;
   @Prop({ type: ColorVehiculo })
   color: ColorVehiculo;
+  @Prop({ required: false, trim: true })
+  combustible: string;
   reparaciones?: Reparacion[];
   @Prop({ default: Date.now })
   createdAt: Date;
@@ -24,6 +26,7 @@ export class Vehiculo extends Document {
     matricula: string,
     marca: string,
     modelo: string,
+    conbustible: string,
     color: ColorVehiculo,
     createdAt: Date,
     updatedAt: Date,
@@ -32,6 +35,7 @@ export class Vehiculo extends Document {
     this.matricula = matricula;
     this.marca = marca;
     this.modelo = modelo;
+    this.combustible = conbustible;
     this.color = color;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

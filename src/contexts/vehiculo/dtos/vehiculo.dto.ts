@@ -20,6 +20,9 @@ export class VehiculoDto {
   color: ColorVehiculoDto;
 
   @IsOptional()
+  combustible: string;
+
+  @IsOptional()
   reparaciones: [ReparacionDto];
 
   @IsOptional()
@@ -36,6 +39,7 @@ export class VehiculoDto {
     marca: string,
     modelo: string,
     color: ColorVehiculoDto,
+    combustible: string,
     reparaciones: [ReparacionDto],
     createdAt: Date,
     updatedAt: Date,
@@ -45,6 +49,7 @@ export class VehiculoDto {
     this.marca = marca;
     this.modelo = modelo;
     this.color = color;
+    this.combustible = combustible;
     this.reparaciones = reparaciones;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

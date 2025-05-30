@@ -9,8 +9,6 @@ export class Reparacion extends Document {
   @Prop({ default: Date.now })
   fecEntrada: Date;
   @Prop({ required: false, trim: true })
-  combustible: string;
-  @Prop({ required: false, trim: true })
   kilometros: string;
   @Prop({ required: false, trim: true })
   seguro: string;
@@ -33,7 +31,6 @@ export class Reparacion extends Document {
 
   constructor(
     fecEntrada: Date,
-    combustible: string,
     kilometros: string,
     seguro: string,
     chasis: string,
@@ -47,7 +44,6 @@ export class Reparacion extends Document {
   ) {
     super();
     this.fecEntrada = fecEntrada;
-    this.combustible = combustible;
     this.kilometros = kilometros;
     this.seguro = seguro;
     this.chasis = chasis;

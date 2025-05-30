@@ -34,7 +34,6 @@ export const ReparacionMapper = {
     return new ReparacionDto(
       reparacion._id as string,
       reparacion.fecEntrada,
-      reparacion.combustible,
       reparacion.kilometros,
       reparacion.seguro,
       reparacion.chasis,
@@ -58,7 +57,6 @@ export const ReparacionMapper = {
 
     const reparacion = new Reparacion(
       reparacionDto.fecEntrada,
-      reparacionDto.combustible,
       reparacionDto.kilometros,
       reparacionDto.seguro,
       reparacionDto.chasis,
