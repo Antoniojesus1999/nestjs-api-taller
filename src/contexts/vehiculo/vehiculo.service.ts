@@ -29,7 +29,11 @@ export class VehiculoService {
       matricula: vehiculo.matricula,
     });
 
-    if (vehiculoExistente) {
+    if (
+      vehiculoExistente &&
+      vehiculoExistente.color === vehiculo.color &&
+      vehiculoExistente.combustible === vehiculo.combustible
+    ) {
       this.logger.log("Coche existente, no se guarda");
       throw new HttpException(
         { message: "Coche existente, no se guarda" },

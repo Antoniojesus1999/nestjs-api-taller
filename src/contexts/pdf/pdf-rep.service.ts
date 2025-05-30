@@ -113,10 +113,10 @@ export class PdfRepService {
       matriMarcaModeloVeh.acroField.setDefaultAppearance(newDa);
       matriMarcaModeloVeh.setFontSize(10);
 
-      // const combustibleVeh = form.getTextField("combustibleVeh");
-      // combustibleVeh.setText(reparacion.vehiculo.?¿¿?¿);
-      // combustibleVeh.acroField.setDefaultAppearance(newDa);
-      // combustibleVeh.setFontSize(10);
+      /*const combustibleVeh = form.getTextField("combustibleVeh");
+      combustibleVeh.setText(reparacion.vehiculo.combustible);
+      combustibleVeh.acroField.setDefaultAppearance(newDa);
+      combustibleVeh.setFontSize(10);*/
 
       // const seguroVeh = form.getTextField("seguroVeh");
       // seguroVeh.setText(reparacion.vehiculo.?¿?¿?);
@@ -128,22 +128,23 @@ export class PdfRepService {
       // polizaVeh.acroField.setDefaultAppearance(newDa);
       // polizaVeh.setFontSize(10);
 
-      // const kmsVeh = form.getTextField("kmsVeh");
-      // kmsVeh.setText(reparacion.vehiculo.?¿?¿?);
-      // kmsVeh.acroField.setDefaultAppearance(newDa);
-      // kmsVeh.setFontSize(10);
+      /*const kmsVeh = form.getTextField("kmsVeh");
+      kmsVeh.setText(reparacion.vehiculo.reparaciones[0].kilometros);
+      kmsVeh.acroField.setDefaultAppearance(newDa);
+      kmsVeh.setFontSize(10);*/
 
       // const chasisVeh = form.getTextField("chasisVeh");
       // chasisVeh.setText(reparacion.vehiculo.?¿?¿?);
       // chasisVeh.acroField.setDefaultAppearance(newDa);
       // chasisVeh.setFontSize(10);
 
-      /*
       const fecEntradaVeh = form.getTextField("fecEntradaVeh");
-      fecEntradaVeh.setText(reparacion.vehiculo.?¿?¿?);
+      //const fecha = new Date().toISOString().split("T")[0]; // "2025-05-31"
+
+      fecEntradaVeh.setText("NO coge este valor");
       fecEntradaVeh.acroField.setDefaultAppearance(newDa);
       fecEntradaVeh.setFontSize(10);
-
+      /*
       const fecSalidaVeh = form.getTextField("fecSalidaVeh");
       fecSalidaVeh.setText(reparacion.vehiculo.?¿?¿?);
       fecSalidaVeh.acroField.setDefaultAppearance(newDa);
@@ -179,12 +180,12 @@ export class PdfRepService {
       tlfCliente.acroField.setDefaultAppearance(newDa);
       tlfCliente.setFontSize(10);
 
-      /*
       const tareasRealizadas = form.getTextField("tareasRealizadas");
-      tareasRealizadas.setText(reparacion.trabajos);
+      tareasRealizadas.setText(
+        reparacion.trabajos.map(trabajo => trabajo.descripcion).join("\n"),
+      );
       tareasRealizadas.acroField.setDefaultAppearance(newDa);
       tareasRealizadas.setFontSize(10);
-      */
       const pdfBytes = await pdfDoc.save();
 
       const savePdfPath = path.join(
@@ -196,7 +197,8 @@ export class PdfRepService {
 
       this.logger.log("PDF creado exitosamente");
     } catch (error) {
-      this.logger.error(`Error en el pdf ${JSON.stringify(error)}`);
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      this.logger.error(`Error en el pdf` + error);
       throw new InternalServerErrorException({
         code: "INTERNAL_SERVER_ERROR",
         message: "Error en el pdf",
