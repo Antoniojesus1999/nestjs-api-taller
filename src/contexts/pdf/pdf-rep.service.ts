@@ -139,9 +139,8 @@ export class PdfRepService {
       // chasisVeh.setFontSize(10);
 
       const fecEntradaVeh = form.getTextField("fecEntradaVeh");
-      //const fecha = new Date().toISOString().split("T")[0]; // "2025-05-31"
-
-      fecEntradaVeh.setText("NO coge este valor");
+      const fecha = new Date().toISOString().split("T")[0]; // "2025-05-31"
+      fecEntradaVeh.setText(fecha);
       fecEntradaVeh.acroField.setDefaultAppearance(newDa);
       fecEntradaVeh.setFontSize(10);
       /*

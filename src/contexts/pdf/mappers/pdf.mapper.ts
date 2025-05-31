@@ -29,7 +29,7 @@ export const PdfMapper = {
       reparacionDto.taller.telefono,
       "",
       `${reparacionDto.vehiculo.matricula} - ${reparacionDto.vehiculo.marca} ${reparacionDto.vehiculo.modelo}`,
-      reparacionDto.combustible,
+      reparacionDto.vehiculo.combustible,
       reparacionDto.seguro,
       "",
       reparacionDto.kilometros,
