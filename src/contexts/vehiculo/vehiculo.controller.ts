@@ -37,9 +37,7 @@ export class VehiculoController {
       );
       //Si existe se actualiza
       await this.updateVehiculo(vehiculoDto as unknown as IVehiculo);
-      this.logger.log(
-        `Vehiculo actualizado: ${JSON.stringify(vehiculoDto.id)}`,
-      );
+      this.logger.log(`Vehiculo actualizado: ${JSON.stringify(vehiculoDto)}`);
     } catch {
       // Si no lo encuentra lo guardamos
       vehiculoDto = await this.vehiculoService.saveVehiculo(vehiculo);

@@ -11,21 +11,15 @@ import {
 } from "@nestjs/common";
 
 import { ReparacionService } from "../reparacion/reparacion.service";
-import { PdfRepService } from "./pdf-rep.service";
+import { PdfService } from "./pdf.service";
 
 @Controller("pdf")
 export class PdfController {
   constructor(
-    private pdfRepService: PdfRepService,
+    private pdfService: PdfService,
     private reparacionService: ReparacionService,
     private readonly logger: Logger,
   ) {}
-
-  /*@Post("")
-  @HttpCode(HttpStatus.CREATED)
-  async createPdfPostMan(@Body() pdf: CreatePdfDto): Promise<void> {
-    await this.pdfService.createPdf(pdf);
-  }*/
 
   @Get("create-pdf")
   @Header("Content-Type", "application/pdf")
@@ -34,7 +28,7 @@ export class PdfController {
   ): Promise<StreamableFile> {
     const reparacionDto =
       await this.reparacionService.findReparacionesById(idReparacion);
-    await this.pdfRepService.createPdf(reparacionDto);
+    await this.pdfService.createPdf(reparacionDto);
     const pdfPath = join(
       process.cwd(),
       "/pdfReparacion/",
