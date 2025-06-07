@@ -1,3 +1,5 @@
+import { Module } from "@nestjs/common";
+
 import { ReparacionModule } from "../reparacion/reparacion.module";
 import { PdfController } from "./pdf.controller";
 import { PdfService } from "./pdf.service";
