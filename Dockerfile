@@ -46,6 +46,11 @@ COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=build $DIR/node_modules node_modules
 COPY --from=build $DIR/dist dist
 
+# Crear las carpetas y dar permisos al usuario node
+RUN mkdir -p imagesDanos pdfReparacion \
+    && chown -R node:node imagesDanos pdfReparacion \
+    && chmod -R 770 imagesDanos pdfReparacion
+    
 USER $USER
 EXPOSE $PORT
 CMD ["dumb-init", "node", "dist/main.js"]
