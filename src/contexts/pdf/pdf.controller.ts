@@ -38,6 +38,23 @@ export class PdfController {
     return new StreamableFile(fileStream);
   }
 
+  @Get("generate-pdf")
+  @Header("Content-Type", "application/pdf")
+  async generatePdf(
+    @Query("idReparacion") idReparacion: string,
+  ): Promise<StreamableFile> {
+    const reparacionDto =
+      await this.reparacionService.findReparacionesById(idReparacion);
+    await this.pdfService.createPdf(reparacionDto);
+    const pdfPath = join(
+      process.cwd(),
+      "/pdfReparacion/",
+      reparacionDto.id + ".pdf",
+    );
+    const fileStream = createReadStream(pdfPath);
+    return new StreamableFile(fileStream);
+  }
+
   /*@Get("download-pdf")
   @HttpCode(HttpStatus.OK)
   @Header("Content-Type", "application/pdf")
