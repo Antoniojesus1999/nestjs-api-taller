@@ -70,10 +70,10 @@
     <!-- Datos generales -->
     <div class="row mb-3">
       <div class="col-md-3">
-        <label>Número: {{nombre}}</label> <span class="input-line"></span>
+        <label>Número: {{cliente.nombre}}</label> <span class="input-line"></span>
       </div>
       <div class="col-md-3">
-        <label>NIF: {{nif}}</label> <span class="input-line"></span>
+        <label>NIF: {{cliente.nif}}</label> <span class="input-line"></span>
       </div>
       <div class="col-md-3">
         <label>R.I.I.A:</label> <span class="input-line"></span>
@@ -111,7 +111,7 @@
       </div>
       <div class="col-md-6">
         <label class="section-title">Daños observados en vehículo</label>
-        <div class="form-control" rows="3">{{imageDanos}}</div>
+        <div class="form-control" rows="3"></div>
       </div>
     </div>
 
@@ -155,11 +155,11 @@
     <div class="row firma">
       <div class="col-md-6">
         <label>El prestador del servicio</label><br><br>
-        <span class="input-line" style="width: 220px;"></span>
+        <span class="input-line" style="width: 220px;">{{cliente.firmaBase64}}</span>
       </div>
       <div class="col-md-6">
         <label>Conforme el cliente</label><br><br>
-        <span class="input-line" style="width: 220px;">{{firma}}</span>
+        <span class="input-line" style="width: 220px;"></span>
       </div>
     </div>
   </div>

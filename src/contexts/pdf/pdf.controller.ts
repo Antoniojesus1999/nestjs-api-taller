@@ -3,49 +3,31 @@ import { join } from "node:path";
 
 import {
   Controller,
-  Get,
   Header,
   Logger,
+  Post,
   Query,
   StreamableFile,
 } from "@nestjs/common";
 
 import { ReparacionService } from "../reparacion/reparacion.service";
-import { PdfService } from "./pdf.service";
-
+import { GeneratePdfService } from "./generate-pdf.service";
 @Controller("pdf")
 export class PdfController {
   constructor(
-    private pdfService: PdfService,
     private reparacionService: ReparacionService,
+    private generatePdfService: GeneratePdfService,
     private readonly logger: Logger,
   ) {}
 
-  @Get("create-pdf")
+  @Post("create-pdf")
   @Header("Content-Type", "application/pdf")
   async createPdf(
     @Query("idReparacion") idReparacion: string,
   ): Promise<StreamableFile> {
     const reparacionDto =
       await this.reparacionService.findReparacionesById(idReparacion);
-    await this.pdfService.createPdf(reparacionDto);
-    const pdfPath = join(
-      process.cwd(),
-      "/pdfReparacion/",
-      reparacionDto.id + ".pdf",
-    );
-    const fileStream = createReadStream(pdfPath);
-    return new StreamableFile(fileStream);
-  }
-
-  @Get("generate-pdf")
-  @Header("Content-Type", "application/pdf")
-  async generatePdf(
-    @Query("idReparacion") idReparacion: string,
-  ): Promise<StreamableFile> {
-    const reparacionDto =
-      await this.reparacionService.findReparacionesById(idReparacion);
-    await this.pdfService.createPdf(reparacionDto);
+    await this.generatePdfService.generatePdf(reparacionDto);
     const pdfPath = join(
       process.cwd(),
       "/pdfReparacion/",

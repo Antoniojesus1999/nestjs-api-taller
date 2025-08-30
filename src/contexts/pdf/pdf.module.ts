@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 
 import { ReparacionModule } from "../reparacion/reparacion.module";
+import { GeneratePdfService } from "./generate-pdf.service";
 import { PdfController } from "./pdf.controller";
-import { PdfService } from "./pdf.service";
 
 @Module({
   imports: [ReparacionModule],
   controllers: [PdfController],
-  providers: [PdfService],
+  providers: [GeneratePdfService],
 })
 export class PdfModule {}
