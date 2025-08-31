@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
 
+import { ReparacionDto } from "./dtos/reparacion.dto";
 import { IDanyo } from "./interfaces/danyo.interfaz";
 import { IReparacion } from "./interfaces/reparacion.interfaz";
 import { ITrabajo } from "./interfaces/trabajo.interfaz";
@@ -26,6 +27,25 @@ export class ReparacionController {
   @Post("save-reparacion")
   async saveReparacion(@Body() reparacion: IReparacion) {
     return this.reparacionService.saveReparacion(reparacion);
+  }
+
+  @Put("add-list-trabajo-reparacion")
+  async addListTrabajoToReparacion(
+    @Query("idReparacion") idReparacion: string,
+    @Body() listaTrabajos: Array<string>,
+  ) {
+    return this.reparacionService.addListTrabajoToReparacion(
+      idReparacion,
+      listaTrabajos,
+    );
+  }
+
+  @Get("find-trabajo-by-reparacion")
+  async findTrabajoByReparacion(@Query("idReparacion") idReparacion: string) {
+    this.logger.log(
+      `Buscando trabajos de la reparacion con id ${idReparacion}`,
+    );
+    return this.reparacionService.findTrabajoByReparacion(idReparacion);
   }
 
   @Put("update-reparacion")
@@ -69,5 +89,10 @@ export class ReparacionController {
       page,
       limit,
     );
+  }
+  @Get("find-reparacion-by-id")
+  async findReparacionesByID(@Query("id") id: string): Promise<ReparacionDto> {
+    this.logger.log(`Buscando reparaciones por id ${id}`);
+    return this.reparacionService.findReparacionesById(id);
   }
 }

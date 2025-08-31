@@ -10,3 +10,4 @@ output.pdf
 .gitignore
 package-lock.json
 package.json
+pubspec.lock

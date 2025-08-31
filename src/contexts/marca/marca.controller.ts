@@ -15,6 +15,8 @@ export class MarcaController {
 
   @Post("cargar-marcas-modelo")
   cargarMarcasModelo(@Body() cargaMarcaDto: CargaMarcaDto[]) {
+    this.logger.log(`Valor del body -> `);
+    this.logger.log(cargaMarcaDto);
     for (const marca of cargaMarcaDto) {
       const modeloArray = new Array<Modelo>();
 
@@ -40,7 +42,7 @@ export class MarcaController {
   }
 
   @Get("find-all-marcas")
-  async findTallerByCif(
+  async findAllMarcas(
     @Query("page") page: number,
     @Query("limit") limit: number = 10,
   ) {

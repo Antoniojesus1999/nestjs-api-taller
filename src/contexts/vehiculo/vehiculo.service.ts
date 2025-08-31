@@ -1,6 +1,12 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 
 import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 import { ReparacionMapper } from "../reparacion/mappers/reparacion.mapper";
@@ -18,6 +24,22 @@ export class VehiculoService {
   ) {}
 
   async saveVehiculo(vehiculo: IVehiculo): Promise<VehiculoDto> {
+    //Buscamos si existe un vehiculo con la misma matricula
+    const vehiculoExistente = await this.vehiculoModel.findOne({
+      matricula: vehiculo.matricula,
+    });
+
+    if (
+      vehiculoExistente &&
+      vehiculoExistente.color === vehiculo.color &&
+      vehiculoExistente.combustible === vehiculo.combustible
+    ) {
+      this.logger.log("Coche existente, no se guarda");
+      throw new HttpException(
+        { message: "Coche existente, no se guarda" },
+        HttpStatus.CREATED,
+      );
+    }
     const newVehiculo = new this.vehiculoModel(vehiculo);
 
     return VehiculoMapper.toDto(await newVehiculo.save());
@@ -39,7 +61,7 @@ export class VehiculoService {
     return VehiculoMapper.toDto(updatedVehiculo);
   }
 
-  async deleteVehículo(idVehiculo: string): Promise<void> {
+  async deleteVehículo(idVehiculo: Types.ObjectId): Promise<void> {
     await this.vehiculoModel.findByIdAndDelete(idVehiculo);
   }
 
@@ -55,6 +77,12 @@ export class VehiculoService {
 
   async findAll(): Promise<VehiculoDto[]> {
     const vehiculos = await this.vehiculoModel.find();
+
+    return vehiculos.map(vehiculo => VehiculoMapper.toDto(vehiculo));
+  }
+
+  async findVehiculoByIds(ids: Types.ObjectId[]): Promise<VehiculoDto[]> {
+    const vehiculos = await this.vehiculoModel.find({ _id: { $in: ids } });
 
     return vehiculos.map(vehiculo => VehiculoMapper.toDto(vehiculo));
   }

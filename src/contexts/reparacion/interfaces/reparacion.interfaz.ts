@@ -4,7 +4,6 @@ import { ITrabajo } from "./trabajo.interfaz";
 export interface IReparacion {
   id: string;
   fecEntrada: Date;
-  combustible: string;
   kilometros: string;
   seguro: string;
   chasis: string;

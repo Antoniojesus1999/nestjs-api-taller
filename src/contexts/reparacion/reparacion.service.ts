@@ -1,4 +1,9 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import {
   ObjectId,
@@ -14,10 +19,10 @@ import { IReparacion } from "./interfaces/reparacion.interfaz";
 import { ITrabajo } from "./interfaces/trabajo.interfaz";
 import { ReparacionMapper } from "./mappers/reparacion.mapper";
 import { Reparacion } from "./schemas/reparacion.schema";
+import { Trabajo } from "./schemas/trabajo.schema";
 
 @Injectable()
 export class ReparacionService {
-  //private readonly logger = new Logger(ReparacionService.name);
   constructor(
     @InjectModel(Reparacion.name)
     private reparacionModel: PaginateModel<Reparacion>,
@@ -25,12 +30,92 @@ export class ReparacionService {
   ) {}
 
   async saveReparacion(reparacion: IReparacion): Promise<ReparacionDto> {
-    const newReparacion = new this.reparacionModel(reparacion);
-    newReparacion.taller = new Types.ObjectId(reparacion.taller);
-    newReparacion.cliente = new Types.ObjectId(reparacion.cliente);
-    newReparacion.vehiculo = new Types.ObjectId(reparacion.vehiculo);
+    this.logger.log("Datos al inicio de saveReparacion", reparacion);
+    const existReparacion = await this.reparacionModel.findOne({
+      cliente: new Types.ObjectId(reparacion.cliente),
+      vehiculo: new Types.ObjectId(reparacion.vehiculo),
+    });
+    if (existReparacion) {
+      this.logger.log(
+        "Se va ha actualizar la reparación ya que existe una con el mismo cliente y vehículo",
+        existReparacion,
+      );
+      //Pongo esta linea en lugar de utilizar el metodo update ya creado por que si no lo pongo así se guarda en base de datos los ids como string en lugar de ObjectId
+      existReparacion.set({
+        ...reparacion,
+        taller: new Types.ObjectId(reparacion.taller),
+        cliente: new Types.ObjectId(reparacion.cliente),
+        vehiculo: new Types.ObjectId(reparacion.vehiculo),
+      });
+      const updatedReparacion = await existReparacion.save();
+      if (!updatedReparacion) {
+        throw new NotFoundException("Reparacion no encontrada");
+      }
+      return ReparacionMapper.toDto(updatedReparacion);
+    } else {
+      const newReparacion = new this.reparacionModel(reparacion);
+      newReparacion.taller = new Types.ObjectId(reparacion.taller);
+      newReparacion.cliente = new Types.ObjectId(reparacion.cliente);
+      newReparacion.vehiculo = new Types.ObjectId(reparacion.vehiculo);
+      this.logger.log("Reparación creada", newReparacion);
+      return ReparacionMapper.toDto(await newReparacion.save());
+    }
+  }
 
-    return ReparacionMapper.toDto(await newReparacion.save());
+  async findReparacionesById(id: string): Promise<ReparacionDto> {
+    this.logger.log("Buscando reparación por id", id);
+    const reparacion = await this.reparacionModel
+      .findById(id)
+      .populate("taller")
+      .populate("cliente")
+      .populate("vehiculo");
+    if (reparacion) {
+      this.logger.log("Reparación encontrada", reparacion);
+    } else {
+      throw new NotFoundException(`Reparacion con ${id} no encontrada`);
+    }
+    return ReparacionMapper.toDto(reparacion);
+  }
+
+  async findTrabajoByReparacion(idReparacion: string): Promise<Trabajo[]> {
+    const reparacion = await this.reparacionModel.findById(idReparacion);
+
+    if (!reparacion) {
+      throw new NotFoundException("Reparacion no encontrada");
+    }
+
+    return reparacion.trabajos;
+  }
+  async addListTrabajoToReparacion(
+    idReparacion: string,
+    listaTrabajos: string[],
+  ) {
+    try {
+      const reparacion = await this.reparacionModel.findById(idReparacion);
+
+      if (!reparacion) {
+        throw new NotFoundException(
+          "No se ha encontrado el ID de la reparación",
+        );
+      }
+
+      const trabajos: Trabajo[] = listaTrabajos.map(descripcion => ({
+        descripcion,
+      }));
+
+      reparacion.trabajos.push(...trabajos);
+
+      const updatedReparacion = await reparacion.save();
+
+      return ReparacionMapper.toDto(updatedReparacion);
+    } catch (error) {
+      this.logger.error(
+        `Error al guardar trabajos en la reparación: ${(error as Error).message}`,
+      );
+      throw new InternalServerErrorException(
+        "Error al guardar trabajos en la reparación",
+      );
+    }
   }
 
   async updateReparacion(

@@ -1,3 +1,4 @@
+import multipart from "@fastify/multipart";
 import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
@@ -13,6 +14,8 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
+
+  await app.register(multipart);
 
   const configService = app.get(ConfigService);
   const port = configService.get<string>("PORT", "3000");

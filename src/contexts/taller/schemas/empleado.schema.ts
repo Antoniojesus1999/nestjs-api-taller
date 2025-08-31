@@ -3,7 +3,7 @@ import { Document } from "mongoose";
 
 @Schema({ collection: "empleados", timestamps: true })
 export class Empleado extends Document {
-  @Prop({ unique: true, trim: true })
+  @Prop({ trim: true })
   email: string;
   @Prop({ trim: true })
   photoUrl: string;
@@ -11,7 +11,7 @@ export class Empleado extends Document {
   displayName: string;
   @Prop({ trim: true })
   provider: string;
-  @Prop({ unique: true, trim: true })
+  @Prop({ trim: true })
   uid: string;
   @Prop({ default: Date.now })
   createdAt: Date;

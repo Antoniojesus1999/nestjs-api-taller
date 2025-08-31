@@ -26,34 +26,30 @@ export class ClienteController {
   @Post("save-cliente")
   async saveCliente(@Body() saveClienteDto: SaveClienteDto) {
     const { idTaller, cliente } = saveClienteDto;
+
     let clienteDto;
-    this.logger.log(`Petición recibida con los datos_ Guardando cliente: ${JSON.stringify(cliente)}`);
-    // Comprobar si el cliente existe
+
     try {
       clienteDto = await this.clienteService.findClienteByNif(cliente.nif);
 
-      // Si lo encuentra lo actualizamos con el que nos entre por peticion
-      clienteDto = await this.clienteService.updateCliente(
-        clienteDto.id,
-        cliente,
-      );
+      clienteDto = await this.updateCliente(cliente);
       this.logger.log(`Cliente actualizado: ${JSON.stringify(clienteDto.id)}`);
     } catch {
-      // Si no lo encuentra lo guardamos
       clienteDto = await this.clienteService.saveCliente(cliente);
       this.logger.log(`Cliente guardado: ${clienteDto.id}`);
+
+      const tallerClienteDto: TallerClienteDto = new TallerClienteDto(
+        "",
+        idTaller,
+        clienteDto.id,
+      );
+
+      await this.tallerClienteService.saveTallerCliente(tallerClienteDto);
+      this.logger.log(
+        `TallerCliente guardado: ${JSON.stringify(tallerClienteDto)}`,
+      );
     }
 
-    const tallerClienteDto: TallerClienteDto = new TallerClienteDto(
-      "",
-      idTaller,
-      clienteDto.id,
-    );
-
-    await this.tallerClienteService.saveTallerCliente(tallerClienteDto);
-    this.logger.log(
-      `TallerCliente guardado: ${JSON.stringify(tallerClienteDto)}`,
-    );
     return clienteDto;
   }
 
