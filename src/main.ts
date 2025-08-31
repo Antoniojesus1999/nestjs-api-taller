@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import multipart from "@fastify/multipart";
 import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -15,7 +17,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
-  await app.register(multipart);
+  await app.register(multipart as any);
 
   const configService = app.get(ConfigService);
   const port = configService.get<string>("PORT", "3000");
