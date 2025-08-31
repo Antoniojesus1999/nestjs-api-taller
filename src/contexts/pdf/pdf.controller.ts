@@ -11,13 +11,12 @@ import {
 } from "@nestjs/common";
 
 import { ReparacionService } from "../reparacion/reparacion.service";
-import { PdfService } from "./pdf.service";
-
+import { GeneratePdfService } from "./generate-pdf.service";
 @Controller("pdf")
 export class PdfController {
   constructor(
-    private pdfService: PdfService,
     private reparacionService: ReparacionService,
+    private generatePdfService: GeneratePdfService,
     private readonly logger: Logger,
   ) {}
 
@@ -28,7 +27,7 @@ export class PdfController {
   ): Promise<StreamableFile> {
     const reparacionDto =
       await this.reparacionService.findReparacionesById(idReparacion);
-    await this.pdfService.createPdf(reparacionDto);
+    await this.generatePdfService.generatePdf(reparacionDto);
     const pdfPath = join(
       process.cwd(),
       "/pdfReparacion/",
