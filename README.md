@@ -144,4 +144,3 @@ And for trying to fix lint issues automatically, you can run:
 npm run lint:fix
 
 ```
-
