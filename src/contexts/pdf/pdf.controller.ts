@@ -3,9 +3,9 @@ import { join } from "node:path";
 
 import {
   Controller,
+  Get,
   Header,
   Logger,
-  Post,
   Query,
   StreamableFile,
 } from "@nestjs/common";
@@ -20,7 +20,7 @@ export class PdfController {
     private readonly logger: Logger,
   ) {}
 
-  @Post("create-pdf")
+  @Get("create-pdf")
   @Header("Content-Type", "application/pdf")
   async createPdf(
     @Query("idReparacion") idReparacion: string,

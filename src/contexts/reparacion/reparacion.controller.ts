@@ -92,7 +92,7 @@ export class ReparacionController {
   }
   @Get("find-reparacion-by-id")
   async findReparacionesByID(@Query("id") id: string): Promise<ReparacionDto> {
-    this.logger.log(`Buscando reparaciones del taller ${id}`);
+    this.logger.log(`Buscando reparaciones por id ${id}`);
     return this.reparacionService.findReparacionesById(id);
   }
 }
