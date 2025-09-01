@@ -42,7 +42,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^11.0.3",
     "@nestjs/platform-express": "^11.0.21",
-    "@nestjs/platform-fastify": "^11.0.21",
+    "@nestjs/platform-fastify": "^11.1.6",
     "@types/mongodb": "^4.0.6",
     "class-validator": "^0.14.1",
     "fastify": "^5.3.3",
