@@ -74,7 +74,7 @@
     "@swc/core": "^1.11.29",
     "@types/express": "^5.0.2",
     "@types/fs-extra": "^11.0.4",
-    "@types/handlebars": "^4.0.40",
+    "@types/handlebars": "^4.1.0",
     "@types/jest": "^29.5.14",
     "@types/mongoose-aggregate-paginate-v2": "^1.0.12",
     "@types/mongoose-paginate-v2": "^1.6.5",
