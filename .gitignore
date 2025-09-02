@@ -10,3 +10,4 @@ output.pdf
 .gitignore
 package-lock.json
 pubspec.lock
+.vscode
