@@ -52,6 +52,17 @@
     .info-col .dato {
       margin-bottom: 0;
       line-height: 1.1;
+      font-weight: normal;
+      font-size: 1rem;
+      font-family: 'Roboto', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    }
+
+    .dato-vehiculo-propietario {
+      margin-bottom: 0;
+      line-height: 1.1;
+      font-weight: normal;
+      font-size: 12px;
+      font-family: 'Roboto', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     }
     .info-nif-row {
       display: flex;
@@ -61,7 +72,7 @@
       width: 100%;
     }
     .info-riia {
-      margin-left: 180px;
+      margin-left: 200px;
       white-space: nowrap;
     }
     .numero-derecha {
@@ -74,34 +85,33 @@
     .borde-columna {
       border: 1px solid #dee2e6;
       border-radius: 6px;
-      min-height: 80px;
-      height: 80px;
-      padding: 10px 14px;
+      padding: 8px 10px;
       background: #fff;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
     }
+    /* Títulos de columnas igual que .dato */
     .titulo-fila {
       font-weight: bold;
-      font-size: 1.05rem;
+      font-size: 1rem;
       text-align: center;
-      margin-bottom: 4px;
-      margin-top: 10px;
+      margin-bottom: 3px;
+      margin-top: 8px;
       width: 100%;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
+      text-overflow: clip;
+      font-family: 'Roboto', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     }
-    /* Evita el salto de línea en títulos largos */
     .text-nowrap {
-      white-space: nowrap !important;
+      white-space: nowrap ;
     }
-    /* Reduce el tamaño de fuente solo para el título largo */
-    .titulo-fila.titulo-danos {
-      font-size: 0.95rem;
-      letter-spacing: -0.5px;
+    .paddin-0 {
+      padding: 0;
     }
+
+
   </style>
   <!-- Fuente Roboto de Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
@@ -133,26 +143,50 @@
     </div>
 
     <!-- Fila 1: Datos del vehículo / Datos del propietario -->
-    <div class="row gx-0 mb-2">
+    <div class="row gx-0 mb-0">
       <div class="col-8 pe-1">
         <div class="titulo-fila text-nowrap">Datos del vehículo</div>
-        <div class="borde-columna h-100 mt-0"></div>
+        <div class="borde-columna">
+           <div class="row justify-content-center">
+            6943 kgk - Seat Leon
+           </div>
+          <div class="row">
+            <div class="col-6 pe-1 dato-vehiculo-propietario">
+              <div>Fecha entrada: 00/00/0000</div>
+              <div>Combustible: Gasolina</div>
+              <div>Seguro: Modelo Ejemplo</div>
+              <div>Póliza: 12312355544</div>
+            </div>
+            <div class="col-6 dato-vehiculo-propietario">
+              <div>Fecha salida: 00/00/0000</div>
+              <div>Kms: 150000</div>
+              <div>Chasis: </div>
+          </div>
+        </div>
       </div>
-      <div class="col-4 ps-1">
-        <div class="titulo-fila text-nowrap">Datos del propietario</div>
-        <div class="borde-columna h-100 mt-0"></div>
       </div>
+      <div class="col-4">
+        <div class="titulo-fila">Datos del propietario</div>
+        <div class="borde-columna dato-vehiculo-propietario">
+          <div>Nombre: Juan Alvarez Pérez</div>
+          <div>DNI: 12345678Z</div>
+          <div>Dirección: Calle Falsa 123, Ciudad, CP 12345</div>
+          <div>Teléfono: 600123456</div>
+          <div>juanitoalvarez@gmail.com
+        </div>
+      </div>
+
     </div>
 
     <!-- Fila 2: Trabajos a realizar / Daños observados en el vehículo -->
-    <div class="row gx-0 mt-5">
+    <div class="row gx-0 altura-fila-trabajos">
       <div class="col-8 pe-1">
-        <div class="titulo-fila text-nowrap">Trabajos a realizar</div>
-        <div class="borde-columna h-100 mt-0"></div>
+        <div class="titulo-fila">Trabajos a realizar</div>
+        <div class="borde-columna"></div>
       </div>
-      <div class="col-4 ps-1">
-        <div class="titulo-fila text-nowrap titulo-danos">Daños observados en el vehículo</div>
-        <div class="borde-columna h-100 mt-0"></div>
+      <div class="col-4">
+        <div class="titulo-fila">Daños observados</div>
+        <div class="borde-columna paddin-0"></div>
       </div>
     </div>
 
