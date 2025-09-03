@@ -17,14 +17,14 @@ export class GeneratePdfService {
   async generatePdf(reparacion: ReparacionDto): Promise<void> {
     this.logger.log(`valor de proces cwd ${process.cwd()}`);
     const pdfData = fs.readFileSync(
-      process.cwd() + "/src/resources/PDF.html",
+      process.cwd() + "/src/resources/plantilla-gavira.html",
       "utf8",
     );
     // 2. Compila la plantilla con Handlebars
     const template = Handlebars.compile(pdfData);
     const htmlRelleno = template({
       ...reparacion,
-      imagenFirma: this.getImageDanos(reparacion.id), // o la ruta de la imagen
+      imagenDanos: await this.getImageDanos(reparacion.id), // o la ruta de la imagen
     });
 
     // 3. Genera el PDF con Puppeteer
@@ -38,7 +38,7 @@ export class GeneratePdfService {
     await browser.close();
   }
 
-  async getImageDanos(repairId: string): Promise<Buffer> {
+  async getImageDanos(repairId: string): Promise<string> {
     const filePath = path.join(process.cwd(), "imagesDanos", repairId + ".png");
     this.logger.log(`Buscando imagen de daños en: ${filePath}`);
 
@@ -49,7 +49,7 @@ export class GeneratePdfService {
       // Leer el archivo y devolverlo como Buffer
       const fileBuffer = await fs.promises.readFile(filePath);
       this.logger.log(`✅ Imagen obtenida correctamente: ${filePath}`);
-      return fileBuffer;
+      return fileBuffer.toString("base64");
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === "ENOENT") {
         const mensaje = `Imagen para el id de reparación ${repairId} no encontrada`;

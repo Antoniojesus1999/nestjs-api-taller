@@ -160,19 +160,19 @@
         <div class="titulo-fila text-nowrap">Datos del vehículo</div>
         <div class="borde-columna">
           <div class="row justify-content-center">
-            6943 kgk - Seat Leon
+            {{vehiculo.matricula}} - {{vehiculo.marca}} {{vehiculo.modelo}}
           </div>
           <div class="row">
             <div class="col-6 pe-1 detalles-letra-chica">
-              <div>Fecha entrada: 00/00/0000</div>
-              <div>Combustible: Gasolina</div>
-              <div>Seguro: Modelo Ejemplo</div>
-              <div>Póliza: 12312355544</div>
+              <div>Fecha entrada: {{fecEntrada}}</div>
+              <div>Combustible: {{combustible}}</div>
+              <div>Seguro: {{seguro}}</div>
+              <div>Póliza: {{seguro}}</div>
             </div>
             <div class="col-6 detalles-letra-chica">
               <div>Fecha salida: 00/00/0000</div>
-              <div>Kms: 150000</div>
-              <div>Chasis: </div>
+              <div>Kms: {{kilometros}}</div>
+              <div>Chasis: {{chasis}}</div>
             </div>
           </div>
         </div>
@@ -180,12 +180,11 @@
       <div class="col-4">
         <div class="titulo-fila">Datos del propietario</div>
         <div class="borde-columna detalles-letra-chica">
-          <div>Nombre: Juan Alvarez Pérez</div>
-          <div>DNI: 12345678Z</div>
-          <div>Dirección: Calle Falsa 123, Ciudad, CP 12345</div>
-          <div>Teléfono: 600123456</div>
-          <div>juanitoalvarez@gmail.com
-          </div>
+          <div>Nombre: {{cliente.nombre}} {{cliente.apellido1}} {{cliente.apellido2}}</div>
+          <div>DNI: {{cliente.nif}}</div>
+          <div>Dirección: No guardad de momento en bd</div>
+          <div>Teléfono: {{cliente.telefono}}</div>
+          <div>Email: {{cliente.email}}</div>
         </div>
 
       </div>
@@ -207,6 +206,7 @@
         <div class="col-4">
           <div class="titulo-fila">Daños observados</div>
           <div class="borde-columna paddin-0">
+            <img src="data:image/png;base64,{{imagenDanos}}" alt="Imagen de daños" />
           </div>
         </div>
       </div>
@@ -216,7 +216,9 @@
         <div class="col-4">
           <div class="titulo-fila">Firma</div>
           <div class="borde-columna paddin-0">
-            {{cliente.firmaBase64}}
+                   {{#if cliente.firmaBase64}}
+                     <img src="data:image/jpeg;base64,{{cliente.firmaBase64}}" alt="Firma" />
+                   {{/if}}
           </div>
         </div>
       </div>
