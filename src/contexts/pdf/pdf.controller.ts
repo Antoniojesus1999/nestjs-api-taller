@@ -10,6 +10,7 @@ import {
   StreamableFile,
 } from "@nestjs/common";
 
+import { ReparacionDto } from "../reparacion/dtos/reparacion.dto";
 import { ReparacionService } from "../reparacion/reparacion.service";
 import { GeneratePdfService } from "./generate-pdf.service";
 @Controller("pdf")
@@ -25,7 +26,7 @@ export class PdfController {
   async createPdf(
     @Query("idReparacion") idReparacion: string,
   ): Promise<StreamableFile> {
-    const reparacionDto =
+    const reparacionDto: ReparacionDto =
       await this.reparacionService.findReparacionesById(idReparacion);
     await this.generatePdfService.generatePdf(reparacionDto);
     const pdfPath = join(
